@@ -1,4 +1,4 @@
-package com.scanai.api.domain.employee;
+package com.scanai.api.domain.funcionario;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,14 +13,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
-@Table(name = "TB_EMPLOYEE")
-@Entity(name = "employee")
+@Table(name = "TB_FUNCIONARIO")
+@Entity(name = "funcionario")
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Employee implements UserDetails {
+public class Funcionario implements UserDetails {
 
     @Id
     @GeneratedValue
@@ -32,11 +32,11 @@ public class Employee implements UserDetails {
     private String cpf;
     private String password;
 
-    private EmployeeRole role;
+    private FuncionarioRole role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_EMPLOYEE"));
+        return List.of(new SimpleGrantedAuthority("ROLE_FUNCIONARIO"));
     }
 
     @Override
