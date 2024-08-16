@@ -1,9 +1,6 @@
 package com.scanai.api.domain.funcionario;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,10 +8,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
-@Table(name = "TB_FUNCIONARIO")
-@Entity(name = "funcionario")
+@Table(name = "tb_funcionario")
+@Entity(name = "tb_funcionario")
 @Setter
 @Getter
 @NoArgsConstructor
@@ -23,29 +19,48 @@ import java.util.UUID;
 public class Funcionario implements UserDetails {
 
     @Id
-    @GeneratedValue
-    private UUID id;
+    private long id;
 
-    private String name;
-    private String registration;
+    private String nome;
+    private String matricula; //login
     private String email;
-    private String cpf;
-    private String password;
+    private String cpf; //initial password
+    private String senha;
 
+    @Enumerated(EnumType.STRING)
     private FuncionarioRole role;
+
+    public Funcionario(String matricula, String encryptedPassword, FuncionarioRole role, String nome, String email) {
+        this.role = role;
+        this.matricula = matricula;
+        this.cpf = encryptedPassword;
+        this.senha = encryptedPassword;
+        this.nome = nome;
+        this.email = email;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_FUNCIONARIO"));
+        if(this.role == FuncionarioRole.ADMIN) {
+            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_FUNCIONARIO"));
+        }
+        else {
+            return List.of(new SimpleGrantedAuthority("ROLE_FUNCIONARIO"));
+        }
     }
 
     @Override
     public String getPassword() {
-        return this.password;
+        return this.senha;
     }
 
     @Override
     public String getUsername() {
-        return this.registration;
+        return this.matricula;
     }
+
+    public Long getId(){
+        return this.id;
+    }
+
 }
