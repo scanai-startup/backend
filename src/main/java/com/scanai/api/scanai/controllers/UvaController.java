@@ -23,7 +23,7 @@ public class UvaController {
 
     @PostMapping()
     @Transactional
-    public ResponseEntity<DadosDetalhamentoUva> cadastrar(@RequestBody @Valid DadosCadastroUva dados, UriComponentsBuilder builder){ //DadosCadastroRemedio é um DTO construido nu
+    public ResponseEntity<DadosDetalhamentoUva> cadastrarUva(@RequestBody @Valid DadosCadastroUva dados, UriComponentsBuilder builder){ //DadosCadastroRemedio é um DTO construido nu
         var uva = repository.save(new Uva(dados)); // função do proprio jpa
         // o DTO passado como argumento é lido no construtor, que retorna os atributos
         var uri = builder.path("/remessaUva/{id}").buildAndExpand(uva.getId()).toUri();
@@ -31,7 +31,7 @@ public class UvaController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<DadosListagemUva>> listar(){
+    public ResponseEntity<List<DadosListagemUva>> listarUvas(){
         var lista = repository.findAllByValidTrue().stream().map(DadosListagemUva::new).toList(); //.stream().map(DadosListagemRemessaUva::new).toList(); //função do proprio jpa
         return ResponseEntity.ok(lista);
     }
@@ -44,21 +44,21 @@ public class UvaController {
 
     @PutMapping()
     @Transactional
-    public ResponseEntity<?> atualizar(@RequestBody DadosAtualizarUva dados){
+    public ResponseEntity<?> atualizarUva(@RequestBody DadosAtualizarUva dados){
         var uva = repository.getReferenceById(dados.id());
         uva.atualizar(dados);
         return ResponseEntity.ok(new DadosDetalhamentoUva(uva));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletar(@PathVariable Long id){
+    public ResponseEntity<?> deletaruva(@PathVariable Long id){
         repository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/inativar/{id}")
     @Transactional
-    public ResponseEntity<?> inativar(@PathVariable Long id){
+    public ResponseEntity<?> inativarUva(@PathVariable Long id){
         var uva = repository.getReferenceById(id);
         uva.inativar();
         return ResponseEntity.noContent().build();
