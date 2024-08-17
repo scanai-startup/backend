@@ -1,6 +1,6 @@
-package com.scanai.api.scanai.repositories;
+package com.scanai.api.repositories;
 
-import com.scanai.api.scanai.domain.uva.Uva;
+import com.scanai.api.domain.uva.Uva;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

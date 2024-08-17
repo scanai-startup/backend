@@ -1,11 +1,11 @@
-package com.scanai.api.scanai.controllers;
+package com.scanai.api.controllers;
 
-import com.scanai.api.scanai.domain.uva.dto.DadosAtualizarUva;
-import com.scanai.api.scanai.domain.uva.dto.DadosCadastroUva;
-import com.scanai.api.scanai.domain.uva.dto.DadosDetalhamentoUva;
-import com.scanai.api.scanai.domain.uva.dto.DadosListagemUva;
-import com.scanai.api.scanai.domain.uva.Uva;
-import com.scanai.api.scanai.repositories.UvaRepository;
+import com.scanai.api.domain.uva.dto.DadosAtualizarUva;
+import com.scanai.api.domain.uva.dto.DadosCadastroUva;
+import com.scanai.api.domain.uva.dto.DadosDetalhamentoUva;
+import com.scanai.api.domain.uva.dto.DadosListagemUva;
+import com.scanai.api.domain.uva.Uva;
+import com.scanai.api.repositories.UvaRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

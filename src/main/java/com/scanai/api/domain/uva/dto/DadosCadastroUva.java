@@ -1,4 +1,4 @@
-package com.scanai.api.scanai.domain.uva.dto;
+package com.scanai.api.domain.uva.dto;
 
 import jakarta.validation.constraints.*;
 

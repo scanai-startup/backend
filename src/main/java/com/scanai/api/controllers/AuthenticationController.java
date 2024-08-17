@@ -1,9 +1,9 @@
 package com.scanai.api.controllers;
 
-import com.scanai.api.domain.funcionario.AuthenticationDTO;
+import com.scanai.api.domain.funcionario.dto.AuthenticationDTO;
 import com.scanai.api.domain.funcionario.Funcionario;
-import com.scanai.api.domain.funcionario.LoginResponseDTO;
-import com.scanai.api.domain.funcionario.RegisterDTO;
+import com.scanai.api.domain.funcionario.dto.LoginResponseDTO;
+import com.scanai.api.domain.funcionario.dto.RegisterDTO;
 import com.scanai.api.infra.security.TokenService;
 import com.scanai.api.repositories.FuncionarioRepository;
 import jakarta.validation.Valid;

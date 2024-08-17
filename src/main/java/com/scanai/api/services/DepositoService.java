@@ -1,10 +1,9 @@
 package com.scanai.api.services;
 
 import com.scanai.api.domain.deposito.Deposito;
-import com.scanai.api.domain.deposito.RegisterDepositoDTO;
+import com.scanai.api.domain.deposito.dto.RegisterDepositoDTO;
 import com.scanai.api.repositories.DepositoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service

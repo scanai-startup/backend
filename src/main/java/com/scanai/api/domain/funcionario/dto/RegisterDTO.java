@@ -1,5 +1,6 @@
-package com.scanai.api.domain.funcionario;
+package com.scanai.api.domain.funcionario.dto;
 
+import com.scanai.api.domain.funcionario.FuncionarioRole;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 

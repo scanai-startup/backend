@@ -1,4 +1,4 @@
-package com.scanai.api.domain.deposito;
+package com.scanai.api.domain.deposito.dto;
 
 import jakarta.validation.constraints.NotBlank;
 

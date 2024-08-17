@@ -1,6 +1,6 @@
-package com.scanai.api.scanai.domain.uva.dto;
+package com.scanai.api.domain.uva.dto;
 
-import com.scanai.api.scanai.domain.uva.Uva;
+import com.scanai.api.domain.uva.Uva;
 
 import java.util.Date;
 

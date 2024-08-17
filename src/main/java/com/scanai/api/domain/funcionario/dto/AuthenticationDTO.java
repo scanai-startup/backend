@@ -1,4 +1,4 @@
-package com.scanai.api.domain.funcionario;
+package com.scanai.api.domain.funcionario.dto;
 
 import jakarta.validation.constraints.NotBlank;
 

@@ -1,7 +1,7 @@
-package com.scanai.api.scanai.domain.uva;
+package com.scanai.api.domain.uva;
 
-import com.scanai.api.scanai.domain.uva.dto.DadosAtualizarUva;
-import com.scanai.api.scanai.domain.uva.dto.DadosCadastroUva;
+import com.scanai.api.domain.uva.dto.DadosCadastroUva;
+import com.scanai.api.domain.uva.dto.DadosAtualizarUva;
 import jakarta.persistence.*;
 import lombok.*;
 
