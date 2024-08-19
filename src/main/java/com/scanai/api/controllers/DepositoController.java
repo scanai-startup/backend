@@ -19,10 +19,10 @@ import java.util.List;
 public class DepositoController {
 
     @Autowired
-    DepositoRepository repository;
+    private DepositoRepository repository;
 
     @Autowired
-    DepositoService service;
+    private DepositoService service;
 
     @PostMapping("/register")
     public ResponseEntity regiterDeposito(@RequestBody @Valid RegisterDepositoDTO data, UriComponentsBuilder uriBuilder){

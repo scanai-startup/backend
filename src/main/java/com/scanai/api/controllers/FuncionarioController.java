@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.*;
 public class FuncionarioController {
 
     @Autowired
-    FuncionarioService service;
+    private FuncionarioService service;
 
     @Autowired
-    FuncionarioRepository repository;
+    private FuncionarioRepository repository;
 
     @PutMapping("/updatePassword")
     @Transactional

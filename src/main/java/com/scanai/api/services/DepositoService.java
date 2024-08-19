@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class DepositoService {
 
     @Autowired
-    DepositoRepository repository;
+    private DepositoRepository repository;
 
     public Deposito createDeposito(RegisterDepositoDTO data){
         if(repository.findByNumerodeposito(data.numerodeposito()) != null){
