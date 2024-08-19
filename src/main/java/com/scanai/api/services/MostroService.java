@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class MostroService {
     public Mostro createMostro(RegisterMostroDTO data) {
-        var newMostro = new Mostro(data.fimfermentacao(), data.fkfuncionario(), data.volume());
+        var newMostro = new Mostro(data.fkfuncionario(), data.volume());
         return newMostro;
     }
 

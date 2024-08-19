@@ -23,8 +23,7 @@ public class Mostro {
     private int volume;
     private boolean valid;
 
-    public Mostro(LocalDate fimfermentacao, Long fkfuncionario, int volume){
-        this.fimfermentacao = fimfermentacao;
+    public Mostro(Long fkfuncionario, int volume){
         this.fkfuncionario = fkfuncionario;
         this.volume = volume;
         this.valid = true;
