@@ -40,4 +40,11 @@ public class HigienedepositoController {
         var lista = repository.findAllByFkdeposito(data.fkdeposito()).stream().map(ResListHigienedeposito::new).toList();
         return ResponseEntity.ok(lista);
     }
+
+    @DeleteMapping("/deleteHigienedeposito/{id}")
+    @Transactional
+    public ResponseEntity deleteHigienedeposito(@PathVariable Long id){
+        repository.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
 }
