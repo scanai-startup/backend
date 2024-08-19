@@ -39,14 +39,14 @@ public class MostroController {
     @PutMapping("/invalidate/{id}")
     @Transactional
     public ResponseEntity invalidateMostro(@PathVariable Long id){
-        service.invalidadeDeposito(repository.getReferenceById(id));
+        service.invalidadeMostro(repository.getReferenceById(id));
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/validate/{id}")
     @Transactional
     public ResponseEntity validateMostro(@PathVariable Long id){
-        service.validadeDeposito(repository.getReferenceById(id));
+        service.invalidadeMostro(repository.getReferenceById(id));
         return ResponseEntity.ok().build();
     }
 

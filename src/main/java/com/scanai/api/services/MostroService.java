@@ -11,11 +11,11 @@ public class MostroService {
         return newMostro;
     }
 
-    public void invalidadeDeposito(Mostro mostro) {
+    public void invalidadeMostro(Mostro mostro) {
         mostro.setValid(false);
     }
 
-    public void validadeDeposito(Mostro mostro) {
+    public void validateMostro(Mostro mostro) {
         mostro.setValid(true);
     }
 }
