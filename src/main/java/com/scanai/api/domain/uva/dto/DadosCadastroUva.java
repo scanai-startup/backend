@@ -21,6 +21,10 @@ public record DadosCadastroUva(
         @NotBlank
         String tipodevinho,
         @NotBlank
-        String casta
+        String casta,
+        @NotBlank
+        Long fkviticultor,
+        @NotBlank
+        Long fkfuncionario
 ) {
 }

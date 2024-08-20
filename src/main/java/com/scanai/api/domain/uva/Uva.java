@@ -4,6 +4,7 @@ import com.scanai.api.domain.uva.dto.DadosCadastroUva;
 import com.scanai.api.domain.uva.dto.DadosAtualizarUva;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -20,6 +21,7 @@ public class Uva {
     private Long id;
 
     private boolean valid;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date datachegada;
     private int numerotalao;
     private int sanidade;
@@ -28,6 +30,10 @@ public class Uva {
     private int numerolote;
     private String tipovinho;
     private String casta;
+
+    private Long fkviticultor;
+    private Long fkfuncionario;
+
 
     public Uva(DadosCadastroUva dados) {
         this.valid = true;
@@ -39,6 +45,8 @@ public class Uva {
         this.numerolote = dados.numerolote();
         this.tipovinho = dados.tipodevinho();
         this.casta = dados.casta();
+        this.fkviticultor = dados.fkviticultor();
+        this.fkfuncionario = dados.fkfuncionario();
     }
 
     public void atualizar(DadosAtualizarUva dados){

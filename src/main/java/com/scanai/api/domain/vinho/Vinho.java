@@ -4,6 +4,7 @@ import com.scanai.api.domain.vinho.DTO.DadosAtualizarVinho;
 import com.scanai.api.domain.vinho.DTO.DadosCadastroVinho;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -22,8 +23,15 @@ public class Vinho {
     private Long id;
 
     private boolean valid;
+
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date datafimfermentacao;
     private float volume;
+
+    // Chaves estrangeiras
+    private Long fkrotulo;
+    private Long fkmostro;
+    private Long fkpedecuba;
 
     public Vinho(DadosCadastroVinho dados) {
         this.valid = true;

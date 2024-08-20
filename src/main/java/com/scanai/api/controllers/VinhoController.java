@@ -4,6 +4,7 @@ import com.scanai.api.domain.vinho.DTO.DadosAtualizarVinho;
 import com.scanai.api.domain.vinho.DTO.DadosCadastroVinho;
 import com.scanai.api.domain.vinho.DTO.DadosDetalhamentoVinho;
 import com.scanai.api.domain.vinho.DTO.DadosListagemVinho;
+import com.scanai.api.domain.vinho.Vinho;
 import com.scanai.api.repositories.VinhoRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -24,7 +25,7 @@ public class VinhoController {
     @Transactional
     @PostMapping()
     public ResponseEntity<DadosDetalhamentoVinho> cadastrarVinho(@RequestBody @Valid DadosCadastroVinho dados, UriComponentsBuilder builder){ //DadosCadastroRemedio é um DTO construido nu
-        var vinho = repository.save(new com.scanai.api.domain.vinho.Vinho(dados)); // função do proprio jpa
+        var vinho = repository.save(new Vinho(dados)); // função do proprio jpa
         System.out.println(vinho);
         // o DTO passado como argumento é lido no construtor, que retorna os atributos
         var uri = builder.path("/vinho/{id}").buildAndExpand(vinho.getId()).toUri();

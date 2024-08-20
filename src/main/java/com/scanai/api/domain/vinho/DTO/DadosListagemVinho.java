@@ -7,12 +7,20 @@ import java.util.Date;
 public record DadosListagemVinho(
         Long id,
         Date datafimfermentacao,
-        float volume
+        float volume,
+        Long fkrotulo,
+        Long fkmostro,
+        Long fkpedecuba
 ) {
 
     public DadosListagemVinho(Vinho vinho){
         this(
-                vinho.getId(), vinho.getDatafimfermentacao(), vinho.getVolume()
+                vinho.getId(),
+                vinho.getDatafimfermentacao(),
+                vinho.getVolume(),
+                vinho.getFkrotulo(),
+                vinho.getFkmostro(),
+                vinho.getFkpedecuba()
         );
     }
 }

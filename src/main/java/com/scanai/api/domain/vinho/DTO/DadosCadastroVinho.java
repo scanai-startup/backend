@@ -6,6 +6,6 @@ import jakarta.validation.constraints.NotNull;
 
 import java.util.Date;
 
-public record DadosCadastroVinho(@Future Date datafimfermentacao,@NotNull float volume) {
+public record DadosCadastroVinho(@Future Date datafimfermentacao,@NotNull float volume, @NotBlank Long fkrotulo, @NotBlank Long fkmostro, @NotBlank Long fkpedecuba) {
 
 }
