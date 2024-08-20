@@ -30,13 +30,13 @@ public class UvaController {
         return  ResponseEntity.created(uri).body(new DadosDetalhamentoUva(uva));
     }
 
-    @GetMapping()
+    @GetMapping("/listar")
     public ResponseEntity<List<DadosListagemUva>> listarUvas(){
         var lista = repository.findAllByValidTrue().stream().map(DadosListagemUva::new).toList(); //.stream().map(DadosListagemRemessaUva::new).toList(); //função do proprio jpa
         return ResponseEntity.ok(lista);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("detalhar/{id}")
     public ResponseEntity<DadosDetalhamentoUva> detalharUva(@PathVariable Long id){
         var uva = repository.getReferenceById(id);
         return ResponseEntity.ok(new DadosDetalhamentoUva(uva));
