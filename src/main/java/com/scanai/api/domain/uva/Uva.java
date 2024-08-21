@@ -21,7 +21,6 @@ public class Uva {
     private Long id;
 
     private boolean valid;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date datachegada;
     private int numerotalao;
     private int sanidade;
@@ -58,6 +57,8 @@ public class Uva {
         this.numerolote = dados.numerolote();
         this.tipovinho = dados.tipodevinho();
         this.datachegada = dados.datachegada();
+        this.fkviticultor = dados.fkviticultor();
+        this.fkfuncionario = dados.fkfuncionario();
     }
 
     public void inativar() {

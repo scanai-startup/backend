@@ -24,7 +24,6 @@ public class Vinho {
 
     private boolean valid;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date datafimfermentacao;
     private float volume;
 
@@ -37,11 +36,17 @@ public class Vinho {
         this.valid = true;
         this.datafimfermentacao = dados.datafimfermentacao();
         this.volume = dados.volume();
+        this.fkrotulo = dados.fkpedecuba();
+        this.fkmostro = dados.fkmostro();
+        this.fkpedecuba = dados.fkpedecuba();
     }
 
     public void atualizar(DadosAtualizarVinho dados){
         this.datafimfermentacao = dados.datafimfermentacao();
         this.volume = dados.volume();
+        this.fkrotulo = dados.fkpedecuba();
+        this.fkmostro = dados.fkmostro();
+        this.fkpedecuba = dados.fkpedecuba();
     }
 
     public void inativar() {

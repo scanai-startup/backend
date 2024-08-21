@@ -25,8 +25,9 @@ public class VinhoController {
     @Transactional
     @PostMapping()
     public ResponseEntity<DadosDetalhamentoVinho> cadastrarVinho(@RequestBody @Valid DadosCadastroVinho dados, UriComponentsBuilder builder){ //DadosCadastroRemedio é um DTO construido nu
+        System.out.println(dados);
+
         var vinho = repository.save(new Vinho(dados)); // função do proprio jpa
-        System.out.println(vinho);
         // o DTO passado como argumento é lido no construtor, que retorna os atributos
         var uri = builder.path("/vinho/{id}").buildAndExpand(vinho.getId()).toUri();
 
