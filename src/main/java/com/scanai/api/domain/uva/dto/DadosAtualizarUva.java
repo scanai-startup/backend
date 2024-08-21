@@ -11,5 +11,8 @@ public record DadosAtualizarUva(
         String so2,
         int numerolote,
         String tipodevinho,
-        String casta) {
+        String casta,
+        Long fkviticultor,
+        Long fkfuncionario
+) {
 }

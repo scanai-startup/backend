@@ -4,6 +4,7 @@ import com.scanai.api.domain.uva.dto.DadosCadastroUva;
 import com.scanai.api.domain.uva.dto.DadosAtualizarUva;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -29,6 +30,10 @@ public class Uva {
     private String tipovinho;
     private String casta;
 
+    private Long fkviticultor;
+    private Long fkfuncionario;
+
+
     public Uva(DadosCadastroUva dados) {
         this.valid = true;
         this.datachegada = dados.datachegada();
@@ -39,6 +44,8 @@ public class Uva {
         this.numerolote = dados.numerolote();
         this.tipovinho = dados.tipodevinho();
         this.casta = dados.casta();
+        this.fkviticultor = dados.fkviticultor();
+        this.fkfuncionario = dados.fkfuncionario();
     }
 
     public void atualizar(DadosAtualizarUva dados){
@@ -50,6 +57,8 @@ public class Uva {
         this.numerolote = dados.numerolote();
         this.tipovinho = dados.tipodevinho();
         this.datachegada = dados.datachegada();
+        this.fkviticultor = dados.fkviticultor();
+        this.fkfuncionario = dados.fkfuncionario();
     }
 
     public void inativar() {

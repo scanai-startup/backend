@@ -13,7 +13,9 @@ public record DadosDetalhamentoUva(
     String so2,
     int numerolote,
     String tipodevinho,
-    String casta
+    String casta,
+    Long fkviticultor,
+    Long fkfuncionario
 ) {
 
     public DadosDetalhamentoUva(Uva uva) {
@@ -26,7 +28,9 @@ public record DadosDetalhamentoUva(
             uva.getSo2(),
             uva.getNumerolote(),
             uva.getTipovinho(),
-            uva.getCasta()
+            uva.getCasta(),
+            uva.getFkviticultor(),
+            uva.getFkfuncionario()
         );
     }
 
