@@ -4,7 +4,6 @@ import com.scanai.api.domain.vinho.DTO.DadosAtualizarVinho;
 import com.scanai.api.domain.vinho.DTO.DadosCadastroVinho;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -49,7 +48,7 @@ public class Vinho {
         this.fkpedecuba = dados.fkpedecuba();
     }
 
-    public void inativar() {
+    public void softDelete() {
         this.valid = false;
     }
 
