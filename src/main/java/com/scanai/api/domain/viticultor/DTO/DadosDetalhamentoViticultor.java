@@ -5,7 +5,7 @@ import com.scanai.api.domain.viticultor.Viticultor;
 public record DadosDetalhamentoViticultor(String cpf, String nome) {
     public DadosDetalhamentoViticultor(Viticultor viticultor) {
         this(
-                viticultor.getCpf(),viticultor.getNome()
+                viticultor.getCpf(), viticultor.getNome()
         );
     }
 }

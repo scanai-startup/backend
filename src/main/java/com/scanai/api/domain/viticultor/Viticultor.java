@@ -1,7 +1,7 @@
 package com.scanai.api.domain.viticultor;
 
 import com.scanai.api.domain.viticultor.DTO.DadosAtualizarViticultor;
-import com.scanai.api.domain.viticultor.DTO.DadosCadatroViticultor;
+import com.scanai.api.domain.viticultor.DTO.DadosCadastroViticultor;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +18,7 @@ public class Viticultor {
 
     String cpf;
     String nome;
-    public Viticultor(DadosCadatroViticultor dados) {
+    public Viticultor(DadosCadastroViticultor dados) {
         this.cpf = dados.cpf();
         this.nome = dados.nome();
     }

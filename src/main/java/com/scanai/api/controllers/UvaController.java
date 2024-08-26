@@ -4,8 +4,7 @@ import com.scanai.api.domain.uva.dto.DadosAtualizarUva;
 import com.scanai.api.domain.uva.dto.DadosCadastroUva;
 import com.scanai.api.domain.uva.dto.DadosDetalhamentoUva;
 import com.scanai.api.domain.uva.dto.DadosListagemUva;
-import com.scanai.api.domain.uva.Uva;
-import com.scanai.api.repositories.UvaRepository;
+import com.scanai.api.services.UvaService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,48 +18,46 @@ import java.util.List;
 @RequestMapping("/uva")
 public class UvaController {
     @Autowired //o autowired instancia a classe automaticamente
-    private UvaRepository repository;
+    private UvaService uvaService;
 
-    @PostMapping()
+    @PostMapping("/register")
     @Transactional
-    public ResponseEntity<DadosDetalhamentoUva> cadastrarUva(@RequestBody @Valid DadosCadastroUva dados, UriComponentsBuilder builder){ //DadosCadastroRemedio é um DTO construido nu
-        var uva = repository.save(new Uva(dados)); // função do proprio jpa
+    public ResponseEntity<DadosDetalhamentoUva> register(@RequestBody @Valid DadosCadastroUva dados, UriComponentsBuilder builder){ //DadosCadastroRemedio é um DTO construido nu
+        var uva = uvaService.register(dados); // função do proprio jpa
         // o DTO passado como argumento é lido no construtor, que retorna os atributos
         var uri = builder.path("/remessaUva/{id}").buildAndExpand(uva.getId()).toUri();
         return  ResponseEntity.created(uri).body(new DadosDetalhamentoUva(uva));
     }
 
-    @GetMapping("/listar")
-    public ResponseEntity<List<DadosListagemUva>> listarUvas(){
-        var lista = repository.findAllByValidTrue().stream().map(DadosListagemUva::new).toList(); //.stream().map(DadosListagemRemessaUva::new).toList(); //função do proprio jpa
+    @GetMapping("/listAll")
+    public ResponseEntity<List<DadosListagemUva>> listAll(){
+        var lista = uvaService.listAll(); //.stream().map(DadosListagemRemessaUva::new).toList(); //função do proprio jpa
         return ResponseEntity.ok(lista);
     }
 
-    @GetMapping("detalhar/{id}")
-    public ResponseEntity<DadosDetalhamentoUva> detalharUva(@PathVariable Long id){
-        var uva = repository.getReferenceById(id);
+    @GetMapping("getElement/{id}")
+    public ResponseEntity<DadosDetalhamentoUva> getElement(@PathVariable Long id){
+        var uva = uvaService.getElement(id);
         return ResponseEntity.ok(new DadosDetalhamentoUva(uva));
     }
 
-    @PutMapping()
+    @PutMapping("/update")
     @Transactional
-    public ResponseEntity<?> atualizarUva(@RequestBody DadosAtualizarUva dados){
-        var uva = repository.getReferenceById(dados.id());
-        uva.atualizar(dados);
-        return ResponseEntity.ok(new DadosDetalhamentoUva(uva));
+    public ResponseEntity<?> update(@RequestBody DadosAtualizarUva dados){
+        var uva = uvaService.update(dados);
+        return ResponseEntity.ok(uva);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletaruva(@PathVariable Long id){
-        repository.deleteById(id);
+    @DeleteMapping("hardDelete/{id}")
+    public ResponseEntity<?> hardDelete(@PathVariable Long id){
+        uvaService.hardDelete(id);
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/inativar/{id}")
+    @DeleteMapping("/softDelete/{id}")
     @Transactional
-    public ResponseEntity<?> inativarUva(@PathVariable Long id){
-        var uva = repository.getReferenceById(id);
-        uva.inativar();
+    public ResponseEntity<?> softDelete(@PathVariable Long id){
+        uvaService.softDelete(id);
         return ResponseEntity.noContent().build();
     }
 }

@@ -2,11 +2,10 @@ package com.scanai.api.controllers;
 
 
 import com.scanai.api.domain.viticultor.DTO.DadosAtualizarViticultor;
-import com.scanai.api.domain.viticultor.DTO.DadosCadatroViticultor;
+import com.scanai.api.domain.viticultor.DTO.DadosCadastroViticultor;
 import com.scanai.api.domain.viticultor.DTO.DadosDetalhamentoViticultor;
 import com.scanai.api.domain.viticultor.DTO.DadosListagemViticultor;
-import com.scanai.api.domain.viticultor.Viticultor;
-import com.scanai.api.repositories.ViticultorRepository;
+import com.scanai.api.services.ViticultorService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,42 +20,41 @@ import java.util.List;
 public class ViticultorController {
 
     @Autowired
-    private ViticultorRepository repository;
+    private ViticultorService viticultorService;
 
     @Transactional
-    @PostMapping()
-    public ResponseEntity<DadosDetalhamentoViticultor> cadastrarVinho(@RequestBody @Valid DadosCadatroViticultor dados, UriComponentsBuilder builder){ //DadosCadastroRemedio é um DTO construido nu
+    @PostMapping("/register")
+    public ResponseEntity<DadosDetalhamentoViticultor> register(@RequestBody @Valid DadosCadastroViticultor dados, UriComponentsBuilder builder){ //DadosCadastroRemedio é um DTO construido nu
 
-        var viticultor = repository.save(new Viticultor(dados)); // função do proprio jpa
+        var viticultor = viticultorService.register(dados); // função do proprio jpa
         // o DTO passado como argumento é lido no construtor, que retorna os atributos
         var uri = builder.path("/viticultor/{id}").buildAndExpand(viticultor.getId()).toUri();
 
         return  ResponseEntity.created(uri).body(new DadosDetalhamentoViticultor(viticultor));
     }
 
-    @GetMapping("/listar")
-    public ResponseEntity<List<DadosListagemViticultor>> listarViticultor(){
-        var lista = repository.findAll().stream().map(DadosListagemViticultor::new).toList();
+    @GetMapping("/getAll")
+    public ResponseEntity<List<DadosListagemViticultor>> getAll(){
+        var lista = viticultorService.listAll();
         return ResponseEntity.ok(lista);
     }
 
-    @GetMapping("/detalhar/{id}")
-    public ResponseEntity<DadosDetalhamentoViticultor> detalharViticultor(@PathVariable Long id){
-        var viticultor = repository.getReferenceById(id);
+    @GetMapping("/getElement/{id}")
+    public ResponseEntity<DadosDetalhamentoViticultor> getElement(@PathVariable Long id){
+        var viticultor = viticultorService.getElement(id);
         return ResponseEntity.ok(new DadosDetalhamentoViticultor(viticultor));
     }
 
-    @PutMapping()
+    @PutMapping("/update")
     @Transactional
-    public ResponseEntity<DadosDetalhamentoViticultor> atualizarViticultor(@RequestBody DadosAtualizarViticultor dados){
-        var viticultor = repository.getReferenceById(dados.id());
-        viticultor.atualizar(dados);
-        return ResponseEntity.ok(new DadosDetalhamentoViticultor(viticultor));
+    public ResponseEntity<DadosDetalhamentoViticultor> update(@RequestBody DadosAtualizarViticultor dados){
+        var viticultor = viticultorService.update(dados);
+        return ResponseEntity.ok(viticultor);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletarViticultor(@PathVariable Long id){
-        repository.deleteById(id);
+    @DeleteMapping("hardDelete/{id}")
+    public ResponseEntity<?> hardDelete(@PathVariable Long id){
+        viticultorService.hardDelete(id);
         return ResponseEntity.noContent().build();
     }
 
