@@ -2,10 +2,9 @@ package com.scanai.api.controllers;
 
 import com.scanai.api.domain.rotulo.DTO.DadosCadastroRotulo;
 import com.scanai.api.domain.rotulo.DTO.DadosDetalhamentoRotulo;
-import com.scanai.api.repositories.RotuloRepository;
 import com.scanai.api.domain.rotulo.DTO.DadosAtualizarRotulo;
 import com.scanai.api.domain.rotulo.DTO.DadosListagemRotulo;
-import com.scanai.api.domain.rotulo.Rotulo;
+import com.scanai.api.services.RotuloService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,47 +19,46 @@ import java.util.List;
 
 public class RotuloController {
     @Autowired
-    private RotuloRepository repository;
+    private RotuloService rotuloService;
 
     @Transactional
-    @PostMapping()
-    public ResponseEntity<DadosDetalhamentoRotulo> cadastrarRotulo(@RequestBody @Valid DadosCadastroRotulo dados, UriComponentsBuilder builder){ //DadosCadastroRemedio é um DTO construido nu
-        var rotulo = repository.save(new Rotulo(dados)); // função do proprio jpa
-        // o DTO passado como argumento é lido no construtor, que retorna os atributos
+    @PostMapping("/register")
+    public ResponseEntity<DadosDetalhamentoRotulo> register(@RequestBody @Valid DadosCadastroRotulo dados, UriComponentsBuilder builder){ //DadosCadastroRemedio é um DTO construido nu
+        var rotulo = rotuloService.save(dados);
         var uri = builder.path("/rotulo/{id}").buildAndExpand(rotulo.getId()).toUri();
         return  ResponseEntity.created(uri).body(new DadosDetalhamentoRotulo(rotulo));
     }
 
-    @GetMapping("/listar")
-    public ResponseEntity<List<DadosListagemRotulo>> listarRotulo(){
-        var lista = repository.findAllByValidTrue().stream().map(DadosListagemRotulo::new).toList();
+    @GetMapping("/getAll")
+    public ResponseEntity<List<DadosListagemRotulo>> getAll(){
+        var lista = rotuloService.listAll();
         return ResponseEntity.ok(lista);
     }
 
-    @GetMapping("/detalhar/{id}")
-    public ResponseEntity<DadosDetalhamentoRotulo> detalharRotulo(@PathVariable Long id){
-        var rotulo = repository.getReferenceById(id);
+    @GetMapping("/getElement/{id}")
+    public ResponseEntity<DadosDetalhamentoRotulo> getElement(@PathVariable Long id){
+        var rotulo = rotuloService.getElement(id);
         return ResponseEntity.ok(new DadosDetalhamentoRotulo(rotulo));
     }
 
-    @PutMapping()
+    @PutMapping("/update")
     @Transactional
-    public ResponseEntity<DadosDetalhamentoRotulo> atualizarRotulo(@RequestBody DadosAtualizarRotulo dados){
-        var rotulo = repository.getReferenceById(dados.id());
-        rotulo.atualizar(dados);
-        return ResponseEntity.ok(new DadosDetalhamentoRotulo(rotulo));
+    public ResponseEntity<DadosDetalhamentoRotulo> update(@RequestBody DadosAtualizarRotulo dados){
+        var dadosDetalhamentoRotulo = rotuloService.update(dados);
+        return ResponseEntity.ok(dadosDetalhamentoRotulo);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletarRotulo(@PathVariable Long id){
-        repository.deleteById(id);
+    @Transactional
+    @DeleteMapping("hardDelete/{id}")
+    public ResponseEntity<?> hardDelete(@PathVariable Long id){
+        rotuloService.hardDelete(id);
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/inativar/{id}")
-    public ResponseEntity<?> inativarRotulo(@PathVariable Long id){
-        var rotulo = repository.getReferenceById(id);
-        rotulo.inativar();
+    @Transactional
+    @DeleteMapping("/softDelete/{id}")
+    public ResponseEntity<?> softDelete(@PathVariable Long id){
+        rotuloService.softDelete(id);
         return ResponseEntity.noContent().build();
     }
 
