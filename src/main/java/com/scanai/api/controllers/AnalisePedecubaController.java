@@ -1,13 +1,9 @@
 package com.scanai.api.controllers;
 
-import com.scanai.api.domain.analisespedecuba.Analisespedecuba;
-import com.scanai.api.domain.analisespedecuba.dto.RegisterAnalisepedecubaDTO;
-import com.scanai.api.domain.analisespedecuba.dto.ReqListAnalisespedecubaDTO;
-import com.scanai.api.domain.analisespedecuba.dto.ResListAnalisespedecubaDTO;
-import com.scanai.api.domain.higienedeposito.dto.ReqListHigienedepositoDTO;
-import com.scanai.api.domain.higienedeposito.dto.ResListHigienedeposito;
-import com.scanai.api.domain.mostro.Mostro;
-import com.scanai.api.domain.mostro.dto.RegisterMostroDTO;
+import com.scanai.api.domain.analisepedecuba.Analisepedecuba;
+import com.scanai.api.domain.analisepedecuba.dto.RegisterAnalisepedecubaDTO;
+import com.scanai.api.domain.analisepedecuba.dto.ReqListAnalisespedecubaDTO;
+import com.scanai.api.domain.analisepedecuba.dto.ResListAnalisespedecubaDTO;
 import com.scanai.api.repositories.AnalisepedecubaRepository;
 import com.scanai.api.services.AnalisepedecubaService;
 import jakarta.validation.Valid;
@@ -30,7 +26,7 @@ public class AnalisePedecubaController {
 
     @PostMapping("/register")
     public ResponseEntity regiterAnalisepedecuba(@RequestBody @Valid RegisterAnalisepedecubaDTO data, UriComponentsBuilder uriBuilder){
-        Analisespedecuba newAnalisepedecuba = service.createAnalisespedecuba(data);
+        Analisepedecuba newAnalisepedecuba = service.createAnalisespedecuba(data);
         repository.save(newAnalisepedecuba);
         var uri = uriBuilder.path("analisepedecuba/register/{id}").buildAndExpand(newAnalisepedecuba.getId()).toUri();
         return ResponseEntity.created(uri).build();

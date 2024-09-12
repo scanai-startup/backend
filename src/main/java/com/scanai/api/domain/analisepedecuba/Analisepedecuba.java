@@ -1,4 +1,4 @@
-package com.scanai.api.domain.analisespedecuba;
+package com.scanai.api.domain.analisepedecuba;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Analisespedecuba {
+public class Analisepedecuba {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +24,7 @@ public class Analisespedecuba {
     private LocalDate data;
     private int temperatura;
 
-    public Analisespedecuba(Long fkpedecuba, Long fkfuncionario, float densidade, LocalDate data, int temperatura){
+    public Analisepedecuba(Long fkpedecuba, Long fkfuncionario, float densidade, LocalDate data, int temperatura){
         this.fkpedecuba = fkpedecuba;
         this.fkfuncionario = fkfuncionario;
         this.densidade = densidade;

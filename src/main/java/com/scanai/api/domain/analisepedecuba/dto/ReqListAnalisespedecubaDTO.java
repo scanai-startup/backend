@@ -1,4 +1,4 @@
-package com.scanai.api.domain.analisespedecuba.dto;
+package com.scanai.api.domain.analisepedecuba.dto;
 
 import jakarta.validation.constraints.NotNull;
 
