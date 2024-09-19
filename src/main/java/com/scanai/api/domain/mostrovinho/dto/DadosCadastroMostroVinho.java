@@ -1,4 +1,6 @@
 package com.scanai.api.domain.mostrovinho.dto;
 
-public record DadosCadastroMostroVinho() {
+import jakarta.validation.constraints.NotNull;
+
+public record DadosCadastroMostroVinho(@NotNull Long fkmostro, @NotNull Long fkvinho) {
 }

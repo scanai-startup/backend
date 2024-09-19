@@ -1,4 +1,7 @@
 package com.scanai.api.repositories;
 
-public interface MostroVinhoRepository {
+import com.scanai.api.domain.mostrovinho.MostroVinho;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface MostroVinhoRepository extends JpaRepository<MostroVinho, Long> {
 }
