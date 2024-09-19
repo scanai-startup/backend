@@ -15,7 +15,6 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-
 public class Uva {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -68,4 +67,5 @@ public class Uva {
     public Boolean getValid() {
         return valid;
     }
+
 }

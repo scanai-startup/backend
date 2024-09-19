@@ -63,4 +63,7 @@ public class Funcionario implements UserDetails {
         return this.id;
     }
 
+    public void setSenha(String encryptedPassword) {
+        this.senha = encryptedPassword;
+    }
 }

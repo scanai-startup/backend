@@ -2,7 +2,6 @@ package com.scanai.api.services;
 
 import com.scanai.api.domain.funcionario.Funcionario;
 import com.scanai.api.domain.funcionario.dto.ResetPasswordDTO;
-import com.scanai.api.infra.security.TokenService;
 import com.scanai.api.repositories.FuncionarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
