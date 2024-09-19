@@ -16,6 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 
 @RestController
+@RequestMapping("/mostrovinho")
 public class MostroVinhoController {
     @Autowired
     MostroVinhoService mostroVinhoService;
