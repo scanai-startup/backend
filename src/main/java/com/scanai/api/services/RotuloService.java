@@ -7,12 +7,15 @@ import com.scanai.api.domain.rotulo.DTO.DadosListagemRotulo;
 import com.scanai.api.domain.rotulo.Rotulo;
 import com.scanai.api.repositories.RotuloRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class RotuloService {
+
+    @Autowired
     RotuloRepository repository;
 
     @Transactional
