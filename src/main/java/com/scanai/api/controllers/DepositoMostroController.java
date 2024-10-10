@@ -1,7 +1,7 @@
 package com.scanai.api.controllers;
 
 import com.scanai.api.domain.depositomostro.Depositomostro;
-import com.scanai.api.domain.depositomostro.dto.RegisterDepositomostroDTO;
+import com.scanai.api.domain.depositomostro.dto.DadosCadastroDepositoMostro;
 import com.scanai.api.repositories.DepositoMostroRepository;
 import com.scanai.api.services.DepositoMostroService;
 import jakarta.transaction.Transactional;
@@ -26,7 +26,7 @@ public class DepositoMostroController {
 
     @PostMapping("/register")
     @Transactional
-    public ResponseEntity newDepositomostro(@RequestBody @Valid RegisterDepositomostroDTO data, UriComponentsBuilder uriBuilder){
+    public ResponseEntity newDepositomostro(@RequestBody @Valid DadosCadastroDepositoMostro data, UriComponentsBuilder uriBuilder){
         Depositomostro newDepositomostro = service.createDepositomostro(data);
         repository.save(newDepositomostro);
         var uri = uriBuilder.path("depositomostro/register/{id}").buildAndExpand(newDepositomostro.getId()).toUri();

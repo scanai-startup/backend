@@ -1,8 +1,8 @@
 package com.scanai.api.controllers;
 
 import com.scanai.api.domain.deposito.Deposito;
-import com.scanai.api.domain.deposito.dto.RegisterDepositoDTO;
-import com.scanai.api.domain.deposito.dto.UpdateNumeroDepositoDTO;
+import com.scanai.api.domain.deposito.dto.DadosCadastroDeposito;
+import com.scanai.api.domain.deposito.dto.DadosAtualizarDepositoDTO;
 import com.scanai.api.repositories.DepositoRepository;
 import com.scanai.api.services.DepositoService;
 import jakarta.transaction.Transactional;
@@ -25,7 +25,7 @@ public class DepositoController {
     private DepositoService service;
 
     @PostMapping("/register")
-    public ResponseEntity regiterDeposito(@RequestBody @Valid RegisterDepositoDTO data, UriComponentsBuilder uriBuilder){
+    public ResponseEntity regiterDeposito(@RequestBody @Valid DadosCadastroDeposito data, UriComponentsBuilder uriBuilder){
         Deposito newDeposito = service.createDeposito(data);
         if(newDeposito == null){
             return ResponseEntity.badRequest().build();//tratar exception posteriormente;
@@ -37,7 +37,7 @@ public class DepositoController {
 
     @PutMapping("/updateDeposito")
     @Transactional
-    public ResponseEntity updateDeposito(@RequestBody @Valid UpdateNumeroDepositoDTO data){
+    public ResponseEntity updateDeposito(@RequestBody @Valid DadosAtualizarDepositoDTO data){
         if(service.updateDeposito(data)){
             return ResponseEntity.ok().build();
         }

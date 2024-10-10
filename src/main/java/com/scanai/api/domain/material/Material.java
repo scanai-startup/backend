@@ -1,6 +1,6 @@
 package com.scanai.api.domain.material;
 
-import com.scanai.api.domain.material.dto.RegisterMaterialDTO;
+import com.scanai.api.domain.material.dto.DadosCadastroMaterial;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,7 +20,7 @@ public class Material {
     private String nome;
     private int quantidade;
 
-    public Material(RegisterMaterialDTO dados){
+    public Material(DadosCadastroMaterial dados){
         this.nome = dados.nome();
         this.quantidade = dados.quantidade();
     }

@@ -1,8 +1,8 @@
 package com.scanai.api.controllers;
 
 import com.scanai.api.domain.lotematerial.Lotematerial;
-import com.scanai.api.domain.lotematerial.dto.ListLotematerialDTO;
-import com.scanai.api.domain.lotematerial.dto.RegisterLotematerialDTO;
+import com.scanai.api.domain.lotematerial.dto.DadosListagemLoteMaterial;
+import com.scanai.api.domain.lotematerial.dto.DadosCadastroLoteMaterial;
 import com.scanai.api.repositories.LotematerialRepository;
 import com.scanai.api.services.LotematerialService;
 import jakarta.validation.Valid;
@@ -24,7 +24,7 @@ public class LotematerialController {
     private LotematerialService service;
 
     @PostMapping("/register")
-    public ResponseEntity regiterLotematerial(@RequestBody @Valid RegisterLotematerialDTO data, UriComponentsBuilder uriBuilder){
+    public ResponseEntity regiterLotematerial(@RequestBody @Valid DadosCadastroLoteMaterial data, UriComponentsBuilder uriBuilder){
         Lotematerial newLotematerial = service.register(data);
         repository.save(newLotematerial);
         var uri = uriBuilder.path("lotematerial/register/{id}").buildAndExpand(newLotematerial.getId()).toUri();
@@ -32,8 +32,8 @@ public class LotematerialController {
     }
 
     @GetMapping("/list/{id}")
-    public ResponseEntity<List<ListLotematerialDTO>> listLotemateriais(@PathVariable Long id){
-        var list = repository.findAllByFkmaterial(id).stream().map(ListLotematerialDTO::new).toList();
+    public ResponseEntity<List<DadosListagemLoteMaterial>> listLotemateriais(@PathVariable Long id){
+        var list = repository.findAllByFkmaterial(id).stream().map(DadosListagemLoteMaterial::new).toList();
         return ResponseEntity.ok(list);
     }
 }

@@ -1,8 +1,8 @@
 package com.scanai.api.services;
 
 import com.scanai.api.domain.deposito.Deposito;
-import com.scanai.api.domain.deposito.dto.RegisterDepositoDTO;
-import com.scanai.api.domain.deposito.dto.UpdateNumeroDepositoDTO;
+import com.scanai.api.domain.deposito.dto.DadosCadastroDeposito;
+import com.scanai.api.domain.deposito.dto.DadosAtualizarDepositoDTO;
 import com.scanai.api.repositories.DepositoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ public class DepositoService {
     @Autowired
     private DepositoRepository repository;
 
-    public Deposito createDeposito(RegisterDepositoDTO data){
+    public Deposito createDeposito(DadosCadastroDeposito data){
         if(repository.findByNumerodeposito(data.numerodeposito()) != null){
             return null;
         }
@@ -21,7 +21,7 @@ public class DepositoService {
         return newDeposito;
     }
 
-    public Boolean updateDeposito(UpdateNumeroDepositoDTO data){
+    public Boolean updateDeposito(DadosAtualizarDepositoDTO data){
         Deposito deposito = repository.findByNumerodeposito(data.numeroNovo());
         if(deposito != null){
             return false;

@@ -1,7 +1,7 @@
 package com.scanai.api.controllers;
 
 import com.scanai.api.domain.material.Material;
-import com.scanai.api.domain.material.dto.RegisterMaterialDTO;
+import com.scanai.api.domain.material.dto.DadosCadastroMaterial;
 import com.scanai.api.repositories.MaterialRepository;
 import com.scanai.api.services.MaterialService;
 import jakarta.validation.Valid;
@@ -23,7 +23,7 @@ public class MaterialController {
     private MaterialService service;
 
     @PostMapping("/register")
-    public ResponseEntity regiterMaterial(@RequestBody @Valid RegisterMaterialDTO data, UriComponentsBuilder uriBuilder){
+    public ResponseEntity regiterMaterial(@RequestBody @Valid DadosCadastroMaterial data, UriComponentsBuilder uriBuilder){
         Material newMaterial = service.register(data);
         repository.save(newMaterial);
         var uri = uriBuilder.path("material/register/{id}").buildAndExpand(newMaterial.getId()).toUri();

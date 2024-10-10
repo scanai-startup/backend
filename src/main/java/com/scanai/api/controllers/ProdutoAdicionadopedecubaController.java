@@ -1,7 +1,7 @@
 package com.scanai.api.controllers;
 
 import com.scanai.api.domain.produtoadcpedecuba.ProdutoAdicionadopedecuba;
-import com.scanai.api.domain.produtoadcpedecuba.dto.RegisterProdutoadcpedecubaDTO;
+import com.scanai.api.domain.produtoadcpedecuba.dto.DadosCadastroProdutoAdicionadoPeDeCuba;
 import com.scanai.api.repositories.ProdutoAdicionadopedecubaRepository;
 import com.scanai.api.services.ProdutoAdicionadopedecubaService;
 import jakarta.validation.Valid;
@@ -24,7 +24,7 @@ public class ProdutoAdicionadopedecubaController {
     ProdutoAdicionadopedecubaRepository repository;
 
     @PostMapping("/register")
-    public ResponseEntity newProdutoadcpedecuba(@RequestBody @Valid RegisterProdutoadcpedecubaDTO data, UriComponentsBuilder uriBuilder){
+    public ResponseEntity newProdutoadcpedecuba(@RequestBody @Valid DadosCadastroProdutoAdicionadoPeDeCuba data, UriComponentsBuilder uriBuilder){
         ProdutoAdicionadopedecuba newProdutoadcpedecuba = service.createProdutoadcpedecuba(data);
         repository.save(newProdutoadcpedecuba);
         var uri = uriBuilder.path("produtoadcpedecuba/register/{id}").buildAndExpand(newProdutoadcpedecuba.getId()).toUri();

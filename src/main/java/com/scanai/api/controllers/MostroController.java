@@ -1,7 +1,7 @@
 package com.scanai.api.controllers;
 
 import com.scanai.api.domain.mostro.Mostro;
-import com.scanai.api.domain.mostro.dto.RegisterMostroDTO;
+import com.scanai.api.domain.mostro.dto.DadosCadastroMostro;
 import com.scanai.api.repositories.MostroRepository;
 import com.scanai.api.services.MostroService;
 import jakarta.transaction.Transactional;
@@ -24,7 +24,7 @@ public class MostroController {
     private MostroService service;
 
     @PostMapping("/register")
-    public ResponseEntity regiterMostro(@RequestBody @Valid RegisterMostroDTO data, UriComponentsBuilder uriBuilder){
+    public ResponseEntity regiterMostro(@RequestBody @Valid DadosCadastroMostro data, UriComponentsBuilder uriBuilder){
         Mostro newMostro = service.createMostro(data);
         repository.save(newMostro);
         var uri = uriBuilder.path("mostro/register/{id}").buildAndExpand(newMostro.getId()).toUri();

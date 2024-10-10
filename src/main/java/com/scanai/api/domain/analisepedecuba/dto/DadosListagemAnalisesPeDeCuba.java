@@ -4,9 +4,9 @@ import com.scanai.api.domain.analisepedecuba.Analisepedecuba;
 
 import java.time.LocalDate;
 
-public record ResListAnalisespedecubaDTO(Long fkpedecuba, Long fkfuncionario, float densidade, LocalDate data, int temperatura) {
+public record DadosListagemAnalisesPeDeCuba(Long fkpedecuba, Long fkfuncionario, float densidade, LocalDate data, int temperatura) {
 
-    public ResListAnalisespedecubaDTO(Analisepedecuba analisespedecuba){
+    public DadosListagemAnalisesPeDeCuba(Analisepedecuba analisespedecuba){
         this(
                 analisespedecuba.getFkpedecuba(),
                 analisespedecuba.getFkfuncionario(),

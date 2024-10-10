@@ -1,6 +1,6 @@
 package com.scanai.api.domain.lotematerial;
 
-import com.scanai.api.domain.lotematerial.dto.RegisterLotematerialDTO;
+import com.scanai.api.domain.lotematerial.dto.DadosCadastroLoteMaterial;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,7 +21,7 @@ public class Lotematerial {
     private String numerolote;
     private Long fkmaterial;
 
-    public Lotematerial(RegisterLotematerialDTO dados) {
+    public Lotematerial(DadosCadastroLoteMaterial dados) {
         this.fornecedor = dados.fornecedor();
         this.numerolote = dados.numerolote();
         this.fkmaterial = dados.fkmaterial();

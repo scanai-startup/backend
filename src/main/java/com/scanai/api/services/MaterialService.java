@@ -2,7 +2,7 @@ package com.scanai.api.services;
 
 import com.scanai.api.domain.material.Material;
 import com.scanai.api.domain.material.dto.DadosListagemMaterial;
-import com.scanai.api.domain.material.dto.RegisterMaterialDTO;
+import com.scanai.api.domain.material.dto.DadosCadastroMaterial;
 import com.scanai.api.repositories.MaterialRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ public class MaterialService {
     MaterialRepository repository;
 
     @Transactional
-    public Material register(RegisterMaterialDTO dados){
+    public Material register(DadosCadastroMaterial dados){
 
         return repository.save(new Material(dados));
     }

@@ -1,6 +1,6 @@
 package com.scanai.api.domain.rotulagem;
 
-import com.scanai.api.domain.rotulagem.dto.RegisterRotulagemDTO;
+import com.scanai.api.domain.rotulagem.dto.DadosCadastroRotulagem;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -49,7 +49,7 @@ public class Rotulagem {
 
     private int qttCaixasPaletizadora;
 
-    public Rotulagem(RegisterRotulagemDTO data) {
+    public Rotulagem(DadosCadastroRotulagem data) {
         this.fkEnchimento = data.fkEnchimento();
         this.fkRespRotulagem = data.fkRespRotulagem();
         this.fkRespEmbalamento = data.fkRespEmbalamento();
