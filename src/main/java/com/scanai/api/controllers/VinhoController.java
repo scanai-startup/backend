@@ -32,7 +32,7 @@ public class VinhoController {
 
     @GetMapping("/getAll")
     public ResponseEntity<List<DadosListagemVinho>> getAll(){
-        var lista = vinhoService.listAll();
+        var lista = vinhoService.getAll();
         return ResponseEntity.ok(lista);
     }
 
@@ -60,6 +60,12 @@ public class VinhoController {
     @Transactional
     public ResponseEntity<?> softDelete(@PathVariable Long id){
         vinhoService.softDelete(id);
+        return ResponseEntity.noContent().build();
+    }
+    @PostMapping("/activate/{id}")
+    @Transactional
+    public ResponseEntity<?> activate(@PathVariable Long id){
+        vinhoService.activate(id);
         return ResponseEntity.noContent().build();
     }
 }

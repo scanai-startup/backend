@@ -4,7 +4,6 @@ import com.scanai.api.domain.uva.dto.DadosCadastroUva;
 import com.scanai.api.domain.uva.dto.DadosAtualizarUva;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -48,7 +47,7 @@ public class Uva {
         this.fkfuncionario = dados.fkfuncionario();
     }
 
-    public void atualizar(DadosAtualizarUva dados){
+    public void update(DadosAtualizarUva dados){
         this.datachegada = dados.datachegada();
         this.numerotalao = dados.numerotalao();
         this.sanidade = dados.sanidade();
@@ -61,11 +60,13 @@ public class Uva {
         this.fkfuncionario = dados.fkfuncionario();
     }
 
-    public void inativar() {
+    public void softDelete() {
         this.valid = false;
     }
 
     public Boolean getValid() {
         return valid;
     }
+    
+    public void activate(){this.valid = true;}
 }

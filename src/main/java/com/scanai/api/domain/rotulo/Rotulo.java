@@ -28,17 +28,10 @@ public class Rotulo {
         this.tipo = dados.tipo();
     }
 
-    public void atualizar(DadosAtualizarRotulo dados){
+    public void update(DadosAtualizarRotulo dados){
         this.nome = dados.nome();
         this.tipo = dados.tipo();
     }
 
-    public void inativar() {
-        this.valid = false;
-    }
-
-    public Boolean getValid() {
-        return valid;
-    }
 
 }

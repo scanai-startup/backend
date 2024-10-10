@@ -35,7 +35,7 @@ public class ViticultorController {
 
     @GetMapping("/getAll")
     public ResponseEntity<List<DadosListagemViticultor>> getAll(){
-        var lista = viticultorService.listAll();
+        var lista = viticultorService.getAll();
         return ResponseEntity.ok(lista);
     }
 

@@ -60,4 +60,11 @@ public class UvaController {
         uvaService.softDelete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping("/activate/{id}")
+    @Transactional
+    public ResponseEntity<?> activate(@PathVariable Long id){
+        uvaService.activate(id);
+        return ResponseEntity.noContent().build();
+    }
 }

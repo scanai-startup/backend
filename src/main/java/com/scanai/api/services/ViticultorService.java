@@ -27,7 +27,7 @@ public class ViticultorService {
         return repository.getReferenceById(id);
     }
 
-    public List<DadosListagemViticultor> listAll() {
+    public List<DadosListagemViticultor> getAll() {
         return repository.findAll().stream().map(DadosListagemViticultor::new).toList();
     }
 
@@ -42,4 +42,5 @@ public class ViticultorService {
         viticultor.atualizar(dados);
         return new DadosDetalhamentoViticultor(viticultor);
     }
+
 }

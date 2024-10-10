@@ -38,13 +38,18 @@ public class UvaService {
     @Transactional
     public DadosDetalhamentoUva update(DadosAtualizarUva dados) {
         var uva = getElement(dados.id());
-        uva.atualizar(dados);
+        uva.update(dados);
         return new DadosDetalhamentoUva(uva);
     }
 
     @Transactional
     public void softDelete(Long id) {
         var uva = getElement(id);
-        uva.inativar();
+        uva.setValid(false);
+    }
+    @Transactional
+    public void activate(Long id) {
+        var uva = getElement(id);
+        uva.setValid(true);
     }
 }

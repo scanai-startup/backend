@@ -51,6 +51,9 @@ public class Vinho {
     public void softDelete() {
         this.valid = false;
     }
+    public void activate() {
+        this.valid = true;
+    }
 
     public Boolean getValid() {
         return valid;

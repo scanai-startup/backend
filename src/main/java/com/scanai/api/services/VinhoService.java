@@ -23,7 +23,7 @@ public class VinhoService {
         return repository.save(new Vinho(dados));
     }
 
-    public List<DadosListagemVinho> listAll() {
+    public List<DadosListagemVinho> getAll() {
         return repository.findAllByValidTrue().stream().map(DadosListagemVinho::new).toList();
     }
 
@@ -39,7 +39,12 @@ public class VinhoService {
     @Transactional
     public void softDelete(Long id) {
         var vinho = getElement(id);
-        vinho.softDelete();
+        vinho.setValid(false);
+    }
+    @Transactional
+    public void activate(Long id) {
+        var vinho = getElement(id);
+        vinho.setValid(true);
     }
 
     @Transactional
