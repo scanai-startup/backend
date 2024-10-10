@@ -33,13 +33,13 @@ public class HigienedepositoController {
         return ResponseEntity.created(uri).build();
     }
 
-    @GetMapping("/listHigienedeposito/{id}")
-    public ResponseEntity<List<DadosListagemHigieneDeposito>> listHigienedeposito(@PathVariable Long id){
-        var lista = repository.findAllByFkdeposito(id).stream().map(DadosListagemHigieneDeposito::new).toList();
+    @GetMapping("/listByFk/{fk}")
+    public ResponseEntity<List<DadosListagemHigieneDeposito>> listHigienedeposito(@PathVariable Long fk){
+        var lista = repository.findAllByFkdeposito(fk).stream().map(DadosListagemHigieneDeposito::new).toList();
         return ResponseEntity.ok(lista);
     }
 
-    @DeleteMapping("/deleteHigienedeposito/{id}")
+    @DeleteMapping("/hardDelete/{id}")
     @Transactional
     public ResponseEntity deleteHigienedeposito(@PathVariable Long id){
         repository.deleteById(id);

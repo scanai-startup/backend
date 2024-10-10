@@ -31,9 +31,9 @@ public class LotematerialController {
         return ResponseEntity.created(uri).build();
     }
 
-    @GetMapping("/list/{id}")
-    public ResponseEntity<List<DadosListagemLoteMaterial>> listLotemateriais(@PathVariable Long id){
-        var list = repository.findAllByFkmaterial(id).stream().map(DadosListagemLoteMaterial::new).toList();
+    @GetMapping("/listByFk/{fk}")
+    public ResponseEntity<List<DadosListagemLoteMaterial>> listLotemateriais(@PathVariable Long fk){
+        var list = repository.findAllByFkmaterial(fk).stream().map(DadosListagemLoteMaterial::new).toList();
         return ResponseEntity.ok(list);
     }
 }

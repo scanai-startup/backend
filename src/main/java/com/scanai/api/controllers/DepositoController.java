@@ -2,7 +2,7 @@ package com.scanai.api.controllers;
 
 import com.scanai.api.domain.deposito.Deposito;
 import com.scanai.api.domain.deposito.dto.DadosCadastroDeposito;
-import com.scanai.api.domain.deposito.dto.DadosAtualizarDepositoDTO;
+import com.scanai.api.domain.deposito.dto.DadosAtualizarDeposito;
 import com.scanai.api.repositories.DepositoRepository;
 import com.scanai.api.services.DepositoService;
 import jakarta.transaction.Transactional;
@@ -35,28 +35,28 @@ public class DepositoController {
         return ResponseEntity.created(uri).build();
     }
 
-    @PutMapping("/updateDeposito")
+    @PutMapping("/update")
     @Transactional
-    public ResponseEntity updateDeposito(@RequestBody @Valid DadosAtualizarDepositoDTO data){
+    public ResponseEntity updateDeposito(@RequestBody @Valid DadosAtualizarDeposito data){
         if(service.updateDeposito(data)){
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.badRequest().build();
     }
 
-    @GetMapping("/listDepositos")
+    @GetMapping("/getAll")
     public ResponseEntity<List<Deposito>> listDepositos(){
         return ResponseEntity.ok().body(repository.findAllByValidTrue());
     }
 
-    @PutMapping("/invalidate/{id}")
+    @PutMapping("/softDelete/{id}")
     @Transactional
     public ResponseEntity invalidateDeposito(@PathVariable Long id){
         service.invalidadeDeposito(repository.getReferenceById(id));
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/validate/{id}")
+    @PutMapping("/activate/{id}")
     @Transactional
     public ResponseEntity validateDeposito(@PathVariable Long id){
         service.validadeDeposito(repository.getReferenceById(id));

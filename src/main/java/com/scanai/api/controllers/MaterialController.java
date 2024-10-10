@@ -30,7 +30,7 @@ public class MaterialController {
         return ResponseEntity.created(uri).build();
     }
 
-    @GetMapping("/list")
+    @GetMapping("/getAll")
     public ResponseEntity<List<Material>> listMateriais(){
         return ResponseEntity.ok().body(repository.findAll());
     }

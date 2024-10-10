@@ -26,7 +26,7 @@ public class FuncionarioController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/hardDelete/{id}")
     @Transactional
     public ResponseEntity delete(@PathVariable Long id){
         repository.deleteById(id);

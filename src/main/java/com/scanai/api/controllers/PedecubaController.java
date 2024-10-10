@@ -31,19 +31,19 @@ public class PedecubaController {
         return ResponseEntity.created(uri).build();
     }
 
-    @GetMapping("/listPedecubas")
+    @GetMapping("/getALl")
     public ResponseEntity<List<Pedecuba>> listPedecuba(){
         return ResponseEntity.ok().body(repository.findAllByValidTrue());
     }
 
-    @PutMapping("/invalidate/{id}")
+    @PutMapping("/softDelete/{id}")
     @Transactional
     public ResponseEntity invalidatePedecuba(@PathVariable Long id){
         service.invalidadePedecuba(repository.getReferenceById(id));
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/validate/{id}")
+    @PutMapping("/activate/{id}")
     @Transactional
     public ResponseEntity validatePedecuba(@PathVariable Long id){
         service.validadePedecuba(repository.getReferenceById(id));

@@ -31,9 +31,9 @@ public class AnalisePedecubaController {
         return ResponseEntity.created(uri).build();
     }
 
-    @GetMapping("/listAnalises/{id}")
-    public ResponseEntity<List<DadosListagemAnalisesPeDeCuba>> listAnalisespedecuba(@PathVariable Long id){
-        var lista = repository.findAllByFkpedecuba(id).stream().map(DadosListagemAnalisesPeDeCuba::new).toList();
+    @GetMapping("/listByFk/{fk}")
+    public ResponseEntity<List<DadosListagemAnalisesPeDeCuba>> listAnalisespedecuba(@PathVariable Long fk){
+        var lista = repository.findAllByFkpedecuba(fk).stream().map(DadosListagemAnalisesPeDeCuba::new).toList();
         return ResponseEntity.ok(lista);
     }
 }

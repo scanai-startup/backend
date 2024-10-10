@@ -31,19 +31,19 @@ public class MostroController {
         return ResponseEntity.created(uri).build();
     }
 
-    @GetMapping("/listMostros")
+    @GetMapping("/getAll")
     public ResponseEntity<List<Mostro>> listMostros(){
         return ResponseEntity.ok().body(repository.findAllByValidTrue());
     }
 
-    @PutMapping("/invalidate/{id}")
+    @PutMapping("/softDelete/{id}")
     @Transactional
     public ResponseEntity invalidateMostro(@PathVariable Long id){
         service.invalidadeMostro(repository.getReferenceById(id));
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/validate/{id}")
+    @PutMapping("/activate/{id}")
     @Transactional
     public ResponseEntity validateMostro(@PathVariable Long id){
         service.invalidadeMostro(repository.getReferenceById(id));
