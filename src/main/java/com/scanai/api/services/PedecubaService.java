@@ -6,15 +6,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PedecubaService {
-    public Pedecuba createPedecuba(DadosCadastroPeDeCuba data) {
+    public Pedecuba register(DadosCadastroPeDeCuba data) {
         return new Pedecuba(data.fkfuncionario(), data.datainicio(), data.volume());
     }
 
-    public void invalidadePedecuba(Pedecuba pedecuba) {
+    public void softDelete(Pedecuba pedecuba) {
         pedecuba.setValid(false);
     }
 
-    public void validadePedecuba(Pedecuba pedecuba) {
+    public void activate(Pedecuba pedecuba) {
         pedecuba.setValid(true);
     }
 }

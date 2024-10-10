@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ProdutoAdicionadopedecubaService {
-    public ProdutoAdicionadopedecuba createProdutoadcpedecuba(DadosCadastroProdutoAdicionadoPeDeCuba data) {
+    public ProdutoAdicionadopedecuba register(DadosCadastroProdutoAdicionadoPeDeCuba data) {
         return new ProdutoAdicionadopedecuba(data.fkpedecuba(), data.nome(), data.quantidade());
     }
 }

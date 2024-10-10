@@ -25,7 +25,7 @@ public class MaterialService {
         return repository.getReferenceById(id);
     }
 
-    public List<DadosListagemMaterial> listAll() {
+    public List<DadosListagemMaterial> getAll() {
         return repository.findAll().stream().map(DadosListagemMaterial::new).toList();
     }
 }

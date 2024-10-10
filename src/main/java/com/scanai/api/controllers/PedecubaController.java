@@ -25,7 +25,7 @@ public class PedecubaController {
 
     @PostMapping("/register")
     public ResponseEntity regiterPedecuba(@RequestBody @Valid DadosCadastroPeDeCuba data, UriComponentsBuilder uriBuilder){
-        Pedecuba newPedecuba = service.createPedecuba(data);
+        Pedecuba newPedecuba = service.register(data);
         repository.save(newPedecuba);
         var uri = uriBuilder.path("pedecuba/register/{id}").buildAndExpand(newPedecuba.getId()).toUri();
         return ResponseEntity.created(uri).build();
@@ -39,14 +39,14 @@ public class PedecubaController {
     @PutMapping("/softDelete/{id}")
     @Transactional
     public ResponseEntity invalidatePedecuba(@PathVariable Long id){
-        service.invalidadePedecuba(repository.getReferenceById(id));
+        service.softDelete(repository.getReferenceById(id));
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/activate/{id}")
     @Transactional
     public ResponseEntity validatePedecuba(@PathVariable Long id){
-        service.validadePedecuba(repository.getReferenceById(id));
+        service.activate(repository.getReferenceById(id));
         return ResponseEntity.ok().build();
     }
 

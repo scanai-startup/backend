@@ -39,14 +39,14 @@ public class MostroController {
     @PutMapping("/softDelete/{id}")
     @Transactional
     public ResponseEntity invalidateMostro(@PathVariable Long id){
-        service.invalidadeMostro(repository.getReferenceById(id));
+        service.softDelete(repository.getReferenceById(id));
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/activate/{id}")
     @Transactional
     public ResponseEntity validateMostro(@PathVariable Long id){
-        service.invalidadeMostro(repository.getReferenceById(id));
+        service.softDelete(repository.getReferenceById(id));
         return ResponseEntity.ok().build();
     }
 

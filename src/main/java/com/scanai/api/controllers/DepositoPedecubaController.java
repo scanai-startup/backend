@@ -27,7 +27,7 @@ public class DepositoPedecubaController {
     @PostMapping("/register")
     @Transactional
     public ResponseEntity newDepositopedecuba(@RequestBody @Valid DadosCadastroDepositoPeDeCuba data, UriComponentsBuilder uriBuilder){
-        Depositopedecuba newDepositopedecuba = service.createDepositopedecuba(data);
+        Depositopedecuba newDepositopedecuba = service.register(data);
         repository.save(newDepositopedecuba);
         var uri = uriBuilder.path("depositopedecuba/register/{id}").buildAndExpand(newDepositopedecuba.getId()).toUri();
         return ResponseEntity.created(uri).build();

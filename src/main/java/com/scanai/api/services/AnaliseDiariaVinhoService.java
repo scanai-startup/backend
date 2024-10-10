@@ -5,13 +5,7 @@ import com.scanai.api.domain.analisediariavinho.dto.DadosAtualizarAnaliseDiariaV
 import com.scanai.api.domain.analisediariavinho.dto.DadosCadastroAnaliseDiariaVinho;
 import com.scanai.api.domain.analisediariavinho.dto.DadosDetalhamentoAnaliseDiariaVinho;
 import com.scanai.api.domain.analisediariavinho.dto.DadosListagemAnaliseDiariaVinho;
-import com.scanai.api.domain.vinho.DTO.DadosAtualizarVinho;
-import com.scanai.api.domain.vinho.DTO.DadosCadastroVinho;
-import com.scanai.api.domain.vinho.DTO.DadosDetalhamentoVinho;
-import com.scanai.api.domain.vinho.DTO.DadosListagemVinho;
-import com.scanai.api.domain.vinho.Vinho;
 import com.scanai.api.repositories.AnaliseDiariaVinhoRepository;
-import com.scanai.api.repositories.VinhoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +23,7 @@ public class AnaliseDiariaVinhoService {
         return repository.save(new AnaliseDiariaVinho(dados));
     }
 
-    public List<DadosListagemAnaliseDiariaVinho> listAll() {
+    public List<DadosListagemAnaliseDiariaVinho> getAll() {
         return repository.findAll().stream().map(DadosListagemAnaliseDiariaVinho::new).toList();
     }
 

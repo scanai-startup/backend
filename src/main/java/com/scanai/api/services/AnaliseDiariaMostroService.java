@@ -23,7 +23,7 @@ public class AnaliseDiariaMostroService {
         return repository.save(new AnaliseDiariaMostro(dados));
     }
 
-    public List<DadosListagemAnaliseDiariaMostro> listAll() {
+    public List<DadosListagemAnaliseDiariaMostro> getAll() {
         return repository.findAll().stream().map(DadosListagemAnaliseDiariaMostro::new).toList();
     }
 

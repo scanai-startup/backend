@@ -31,7 +31,7 @@ public class AnaliseDiariaMostroController {
 
     @GetMapping("/getAll")
     public ResponseEntity<List<DadosListagemAnaliseDiariaMostro>> getAll(){
-        var lista = analiseDiariaMostroService.listAll();
+        var lista = analiseDiariaMostroService.getAll();
         return ResponseEntity.ok(lista);
     }
 

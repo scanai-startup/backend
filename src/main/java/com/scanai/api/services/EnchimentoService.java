@@ -23,7 +23,7 @@ public class EnchimentoService {
         return repository.save(new Enchimento(dados));
     }
 
-    public List<DadosListagemEnchimento> listAll() {
+    public List<DadosListagemEnchimento> getAll() {
         return repository.findAll().stream().map(DadosListagemEnchimento::new).toList();
     }
 

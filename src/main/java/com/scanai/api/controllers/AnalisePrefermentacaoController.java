@@ -22,7 +22,7 @@ public class AnalisePrefermentacaoController {
 
     @PostMapping("/register")
     public ResponseEntity regiterAnaliseprefermentacao(@RequestBody @Valid DadosCadastroAnalisePreFermetacao data, UriComponentsBuilder uriBuilder){
-        Analiseprefermentacao newAnaliseprefermentacao = service.createAnaliseprefermentacao(data);
+        Analiseprefermentacao newAnaliseprefermentacao = service.register(data);
         repository.save(newAnaliseprefermentacao);
         var uri = uriBuilder.path("analiseprefermentacao/register/{id}").buildAndExpand(newAnaliseprefermentacao.getId()).toUri();
         return ResponseEntity.created(uri).build();

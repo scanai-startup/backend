@@ -27,7 +27,7 @@ public class HigienedepositoController {
     @PostMapping("/register")
     @Transactional
     public ResponseEntity newHigienedeposito(@RequestBody @Valid DadosCadastroHigieneDeposito data, UriComponentsBuilder uriBuilder){
-        Higienedeposito newHigienedeposito = service.createHigienedeposito(data);
+        Higienedeposito newHigienedeposito = service.register(data);
         repository.save(newHigienedeposito);
         var uri = uriBuilder.path("deposito/register/{id}").buildAndExpand(newHigienedeposito.getId()).toUri();
         return ResponseEntity.created(uri).build();

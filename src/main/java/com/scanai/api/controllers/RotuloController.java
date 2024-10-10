@@ -24,7 +24,7 @@ public class RotuloController {
     @Transactional
     @PostMapping("/register")
     public ResponseEntity<DadosDetalhamentoRotulo> register(@RequestBody @Valid DadosCadastroRotulo dados, UriComponentsBuilder builder){ //DadosCadastroRemedio é um DTO construido nu
-        var rotulo = rotuloService.save(dados);
+        var rotulo = rotuloService.register(dados);
         var uri = builder.path("/rotulo/{id}").buildAndExpand(rotulo.getId()).toUri();
         return  ResponseEntity.created(uri).body(new DadosDetalhamentoRotulo(rotulo));
     }

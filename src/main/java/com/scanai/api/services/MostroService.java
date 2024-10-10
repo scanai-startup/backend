@@ -11,11 +11,11 @@ public class MostroService {
         return newMostro;
     }
 
-    public void invalidadeMostro(Mostro mostro) {
+    public void softDelete(Mostro mostro) {
         mostro.setValid(false);
     }
 
-    public void validateMostro(Mostro mostro) {
+    public void activate(Mostro mostro) {
         mostro.setValid(true);
     }
 }

@@ -19,7 +19,7 @@ public class RotuloService {
     RotuloRepository repository;
 
     @Transactional
-    public Rotulo save(DadosCadastroRotulo dados){
+    public Rotulo register(DadosCadastroRotulo dados){
         return repository.save(new Rotulo(dados));
     }
 

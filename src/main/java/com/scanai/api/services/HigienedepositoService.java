@@ -12,7 +12,7 @@ public class HigienedepositoService {
     @Autowired
     HigienedepositoRepository repository;
 
-    public Higienedeposito createHigienedeposito(DadosCadastroHigieneDeposito data){
+    public Higienedeposito register(DadosCadastroHigieneDeposito data){
         return new Higienedeposito(data.datahigiene(), data.fkdeposito());
     }
 }

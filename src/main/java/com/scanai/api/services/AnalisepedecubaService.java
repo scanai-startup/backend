@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AnalisepedecubaService {
 
-    public Analisepedecuba createAnalisespedecuba(DadosCadastroAnalisePeDeCuba data) {
+    public Analisepedecuba register(DadosCadastroAnalisePeDeCuba data) {
         var newAnalisespedecuba = new Analisepedecuba(data.fkpedecuba(), data.fkfuncionario(), data.densidade(), data.data(), data.temperatura());
         return newAnalisespedecuba;
     }

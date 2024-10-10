@@ -23,7 +23,7 @@ public class LiberacaoService {
         return repository.save(new Liberacao(dados));
     }
 
-    public List<DadosListagemLiberacao> listAll() {
+    public List<DadosListagemLiberacao> getAll() {
         return repository.findAll().stream().map(DadosListagemLiberacao::new).toList();
     }
 

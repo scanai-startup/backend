@@ -32,7 +32,7 @@ public class LiberacaoController {
 
     @GetMapping("/getAll")
     public ResponseEntity<List<DadosListagemLiberacao>> getAll(){
-        var lista = liberacaoService.listAll();
+        var lista = liberacaoService.getAll();
         return ResponseEntity.ok(lista);
     }
 

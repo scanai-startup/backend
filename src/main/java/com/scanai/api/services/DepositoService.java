@@ -13,7 +13,7 @@ public class DepositoService {
     @Autowired
     private DepositoRepository repository;
 
-    public Deposito createDeposito(DadosCadastroDeposito data){
+    public Deposito register(DadosCadastroDeposito data){
         if(repository.findByNumerodeposito(data.numerodeposito()) != null){
             return null;
         }
@@ -21,7 +21,7 @@ public class DepositoService {
         return newDeposito;
     }
 
-    public Boolean updateDeposito(DadosAtualizarDeposito data){
+    public Boolean update(DadosAtualizarDeposito data){
         Deposito deposito = repository.findByNumerodeposito(data.numeroNovo());
         if(deposito != null){
             return false;
@@ -31,11 +31,11 @@ public class DepositoService {
         return true;
     }
 
-    public void invalidadeDeposito(Deposito deposito) {
+    public void softDelete(Deposito deposito) {
         deposito.setValid(false);
     }
 
-    public void validadeDeposito(Deposito deposito) {
+    public void activate(Deposito deposito) {
         deposito.setValid(true);
     }
 }

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class DepositoMostroService {
 
-    public Depositomostro createDepositomostro(DadosCadastroDepositoMostro data) {
+    public Depositomostro register(DadosCadastroDepositoMostro data) {
         var newDepositomostro = new Depositomostro(data.fkmostro(), data.fkdeposito(), data.datainicio(), data.fkfuncionario());
         return newDepositomostro;
     }

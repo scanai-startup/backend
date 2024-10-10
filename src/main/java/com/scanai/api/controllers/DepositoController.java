@@ -26,7 +26,7 @@ public class DepositoController {
 
     @PostMapping("/register")
     public ResponseEntity regiterDeposito(@RequestBody @Valid DadosCadastroDeposito data, UriComponentsBuilder uriBuilder){
-        Deposito newDeposito = service.createDeposito(data);
+        Deposito newDeposito = service.register(data);
         if(newDeposito == null){
             return ResponseEntity.badRequest().build();//tratar exception posteriormente;
         }
@@ -38,7 +38,7 @@ public class DepositoController {
     @PutMapping("/update")
     @Transactional
     public ResponseEntity updateDeposito(@RequestBody @Valid DadosAtualizarDeposito data){
-        if(service.updateDeposito(data)){
+        if(service.update(data)){
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.badRequest().build();
@@ -52,14 +52,14 @@ public class DepositoController {
     @PutMapping("/softDelete/{id}")
     @Transactional
     public ResponseEntity invalidateDeposito(@PathVariable Long id){
-        service.invalidadeDeposito(repository.getReferenceById(id));
+        service.softDelete(repository.getReferenceById(id));
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/activate/{id}")
     @Transactional
     public ResponseEntity validateDeposito(@PathVariable Long id){
-        service.validadeDeposito(repository.getReferenceById(id));
+        service.activate(repository.getReferenceById(id));
         return ResponseEntity.ok().build();
     }
 

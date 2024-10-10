@@ -7,7 +7,6 @@ import com.scanai.api.domain.mostrovinho.dto.DadosDetalhamentoMostroVinho;
 import com.scanai.api.domain.mostrovinho.dto.DadosListagemMostroVinho;
 import com.scanai.api.repositories.MostroVinhoRepository;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,7 +26,7 @@ public class MostroVinhoService {
         return repository.getReferenceById(id);
     }
 
-    public List<DadosListagemMostroVinho> listAll() {
+    public List<DadosListagemMostroVinho> getAll() {
         return repository.findAll().stream().map(DadosListagemMostroVinho::new).toList();
     }
 

@@ -33,7 +33,7 @@ public class EnchimentoController {
 
     @GetMapping("/getAll")
     public ResponseEntity<List<DadosListagemEnchimento>> getAll() {
-        var lista = enchimentoService.listAll();
+        var lista = enchimentoService.getAll();
         return ResponseEntity.ok(lista);
     }
 

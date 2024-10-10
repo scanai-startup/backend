@@ -25,7 +25,7 @@ public class AnalisePedecubaController {
 
     @PostMapping("/register")
     public ResponseEntity regiterAnalisepedecuba(@RequestBody @Valid DadosCadastroAnalisePeDeCuba data, UriComponentsBuilder uriBuilder){
-        Analisepedecuba newAnalisepedecuba = service.createAnalisespedecuba(data);
+        Analisepedecuba newAnalisepedecuba = service.register(data);
         repository.save(newAnalisepedecuba);
         var uri = uriBuilder.path("analisepedecuba/register/{id}").buildAndExpand(newAnalisepedecuba.getId()).toUri();
         return ResponseEntity.created(uri).build();

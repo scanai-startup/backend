@@ -25,7 +25,7 @@ public class ProdutoAdicionadovinhoController {
 
     @PostMapping("/register")
     public ResponseEntity newProdutoadcvinho(@RequestBody @Valid DadosCadastroProdutoAdicionadoVinho data, UriComponentsBuilder uriBuilder){
-        ProdutoAdicionadovinho newProdutoadcvinho = service.createProdutoadcvinho(data);
+        ProdutoAdicionadovinho newProdutoadcvinho = service.register(data);
         repository.save(newProdutoadcvinho);
         var uri = uriBuilder.path("produtoadcvinho/register/{id}").buildAndExpand(newProdutoadcvinho.getId()).toUri();
         return ResponseEntity.created(uri).build();

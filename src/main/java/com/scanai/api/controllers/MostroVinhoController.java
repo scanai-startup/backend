@@ -9,7 +9,6 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -31,7 +30,7 @@ public class MostroVinhoController {
 
     @GetMapping("/getAll")
     public ResponseEntity<List<DadosListagemMostroVinho>> getAll(){
-        var lista = mostroVinhoService.listAll();
+        var lista = mostroVinhoService.getAll();
         return ResponseEntity.ok(lista);
     }
 
