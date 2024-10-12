@@ -2,12 +2,20 @@ package com.scanai.api.services;
 
 import com.scanai.api.domain.mostro.Mostro;
 import com.scanai.api.domain.mostro.dto.DadosCadastroMostro;
+import com.scanai.api.repositories.MostroRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MostroService {
-    public Mostro createMostro(DadosCadastroMostro data) {
+
+    @Autowired
+    MostroRepository repository;
+
+
+    public Mostro register(DadosCadastroMostro data) {
         var newMostro = new Mostro(data.fkfuncionario(), data.volume());
+        repository.save(newMostro);
         return newMostro;
     }
 

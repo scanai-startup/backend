@@ -2,6 +2,7 @@ package com.scanai.api.controllers;
 
 import com.scanai.api.domain.analisepedecuba.Analisepedecuba;
 import com.scanai.api.domain.analisepedecuba.dto.DadosCadastroAnalisePeDeCuba;
+import com.scanai.api.domain.analisepedecuba.dto.DadosDetalhamentoAnalisePeDeCuba;
 import com.scanai.api.domain.analisepedecuba.dto.DadosListagemAnalisesPeDeCuba;
 import com.scanai.api.repositories.AnalisepedecubaRepository;
 import com.scanai.api.services.AnalisepedecubaService;
@@ -24,11 +25,11 @@ public class AnalisePedecubaController {
     private AnalisepedecubaService service;
 
     @PostMapping("/register")
-    public ResponseEntity regiterAnalisepedecuba(@RequestBody @Valid DadosCadastroAnalisePeDeCuba data, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<DadosDetalhamentoAnalisePeDeCuba> regiterAnalisepedecuba(@RequestBody @Valid DadosCadastroAnalisePeDeCuba data, UriComponentsBuilder uriBuilder){
         Analisepedecuba newAnalisepedecuba = service.register(data);
         repository.save(newAnalisepedecuba);
         var uri = uriBuilder.path("analisepedecuba/register/{id}").buildAndExpand(newAnalisepedecuba.getId()).toUri();
-        return ResponseEntity.created(uri).build();
+        return ResponseEntity.created(uri).body(new DadosDetalhamentoAnalisePeDeCuba(newAnalisepedecuba));
     }
 
     @GetMapping("/listByFk/{fk}")

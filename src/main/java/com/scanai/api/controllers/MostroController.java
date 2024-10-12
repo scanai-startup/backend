@@ -1,7 +1,10 @@
 package com.scanai.api.controllers;
 
+import com.scanai.api.domain.deposito.dto.DadosListagemDeposito;
 import com.scanai.api.domain.mostro.Mostro;
 import com.scanai.api.domain.mostro.dto.DadosCadastroMostro;
+import com.scanai.api.domain.mostro.dto.DadosDetalhamentoMostro;
+import com.scanai.api.domain.mostro.dto.DadosListagemMostro;
 import com.scanai.api.repositories.MostroRepository;
 import com.scanai.api.services.MostroService;
 import jakarta.transaction.Transactional;
@@ -24,28 +27,27 @@ public class MostroController {
     private MostroService service;
 
     @PostMapping("/register")
-    public ResponseEntity regiterMostro(@RequestBody @Valid DadosCadastroMostro data, UriComponentsBuilder uriBuilder){
-        Mostro newMostro = service.createMostro(data);
-        repository.save(newMostro);
+    public ResponseEntity<DadosDetalhamentoMostro> regiterMostro(@RequestBody @Valid DadosCadastroMostro data, UriComponentsBuilder uriBuilder){
+        Mostro newMostro = service.register(data);
         var uri = uriBuilder.path("mostro/register/{id}").buildAndExpand(newMostro.getId()).toUri();
-        return ResponseEntity.created(uri).build();
+        return ResponseEntity.created(uri).body(new DadosDetalhamentoMostro(newMostro));
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<Mostro>> listMostros(){
-        return ResponseEntity.ok().body(repository.findAllByValidTrue());
+    public ResponseEntity<List<DadosListagemMostro>> listMostros(){
+        return ResponseEntity.ok().body(repository.findAllByValidTrue().stream().map(DadosListagemMostro::new).toList());
     }
 
     @PutMapping("/softDelete/{id}")
     @Transactional
-    public ResponseEntity invalidateMostro(@PathVariable Long id){
+    public ResponseEntity<?> invalidateMostro(@PathVariable Long id){
         service.softDelete(repository.getReferenceById(id));
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/activate/{id}")
     @Transactional
-    public ResponseEntity validateMostro(@PathVariable Long id){
+    public ResponseEntity<?> validateMostro(@PathVariable Long id){
         service.softDelete(repository.getReferenceById(id));
         return ResponseEntity.ok().build();
     }
