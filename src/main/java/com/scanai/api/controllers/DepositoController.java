@@ -3,6 +3,7 @@ package com.scanai.api.controllers;
 import com.scanai.api.domain.deposito.Deposito;
 import com.scanai.api.domain.deposito.dto.DadosCadastroDeposito;
 import com.scanai.api.domain.deposito.dto.DadosAtualizarDeposito;
+import com.scanai.api.domain.deposito.dto.DadosDetalhamentoDeposito;
 import com.scanai.api.repositories.DepositoRepository;
 import com.scanai.api.services.DepositoService;
 import jakarta.transaction.Transactional;
@@ -25,23 +26,17 @@ public class DepositoController {
     private DepositoService service;
 
     @PostMapping("/register")
-    public ResponseEntity regiterDeposito(@RequestBody @Valid DadosCadastroDeposito data, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<DadosDetalhamentoDeposito> regiterDeposito(@RequestBody @Valid DadosCadastroDeposito data, UriComponentsBuilder uriBuilder){
         Deposito newDeposito = service.register(data);
-        if(newDeposito == null){
-            return ResponseEntity.badRequest().build();//tratar exception posteriormente;
-        }
-        repository.save(newDeposito);
         var uri = uriBuilder.path("deposito/register/{id}").buildAndExpand(newDeposito.getId()).toUri();
-        return ResponseEntity.created(uri).build();
+        return ResponseEntity.created(uri).body(new DadosDetalhamentoDeposito(newDeposito));
     }
 
     @PutMapping("/update")
     @Transactional
-    public ResponseEntity updateDeposito(@RequestBody @Valid DadosAtualizarDeposito data){
-        if(service.update(data)){
-            return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.badRequest().build();
+    public ResponseEntity<DadosDetalhamentoDeposito> updateDeposito(@RequestBody @Valid DadosAtualizarDeposito data){
+        Deposito deposito = service.update(data);
+        return ResponseEntity.ok().body(new DadosDetalhamentoDeposito(deposito));
     }
 
     @GetMapping("/getAll")

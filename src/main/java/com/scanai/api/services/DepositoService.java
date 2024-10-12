@@ -4,6 +4,7 @@ import com.scanai.api.domain.deposito.Deposito;
 import com.scanai.api.domain.deposito.dto.DadosCadastroDeposito;
 import com.scanai.api.domain.deposito.dto.DadosAtualizarDeposito;
 import com.scanai.api.repositories.DepositoRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,21 +15,18 @@ public class DepositoService {
     private DepositoRepository repository;
 
     public Deposito register(DadosCadastroDeposito data){
-        if(repository.findByNumerodeposito(data.numerodeposito()) != null){
-            return null;
-        }
         Deposito newDeposito = new Deposito(data.tipodeposito(), data.numerodeposito());
+        repository.save(newDeposito);
         return newDeposito;
     }
 
-    public Boolean update(DadosAtualizarDeposito data){
-        Deposito deposito = repository.findByNumerodeposito(data.numeroNovo());
-        if(deposito != null){
-            return false;
+    public Deposito update(DadosAtualizarDeposito data){
+        Deposito deposito = repository.findByNumerodeposito(data.numeroAtual());
+        if(deposito == null){
+            throw new EntityNotFoundException("Deposito: " + data.numeroAtual() + " Não Encontrado");
         }
-        Deposito deposito1 = repository.findByNumerodeposito(data.numeroAtual());
-        deposito1.setNumerodeposito(data.numeroNovo());
-        return true;
+        deposito.setNumerodeposito(data.numeroNovo());
+        return deposito;
     }
 
     public void softDelete(Deposito deposito) {

@@ -55,11 +55,4 @@ public class RotuloController {
         return ResponseEntity.noContent().build();
     }
 
-    @Transactional
-    @DeleteMapping("/softDelete/{id}")
-    public ResponseEntity<?> softDelete(@PathVariable Long id){
-        rotuloService.softDelete(id);
-        return ResponseEntity.noContent().build();
-    }
-
 }

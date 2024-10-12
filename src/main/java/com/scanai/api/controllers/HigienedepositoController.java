@@ -28,13 +28,13 @@ public class HigienedepositoController {
     @Transactional
     public ResponseEntity newHigienedeposito(@RequestBody @Valid DadosCadastroHigieneDeposito data, UriComponentsBuilder uriBuilder){
         Higienedeposito newHigienedeposito = service.register(data);
-        repository.save(newHigienedeposito);
-        var uri = uriBuilder.path("deposito/register/{id}").buildAndExpand(newHigienedeposito.getId()).toUri();
+        var uri = uriBuilder.path("higienedeposito/register/{id}").buildAndExpand(newHigienedeposito.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 
     @GetMapping("/listByFk/{fk}")
     public ResponseEntity<List<DadosListagemHigieneDeposito>> listHigienedeposito(@PathVariable Long fk){
+
         var lista = repository.findAllByFkdeposito(fk).stream().map(DadosListagemHigieneDeposito::new).toList();
         return ResponseEntity.ok(lista);
     }

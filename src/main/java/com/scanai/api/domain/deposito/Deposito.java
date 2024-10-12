@@ -25,4 +25,5 @@ public class Deposito {
         this.numerodeposito = numerodeposito;
         this.valid = true; //define sempre ativo ao criar o objeto;
     }
+
 }

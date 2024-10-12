@@ -13,6 +13,8 @@ public class HigienedepositoService {
     HigienedepositoRepository repository;
 
     public Higienedeposito register(DadosCadastroHigieneDeposito data){
-        return new Higienedeposito(data.datahigiene(), data.fkdeposito());
+        Higienedeposito newHigienedeposito = new Higienedeposito(data.datahigiene(), data.fkdeposito());
+        repository.save(newHigienedeposito);
+        return newHigienedeposito;
     }
 }

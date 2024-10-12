@@ -31,7 +31,8 @@ public class RotuloService {
         return repository.getReferenceById(id);
 
     }
-@Transactional
+
+    @Transactional
     public void hardDelete(Long id){
         repository.deleteById(id);
 
@@ -40,13 +41,7 @@ public class RotuloService {
     @Transactional
     public DadosDetalhamentoRotulo update(DadosAtualizarRotulo dados) {
         var rotulo = getElement(dados.id());
-        rotulo.atualizar(dados);
+        rotulo.update(dados);
         return new DadosDetalhamentoRotulo(rotulo);
-    }
-
-    @Transactional
-    public void softDelete(Long id) {
-        var rotulo = repository.getReferenceById(id);
-        rotulo.inativar();
     }
 }
