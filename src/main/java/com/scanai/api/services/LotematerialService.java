@@ -14,8 +14,9 @@ public class LotematerialService {
 
     @Transactional
     public Lotematerial register(DadosCadastroLoteMaterial dados){
-
-        return repository.save(new Lotematerial(dados));
+        Lotematerial newLotematerial = new Lotematerial(dados);
+        repository.save(newLotematerial);
+        return newLotematerial;
     }
 
     public Lotematerial getElement(Long id) {

@@ -2,6 +2,7 @@ package com.scanai.api.controllers;
 
 import com.scanai.api.domain.higienedeposito.Higienedeposito;
 import com.scanai.api.domain.higienedeposito.dto.DadosCadastroHigieneDeposito;
+import com.scanai.api.domain.higienedeposito.dto.DadosDetalhamentoHigieneDeposito;
 import com.scanai.api.domain.higienedeposito.dto.DadosListagemHigieneDeposito;
 import com.scanai.api.repositories.HigienedepositoRepository;
 import com.scanai.api.services.HigienedepositoService;
@@ -26,10 +27,10 @@ public class HigienedepositoController {
 
     @PostMapping("/register")
     @Transactional
-    public ResponseEntity newHigienedeposito(@RequestBody @Valid DadosCadastroHigieneDeposito data, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<DadosDetalhamentoHigieneDeposito> newHigienedeposito(@RequestBody @Valid DadosCadastroHigieneDeposito data, UriComponentsBuilder uriBuilder){
         Higienedeposito newHigienedeposito = service.register(data);
         var uri = uriBuilder.path("higienedeposito/register/{id}").buildAndExpand(newHigienedeposito.getId()).toUri();
-        return ResponseEntity.created(uri).build();
+        return ResponseEntity.created(uri).body(new DadosDetalhamentoHigieneDeposito(newHigienedeposito));
     }
 
     @GetMapping("/listByFk/{fk}")
@@ -41,7 +42,7 @@ public class HigienedepositoController {
 
     @DeleteMapping("/hardDelete/{id}")
     @Transactional
-    public ResponseEntity deleteHigienedeposito(@PathVariable Long id){
+    public ResponseEntity<?> deleteHigienedeposito(@PathVariable Long id){
         repository.deleteById(id);
         return ResponseEntity.ok().build();
     }

@@ -4,7 +4,7 @@ import com.scanai.api.domain.depositopedecuba.Depositopedecuba;
 
 import java.time.LocalDate;
 
-public record DadosDetalhamentoDepositoPeDeCuba(Long id, Long fkmostro, Long fkdeposito, LocalDate datainicio, Long fkfuncionario) {
+public record DadosDetalhamentoDepositoPeDeCuba(Long id, Long fkpedecuba, Long fkdeposito, LocalDate datainicio, Long fkfuncionario) {
     public DadosDetalhamentoDepositoPeDeCuba(Depositopedecuba depositopedecuba){
         this(
                 depositopedecuba.getId(),

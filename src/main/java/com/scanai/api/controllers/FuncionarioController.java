@@ -21,14 +21,14 @@ public class FuncionarioController {
 
     @PutMapping("/updatePassword")
     @Transactional
-    public ResponseEntity updatePassword(@RequestBody @Valid ResetPasswordDTO data){
+    public ResponseEntity<?> updatePassword(@RequestBody @Valid ResetPasswordDTO data){
         service.resetPassword(data);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/hardDelete/{id}")
     @Transactional
-    public ResponseEntity delete(@PathVariable Long id){
+    public ResponseEntity<?> delete(@PathVariable Long id){
         repository.deleteById(id);
         return ResponseEntity.ok().build();
     }

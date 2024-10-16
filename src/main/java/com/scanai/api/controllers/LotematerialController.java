@@ -1,6 +1,7 @@
 package com.scanai.api.controllers;
 
 import com.scanai.api.domain.lotematerial.Lotematerial;
+import com.scanai.api.domain.lotematerial.dto.DadosDetalhamentoLoteMaterial;
 import com.scanai.api.domain.lotematerial.dto.DadosListagemLoteMaterial;
 import com.scanai.api.domain.lotematerial.dto.DadosCadastroLoteMaterial;
 import com.scanai.api.repositories.LotematerialRepository;
@@ -24,11 +25,10 @@ public class LotematerialController {
     private LotematerialService service;
 
     @PostMapping("/register")
-    public ResponseEntity regiterLotematerial(@RequestBody @Valid DadosCadastroLoteMaterial data, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<DadosDetalhamentoLoteMaterial> regiterLotematerial(@RequestBody @Valid DadosCadastroLoteMaterial data, UriComponentsBuilder uriBuilder){
         Lotematerial newLotematerial = service.register(data);
-        repository.save(newLotematerial);
         var uri = uriBuilder.path("lotematerial/register/{id}").buildAndExpand(newLotematerial.getId()).toUri();
-        return ResponseEntity.created(uri).build();
+        return ResponseEntity.created(uri).body(new DadosDetalhamentoLoteMaterial(newLotematerial));
     }
 
     @GetMapping("/listByFk/{fk}")

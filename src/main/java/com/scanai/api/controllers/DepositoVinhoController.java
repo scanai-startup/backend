@@ -2,6 +2,7 @@ package com.scanai.api.controllers;
 
 import com.scanai.api.domain.depositovinho.Depositovinho;
 import com.scanai.api.domain.depositovinho.dto.DadosCadastroDepositoVinho;
+import com.scanai.api.domain.depositovinho.dto.DadosDetalhamentoDepositoVinho;
 import com.scanai.api.repositories.DepositoVinhoRepository;
 import com.scanai.api.services.DepositoVinhoService;
 import jakarta.transaction.Transactional;
@@ -26,10 +27,9 @@ public class DepositoVinhoController {
 
     @PostMapping("/register")
     @Transactional
-    public ResponseEntity newDepositovinho(@RequestBody @Valid DadosCadastroDepositoVinho data, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<DadosDetalhamentoDepositoVinho> newDepositovinho(@RequestBody @Valid DadosCadastroDepositoVinho data, UriComponentsBuilder uriBuilder){
         Depositovinho newDepositovinho = service.register(data);
-        repository.save(newDepositovinho);
         var uri = uriBuilder.path("depositovinho/register/{id}").buildAndExpand(newDepositovinho.getId()).toUri();
-        return ResponseEntity.created(uri).build();
+        return ResponseEntity.created(uri).body(new DadosDetalhamentoDepositoVinho(newDepositovinho));
     }
 }
