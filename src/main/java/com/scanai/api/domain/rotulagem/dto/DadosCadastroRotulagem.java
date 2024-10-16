@@ -2,6 +2,7 @@ package com.scanai.api.domain.rotulagem.dto;
 
 import jakarta.validation.constraints.NotNull;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public record DadosCadastroRotulagem(@NotNull Long fkEnchimento,
@@ -9,8 +10,8 @@ public record DadosCadastroRotulagem(@NotNull Long fkEnchimento,
                                      @NotNull Long fkRespEmbalamento,
                                      @NotNull Long fkRespProducao,
 
-                                     @NotNull Date dataInicioRotulagem,
-                                     Date dataFimRotulagem,// Pode ser nulo, caso a rotulagem ainda esteja em andamento
+                                     @NotNull LocalDate dataInicioRotulagem,
+                                     LocalDate dataFimRotulagem,// Pode ser nulo, caso a rotulagem ainda esteja em andamento
 
                                      @NotNull Boolean funcionamentoLavadoraRotulagem,
                                      @NotNull Boolean funcionamentoSecadoraRotulagem,

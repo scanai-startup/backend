@@ -4,6 +4,7 @@ import com.scanai.api.domain.rotulagem.dto.DadosCadastroRotulagem;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Table(name = "tb_rotulagem")
@@ -24,8 +25,8 @@ public class Rotulagem {
     private Long fkRespEmbalamento;
     private Long fkRespProducao;
 
-    private Date dataInicioRotulagem;
-    private Date dataFimRotulagem;
+    private LocalDate dataInicioRotulagem;
+    private LocalDate dataFimRotulagem;
 
     private Boolean funcionamentoLavadoraRotulagem;
     private Boolean funcionamentoSecadoraRotulagem;

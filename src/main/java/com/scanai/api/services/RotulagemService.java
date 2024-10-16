@@ -15,7 +15,9 @@ public class RotulagemService {
 
     @Transactional
     public Rotulagem register(DadosCadastroRotulagem dados){
-        return repository.save(new Rotulagem(dados));
+        Rotulagem newRotulagem = new Rotulagem(dados);
+        repository.save(newRotulagem);
+        return newRotulagem;
     }
 
 }
