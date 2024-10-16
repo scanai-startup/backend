@@ -2,6 +2,7 @@ package com.scanai.api.controllers;
 
 import com.scanai.api.domain.analiseprefermentacao.Analiseprefermentacao;
 import com.scanai.api.domain.analiseprefermentacao.dto.DadosCadastroAnalisePreFermetacao;
+import com.scanai.api.domain.analiseprefermentacao.dto.DadosDetalhamentoAnalisePreFermentacao;
 import com.scanai.api.repositories.AnaliseprefermentacaoRepository;
 import com.scanai.api.services.AnaliseprefermentacaoService;
 import jakarta.validation.Valid;
@@ -21,10 +22,9 @@ public class AnalisePrefermentacaoController {
     private AnaliseprefermentacaoService service;
 
     @PostMapping("/register")
-    public ResponseEntity regiterAnaliseprefermentacao(@RequestBody @Valid DadosCadastroAnalisePreFermetacao data, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<DadosDetalhamentoAnalisePreFermentacao> regiterAnaliseprefermentacao(@RequestBody @Valid DadosCadastroAnalisePreFermetacao data, UriComponentsBuilder uriBuilder){
         Analiseprefermentacao newAnaliseprefermentacao = service.register(data);
-        repository.save(newAnaliseprefermentacao);
         var uri = uriBuilder.path("analiseprefermentacao/register/{id}").buildAndExpand(newAnaliseprefermentacao.getId()).toUri();
-        return ResponseEntity.created(uri).build();
+        return ResponseEntity.created(uri).body(new DadosDetalhamentoAnalisePreFermentacao(newAnaliseprefermentacao));
     }
 }

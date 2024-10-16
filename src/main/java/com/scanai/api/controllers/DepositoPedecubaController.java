@@ -1,7 +1,9 @@
 package com.scanai.api.controllers;
 
+import com.scanai.api.domain.analisediariamostro.dto.DadosDetalhamentoAnaliseDiariaMostro;
 import com.scanai.api.domain.depositopedecuba.Depositopedecuba;
 import com.scanai.api.domain.depositopedecuba.dto.DadosCadastroDepositoPeDeCuba;
+import com.scanai.api.domain.depositopedecuba.dto.DadosDetalhamentoDepositoPeDeCuba;
 import com.scanai.api.repositories.DepositoPedecubaRepository;
 import com.scanai.api.services.DepositoPedecubaService;
 import jakarta.transaction.Transactional;
@@ -26,10 +28,9 @@ public class DepositoPedecubaController {
 
     @PostMapping("/register")
     @Transactional
-    public ResponseEntity newDepositopedecuba(@RequestBody @Valid DadosCadastroDepositoPeDeCuba data, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<DadosDetalhamentoDepositoPeDeCuba> newDepositopedecuba(@RequestBody @Valid DadosCadastroDepositoPeDeCuba data, UriComponentsBuilder uriBuilder){
         Depositopedecuba newDepositopedecuba = service.register(data);
-        repository.save(newDepositopedecuba);
         var uri = uriBuilder.path("depositopedecuba/register/{id}").buildAndExpand(newDepositopedecuba.getId()).toUri();
-        return ResponseEntity.created(uri).build();
+        return ResponseEntity.created(uri).body(new DadosDetalhamentoDepositoPeDeCuba(newDepositopedecuba));
     }
 }
