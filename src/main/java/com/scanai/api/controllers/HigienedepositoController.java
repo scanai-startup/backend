@@ -27,14 +27,14 @@ public class HigienedepositoController {
 
     @PostMapping("/register")
     @Transactional
-    public ResponseEntity<DadosDetalhamentoHigieneDeposito> newHigienedeposito(@RequestBody @Valid DadosCadastroHigieneDeposito data, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<DadosDetalhamentoHigieneDeposito> register(@RequestBody @Valid DadosCadastroHigieneDeposito data, UriComponentsBuilder uriBuilder){
         Higienedeposito newHigienedeposito = service.register(data);
         var uri = uriBuilder.path("higienedeposito/register/{id}").buildAndExpand(newHigienedeposito.getId()).toUri();
         return ResponseEntity.created(uri).body(new DadosDetalhamentoHigieneDeposito(newHigienedeposito));
     }
 
     @GetMapping("/listByFk/{fk}")
-    public ResponseEntity<List<DadosListagemHigieneDeposito>> listHigienedeposito(@PathVariable Long fk){
+    public ResponseEntity<List<DadosListagemHigieneDeposito>> list(@PathVariable Long fk){
 
         var lista = repository.findAllByFkdeposito(fk).stream().map(DadosListagemHigieneDeposito::new).toList();
         return ResponseEntity.ok(lista);
@@ -42,7 +42,7 @@ public class HigienedepositoController {
 
     @DeleteMapping("/hardDelete/{id}")
     @Transactional
-    public ResponseEntity<?> deleteHigienedeposito(@PathVariable Long id){
+    public ResponseEntity<?> hardDelete(@PathVariable Long id){
         repository.deleteById(id);
         return ResponseEntity.ok().build();
     }

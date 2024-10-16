@@ -1,5 +1,6 @@
 package com.scanai.api.domain.produtoadcvinho;
 
+import com.scanai.api.domain.produtoadcvinho.dto.DadosCadastroProdutoAdicionadoVinho;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,9 +22,9 @@ public class ProdutoAdicionadovinho {
     private String nome;
     private int quantidade;
 
-    public ProdutoAdicionadovinho(Long fkvinho, String nome, int quantidade){
-        this.fkvinho = fkvinho;
-        this.nome = nome;
-        this.quantidade = quantidade;
+    public ProdutoAdicionadovinho(DadosCadastroProdutoAdicionadoVinho dados){
+        this.fkvinho = dados.fkvinho();
+        this.nome = dados.nome();
+        this.quantidade = dados.quantidade();
     }
 }

@@ -28,7 +28,7 @@ public class DepositoController {
     private DepositoService service;
 
     @PostMapping("/register")
-    public ResponseEntity<DadosDetalhamentoDeposito> regiterDeposito(@RequestBody @Valid DadosCadastroDeposito data, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<DadosDetalhamentoDeposito> register(@RequestBody @Valid DadosCadastroDeposito data, UriComponentsBuilder uriBuilder){
         Deposito newDeposito = service.register(data);
         var uri = uriBuilder.path("deposito/register/{id}").buildAndExpand(newDeposito.getId()).toUri();
         return ResponseEntity.created(uri).body(new DadosDetalhamentoDeposito(newDeposito));
@@ -36,26 +36,26 @@ public class DepositoController {
 
     @PutMapping("/update")
     @Transactional
-    public ResponseEntity<DadosDetalhamentoDeposito> updateDeposito(@RequestBody @Valid DadosAtualizarDeposito data){
+    public ResponseEntity<DadosDetalhamentoDeposito> update(@RequestBody @Valid DadosAtualizarDeposito data){
         Deposito deposito = service.update(data);
         return ResponseEntity.ok().body(new DadosDetalhamentoDeposito(deposito));
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<DadosListagemDeposito>> listDepositos(){
+    public ResponseEntity<List<DadosListagemDeposito>> getAll(){
         return ResponseEntity.ok().body(repository.findAllByValidTrue().stream().map(DadosListagemDeposito::new).toList());
     }
 
     @PutMapping("/softDelete/{id}")
     @Transactional
-    public ResponseEntity<?> invalidateDeposito(@PathVariable Long id){
+    public ResponseEntity<?> softDelete(@PathVariable Long id){
         service.softDelete(repository.getReferenceById(id));
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/activate/{id}")
     @Transactional
-    public ResponseEntity<?> validateDeposito(@PathVariable Long id){
+    public ResponseEntity<?> hardDelete(@PathVariable Long id){
         service.activate(repository.getReferenceById(id));
         return ResponseEntity.ok().build();
     }

@@ -27,7 +27,7 @@ public class DepositoMostroController {
 
     @PostMapping("/register")
     @Transactional
-    public ResponseEntity<DadosDetalhamentoDepositoMostro> newDepositomostro(@RequestBody @Valid DadosCadastroDepositoMostro data, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<DadosDetalhamentoDepositoMostro> register(@RequestBody @Valid DadosCadastroDepositoMostro data, UriComponentsBuilder uriBuilder){
         Depositomostro newDepositomostro = service.register(data);
         var uri = uriBuilder.path("depositomostro/register/{id}").buildAndExpand(newDepositomostro.getId()).toUri();
         return ResponseEntity.created(uri).body(new DadosDetalhamentoDepositoMostro(newDepositomostro));

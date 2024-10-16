@@ -21,7 +21,7 @@ public class FuncionarioController {
 
     @PutMapping("/updatePassword")
     @Transactional
-    public ResponseEntity<?> updatePassword(@RequestBody @Valid ResetPasswordDTO data){
+    public ResponseEntity<?> update(@RequestBody @Valid ResetPasswordDTO data){
         service.resetPassword(data);
         return ResponseEntity.ok().build();
     }

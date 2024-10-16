@@ -16,8 +16,9 @@ public class MaterialService {
 
     @Transactional
     public Material register(DadosCadastroMaterial dados){
-
-        return repository.save(new Material(dados));
+        Material newMaterial = new Material(dados);
+        repository.save(newMaterial);
+        return newMaterial;
     }
 
     public Material getElement(Long id) {

@@ -1,6 +1,7 @@
 package com.scanai.api.domain.pedecuba;
 
 
+import com.scanai.api.domain.pedecuba.dto.DadosCadastroPeDeCuba;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,10 +26,11 @@ public class Pedecuba {
     private int volume;
     private boolean valid;
 
-    public Pedecuba(Long fkfuncionario, LocalDate datainicio, int volume){
-        this.fkfuncionario = fkfuncionario;
-        this.datainicio = datainicio;
-        this.volume = volume;
+    public Pedecuba(DadosCadastroPeDeCuba dados){
+        this.fkfuncionario = dados.fkfuncionario();
+        this.datainicio = dados.datainicio();
+        this.volume = dados.volume();
         this.valid = true;
     }
+
 }

@@ -27,27 +27,27 @@ public class MostroController {
     private MostroService service;
 
     @PostMapping("/register")
-    public ResponseEntity<DadosDetalhamentoMostro> regiterMostro(@RequestBody @Valid DadosCadastroMostro data, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<DadosDetalhamentoMostro> register(@RequestBody @Valid DadosCadastroMostro data, UriComponentsBuilder uriBuilder){
         Mostro newMostro = service.register(data);
         var uri = uriBuilder.path("mostro/register/{id}").buildAndExpand(newMostro.getId()).toUri();
         return ResponseEntity.created(uri).body(new DadosDetalhamentoMostro(newMostro));
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<DadosListagemMostro>> listMostros(){
+    public ResponseEntity<List<DadosListagemMostro>> getAll(){
         return ResponseEntity.ok().body(repository.findAllByValidTrue().stream().map(DadosListagemMostro::new).toList());
     }
 
     @PutMapping("/softDelete/{id}")
     @Transactional
-    public ResponseEntity<?> invalidateMostro(@PathVariable Long id){
+    public ResponseEntity<?> softDelete(@PathVariable Long id){
         service.softDelete(repository.getReferenceById(id));
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/activate/{id}")
     @Transactional
-    public ResponseEntity<?> validateMostro(@PathVariable Long id){
+    public ResponseEntity<?> activate(@PathVariable Long id){
         service.softDelete(repository.getReferenceById(id));
         return ResponseEntity.ok().build();
     }
