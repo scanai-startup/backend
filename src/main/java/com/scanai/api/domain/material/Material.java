@@ -18,11 +18,9 @@ public class Material {
     private Long id;
 
     private String nome;
-    private int quantidade;
 
     public Material(DadosCadastroMaterial dados){
         this.nome = dados.nome();
-        this.quantidade = dados.quantidade();
     }
 
 }
