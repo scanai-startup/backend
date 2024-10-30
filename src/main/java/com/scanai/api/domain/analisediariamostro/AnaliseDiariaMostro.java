@@ -3,10 +3,7 @@ package com.scanai.api.domain.analisediariamostro;
 import com.scanai.api.domain.analisediariamostro.dto.DadosAtualizarAnaliseDiariaMostro;
 import com.scanai.api.domain.analisediariamostro.dto.DadosCadastroAnaliseDiariaMostro;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
@@ -16,6 +13,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class AnaliseDiariaMostro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

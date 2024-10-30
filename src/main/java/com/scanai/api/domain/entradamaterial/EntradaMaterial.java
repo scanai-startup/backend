@@ -2,10 +2,7 @@ package com.scanai.api.domain.entradamaterial;
 
 import com.scanai.api.domain.entradamaterial.dto.DadosCadastroEntradaMaterial;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
@@ -15,6 +12,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class EntradaMaterial {
 
     @Id
