@@ -25,7 +25,7 @@ public class UvaController {
     public ResponseEntity<DadosDetalhamentoUva> register(@RequestBody @Valid DadosCadastroUva dados, UriComponentsBuilder builder){ //DadosCadastroRemedio é um DTO construido nu
         var uva = uvaService.register(dados); // função do proprio jpa
         // o DTO passado como argumento é lido no construtor, que retorna os atributos
-        var uri = builder.path("/remessaUva/{id}").buildAndExpand(uva.getId()).toUri();
+        var uri = builder.path("/uva/{id}").buildAndExpand(uva.getId()).toUri();
         return  ResponseEntity.created(uri).body(new DadosDetalhamentoUva(uva));
     }
 
