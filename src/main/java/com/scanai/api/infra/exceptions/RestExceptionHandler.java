@@ -15,6 +15,16 @@ import java.time.LocalDateTime;
 public class RestExceptionHandler {
 
 
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ApiErrorResponse> constraintViolationSql(Exception ex){
+        ApiErrorResponse response = new ApiErrorResponse(
+                ex.getMessage(),
+                "Internal Server Error",
+                LocalDateTime.now()
+        );
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
     public ResponseEntity<ApiErrorResponse> constraintViolationSql(SQLIntegrityConstraintViolationException ex){
         ApiErrorResponse response = new ApiErrorResponse(
