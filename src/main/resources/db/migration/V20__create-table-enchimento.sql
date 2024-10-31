@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS tb_enchimento (
   `datafimdespaletizacao` DATETIME NOT NULL,
   `conformeosdespaletizacao` TINYINT NOT NULL,
   `ausenciapoeiradespaletizacao` TINYINT NOT NULL,
-  `quantidadegarrafasdespaletizacao` TINYINT NOT NULL,
+  `quantidadegarrafasdespaletizacao` INT NOT NULL,
   `coracordodespaletizacao` TINYINT NOT NULL,
   `datainicioenxaguadora` DATETIME NOT NULL,
   `datafimenxaguadora` DATETIME NOT NULL,

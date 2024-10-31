@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS tb_analise_pre_fermentacao (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `fkvinho` INT NOT NULL,
   `atotal` FLOAT NOT NULL,
   `acucarRed` FLOAT NOT NULL,
