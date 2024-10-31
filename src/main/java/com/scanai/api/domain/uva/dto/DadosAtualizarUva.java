@@ -1,5 +1,7 @@
 package com.scanai.api.domain.uva.dto;
 
+import jakarta.validation.constraints.NotNull;
+
 import java.util.Date;
 
 public record DadosAtualizarUva(
@@ -13,6 +15,7 @@ public record DadosAtualizarUva(
         String tipodevinho,
         String casta,
         Long fkviticultor,
-        Long fkfuncionario
+        Long fkfuncionario,
+        Long fkmostro
 ) {
 }

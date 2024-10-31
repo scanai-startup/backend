@@ -31,6 +31,7 @@ public class Uva {
 
     private Long fkviticultor;
     private Long fkfuncionario;
+    private Long fkmostro;
 
 
     public Uva(DadosCadastroUva dados) {
@@ -45,6 +46,7 @@ public class Uva {
         this.casta = dados.casta();
         this.fkviticultor = dados.fkviticultor();
         this.fkfuncionario = dados.fkfuncionario();
+        this.fkmostro = dados.fkmostro();
     }
 
     public void update(DadosAtualizarUva dados){
@@ -58,6 +60,7 @@ public class Uva {
         this.datachegada = dados.datachegada();
         this.fkviticultor = dados.fkviticultor();
         this.fkfuncionario = dados.fkfuncionario();
+        this.fkmostro = dados.fkmostro();
     }
 
     public void softDelete() {

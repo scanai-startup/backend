@@ -16,7 +16,8 @@ public record DadosListagemUva(
         String tipovinho,
         String casta,
         Long fkviticultor,
-        Long fkfuncionario
+        Long fkfuncionario,
+        Long fkmostro
 ) {
     public DadosListagemUva(Uva uva){
         this(
@@ -31,7 +32,8 @@ public record DadosListagemUva(
             uva.getTipovinho(),
             uva.getCasta(),
             uva.getFkviticultor(),
-            uva.getFkfuncionario()
+            uva.getFkfuncionario(),
+                uva.getFkmostro()
         );
     }
 }

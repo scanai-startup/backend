@@ -1,6 +1,7 @@
 package com.scanai.api.domain.uva.dto;
 
 import com.scanai.api.domain.uva.Uva;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Date;
 
@@ -15,7 +16,8 @@ public record DadosDetalhamentoUva(
     String tipodevinho,
     String casta,
     Long fkviticultor,
-    Long fkfuncionario
+    Long fkfuncionario,
+    Long fkmostro
 ) {
 
     public DadosDetalhamentoUva(Uva uva) {
@@ -30,7 +32,8 @@ public record DadosDetalhamentoUva(
             uva.getTipovinho(),
             uva.getCasta(),
             uva.getFkviticultor(),
-            uva.getFkfuncionario()
+            uva.getFkfuncionario(),
+                uva.getFkmostro()
         );
     }
 
