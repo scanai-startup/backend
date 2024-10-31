@@ -28,6 +28,16 @@ public class RestExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(JWTVerificationException.class)
+    public ResponseEntity<ApiErrorResponse> invalidToken(JWTVerificationException ex){
+        ApiErrorResponse response = new ApiErrorResponse(
+                ex.getMessage(),
+                "Invalid Token",
+                LocalDateTime.now()
+        );
+        return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+    }
+
     @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
     public ResponseEntity<ApiErrorResponse> constraintViolationSql(SQLIntegrityConstraintViolationException ex){
         ApiErrorResponse response = new ApiErrorResponse(
