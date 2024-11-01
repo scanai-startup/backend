@@ -47,9 +47,6 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<DadosDetalhamentoFuncionario> register(@RequestBody @Valid RegisterDTO data, UriComponentsBuilder uriBuilder){
-        if(this.repository.findByMatricula(data.matricula()) != null){
-            return ResponseEntity.badRequest().build();
-        }
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.senha());
         Funcionario newFuncionario = new Funcionario(data.matricula(), encryptedPassword, data.role(), data.nome(), data.email());
         var uri = uriBuilder.path("auth/register/{id}").buildAndExpand(newFuncionario.getId()).toUri();
