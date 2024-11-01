@@ -1,7 +1,9 @@
 package com.scanai.api.controllers;
 
+import com.scanai.api.domain.analiseprefermentacao.dto.DadosDetalhamentoAnalisePreFermentacao;
 import com.scanai.api.domain.funcionario.dto.AuthenticationDTO;
 import com.scanai.api.domain.funcionario.Funcionario;
+import com.scanai.api.domain.funcionario.dto.DadosDetalhamentoFuncionario;
 import com.scanai.api.domain.funcionario.dto.LoginResponseDTO;
 import com.scanai.api.domain.funcionario.dto.RegisterDTO;
 import com.scanai.api.infra.security.TokenService;
@@ -44,7 +46,7 @@ public class AuthenticationController {
 
 
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody @Valid RegisterDTO data, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<DadosDetalhamentoFuncionario> register(@RequestBody @Valid RegisterDTO data, UriComponentsBuilder uriBuilder){
         if(this.repository.findByMatricula(data.matricula()) != null){
             return ResponseEntity.badRequest().build();
         }
@@ -54,6 +56,6 @@ public class AuthenticationController {
 
         this.repository.save(newFuncionario);
 
-        return ResponseEntity.created(uri).build();
+        return ResponseEntity.created(uri).body(new DadosDetalhamentoFuncionario(newFuncionario));
     }
 }

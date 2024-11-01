@@ -60,7 +60,7 @@ public class SecurityFilter extends OncePerRequestFilter {
     private void setErrorResponse(int status, HttpServletResponse response, String message) throws IOException {
         response.setStatus(status);
         response.setContentType("application/json");
-        Map<String, Object> errorResponse = new HashMap<>();errorResponse.put("status", status);
+        Map<String, Object> errorResponse = new HashMap<>();
         errorResponse.put("message", message);
         ObjectMapper mapper = new ObjectMapper();
         response.getWriter().write(mapper.writeValueAsString(errorResponse));
