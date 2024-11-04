@@ -3,10 +3,13 @@ package com.scanai.api.services;
 import com.scanai.api.domain.deposito.Deposito;
 import com.scanai.api.domain.deposito.dto.DadosCadastroDeposito;
 import com.scanai.api.domain.deposito.dto.DadosAtualizarDeposito;
+import com.scanai.api.domain.deposito.dto.DadosInformacoesDepositos;
 import com.scanai.api.repositories.DepositoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class DepositoService {
@@ -35,5 +38,9 @@ public class DepositoService {
 
     public void activate(Deposito deposito) {
         deposito.setValid(true);
+    }
+
+    public List<DadosInformacoesDepositos> findDepositosComAnalises(){
+        return repository.findDepositosComAnalises();
     }
 }
