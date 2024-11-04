@@ -15,10 +15,10 @@ public interface DepositoRepository extends JpaRepository<Deposito, Long> {
 
     @Query(value = """
     SELECT d.numerodeposito AS deposito, 
-           adm.temperatura AS tempMostro, adm.densidade AS densMostro,
-           adp.temperatura AS tempPedecuba, adp.densidade AS densPedecuba,
-           adv.temperatura AS tempVinho, adv.densidade AS densVinho,
-           adv.pressao AS pressVinho
+           ROUND(adm.temperatura, 2) AS tempMostro, ROUND(adm.densidade, 2) AS densMostro,
+           ROUND(adp.temperatura, 2) AS tempPedecuba, ROUND(adp.densidade, 2) AS densPedecuba,
+           ROUND(adv.temperatura, 2) AS tempVinho, ROUND(adv.densidade, 2) AS densVinho,
+           ROUND(adv.pressao, 2) AS pressVinho
     FROM tb_deposito AS d
     INNER JOIN tb_deposito_mostro AS dm ON d.id = dm.fkdeposito
     INNER JOIN tb_mostro AS m ON dm.fkmostro = m.id
