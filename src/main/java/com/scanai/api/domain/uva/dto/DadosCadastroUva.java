@@ -11,6 +11,8 @@ public record DadosCadastroUva(
         @NotNull
         int numerotalao,
         @NotNull
+        int qttcaixa,
+        @NotNull
         int sanidade,
         @NotNull
         int peso,

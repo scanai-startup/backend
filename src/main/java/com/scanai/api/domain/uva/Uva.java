@@ -14,10 +14,12 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-
 public class Uva {
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private int qttcaixa;
 
     private boolean valid;
     private Date datachegada;
@@ -35,9 +37,11 @@ public class Uva {
 
 
     public Uva(DadosCadastroUva dados) {
+        this.qttcaixa = dados.qttcaixa();
         this.valid = true;
         this.datachegada = dados.datachegada();
         this.numerotalao = dados.numerotalao();
+        this.qttcaixa = dados.qttcaixa();
         this.sanidade = dados.sanidade();
         this.peso = dados.peso();
         this.so2 = dados.so2();
@@ -52,12 +56,12 @@ public class Uva {
     public void update(DadosAtualizarUva dados){
         this.datachegada = dados.datachegada();
         this.numerotalao = dados.numerotalao();
+        this.qttcaixa = dados.qttcaixa();
         this.sanidade = dados.sanidade();
         this.peso = dados.peso();
         this.so2 = dados.so2();
         this.numerolote = dados.numerolote();
         this.tipovinho = dados.tipodevinho();
-        this.datachegada = dados.datachegada();
         this.fkviticultor = dados.fkviticultor();
         this.fkfuncionario = dados.fkfuncionario();
         this.fkmostro = dados.fkmostro();
