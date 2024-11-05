@@ -23,7 +23,7 @@ public class DepositoMostroController {
     private DepositoMostroService service;
 
     @Autowired
-    private DepositoMostroRepository repository;
+    private DepositoMostroRepository depositoMostroRepository;
 
     @PostMapping("/register")
     @Transactional

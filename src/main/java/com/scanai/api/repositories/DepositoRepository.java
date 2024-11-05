@@ -4,6 +4,7 @@ import com.scanai.api.domain.deposito.Deposito;
 import com.scanai.api.domain.deposito.dto.DadosInformacoesDepositos;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -54,4 +55,23 @@ public interface DepositoRepository extends JpaRepository<Deposito, Long> {
     ORDER BY deposito
     """, nativeQuery = true)
     public List<DadosInformacoesDepositos> findDepositosComAnalises();
+
+    @Query("""
+            SELECT COUNT(*) > 0
+            FROM tb_deposito_mostro as dm WHERE dm.fkdeposito = 1 AND dm.datafim IS NULL
+            """)
+    boolean existsMostroAtivo(@Param("depositoId") Long depositoId);
+
+    @Query("""
+            SELECT COUNT(*) > 0
+            FROM tb_deposito_pedecuba as dp WHERE dp.fkdeposito = :depositoId AND dp.datafim IS NULL
+            """)
+    boolean existsPeDeCubaAtivo(@Param("depositoId") Long depositoId);
+
+    @Query("""
+            SELECT COUNT(*) > 0
+            FROM tb_deposito_vinho as dv WHERE dv.fkdeposito = :depositoId AND dv.datafim IS NULL
+            """)
+    boolean existsVinhoAtivo(@Param("depositoId") Long depositoId);
+
 }
