@@ -16,9 +16,9 @@ public interface DepositoRepository extends JpaRepository<Deposito, Long> {
     @Query(value = """
     SELECT d.numerodeposito AS deposito,
             CASE
-                       WHEN adm.temperatura IS NOT NULL THEN 'Mostro'
-                       WHEN adp.temperatura IS NOT NULL THEN 'Pé de Cuba'
-                       WHEN adv.temperatura IS NOT NULL THEN 'Vinho'
+                       WHEN dm.fkdeposito IS NOT NULL THEN 'Mostro'
+                       WHEN dp.fkdeposito IS NOT NULL THEN 'Pé de Cuba'
+                       WHEN dv.fkdeposito IS NOT NULL THEN 'Vinho'
                        ELSE 'Desconhecido'
             END AS conteudo,
         ROUND(COALESCE(adm.temperatura, adp.temperatura, adv.temperatura), 2) AS temperatura,
