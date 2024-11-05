@@ -13,7 +13,7 @@ public class AnaliseprefermentacaoService {
     AnaliseprefermentacaoRepository repository;
 
     public Analiseprefermentacao register(DadosCadastroAnalisePreFermetacao data) {
-        var newAnaliseprefermentacao = new Analiseprefermentacao(data.fkfuncionario(), data.fkvinho(), data.atotal(), data.acucarRed(), data.ph(), data.so2l(), data.ta());
+        var newAnaliseprefermentacao = new Analiseprefermentacao(data);
         repository.save(newAnaliseprefermentacao);
         return newAnaliseprefermentacao;
     }

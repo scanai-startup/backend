@@ -27,10 +27,10 @@ public interface DepositoRepository extends JpaRepository<Deposito, Long> {
     FROM tb_deposito AS d
     LEFT JOIN tb_deposito_mostro AS dm ON d.id = dm.fkdeposito AND dm.datafim IS NULL
     LEFT JOIN tb_mostro AS m ON dm.fkmostro = m.id
-    LEFT JOIN tb_analise_diaria_mostro AS adm ON adm.fkmostro = m.id     \s
+    LEFT JOIN tb_analise_diaria_mostro AS adm ON adm.fkmostro = m.id
     LEFT JOIN tb_deposito_pedecuba AS dp ON d.id = dp.fkdeposito AND dp.datafim IS NULL
     LEFT JOIN tb_pe_de_cuba AS p ON dp.fkpedecuba = p.id
-    LEFT JOIN tb_analise_diaria_pedecuba AS adp ON adp.fkpedecuba = p.id  \s
+    LEFT JOIN tb_analise_diaria_pedecuba AS adp ON adp.fkpedecuba = p.id
     LEFT JOIN tb_deposito_vinho AS dv ON d.id = dv.fkdeposito AND dv.datafim IS NULL
     LEFT JOIN tb_vinho AS v ON dv.fkvinho = v.id
     LEFT JOIN tb_analise_diaria_vinho AS adv ON adv.fkvinho = v.id
