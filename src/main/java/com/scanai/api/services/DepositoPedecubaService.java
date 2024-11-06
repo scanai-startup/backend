@@ -21,7 +21,7 @@ public class DepositoPedecubaService {
         if(depositoRepository.existsVinhoAtivo(data.fkdeposito()) || depositoRepository.existsMostroAtivo(data.fkdeposito())){
             throw new DataIntegrityViolationException("Impossível inserir, o deposito já contém outro produto ativo");
         }
-        var newDepositopedecuba = new Depositopedecuba(data.fkpedecuba(), data.fkdeposito(), data.datainicio(), data.fkfuncionario());
+        var newDepositopedecuba = new Depositopedecuba(data);
         depositoPedecubaRepository.save(newDepositopedecuba);
         return newDepositopedecuba;
     }

@@ -21,7 +21,7 @@ public class DepositoVinhoService {
         if(depositoRepository.existsVinhoAtivo(data.fkdeposito()) || depositoRepository.existsPeDeCubaAtivo(data.fkdeposito()) || depositoRepository.existsMostroAtivo(data.fkdeposito())){
             throw new DataIntegrityViolationException("Impossível inserir, o deposito já contém outro produto ativo");
         }
-        var newDepositovinho = new Depositovinho(data.fkfuncionario(), data.datainicio(), data.fkdeposito(), data.fkvinho() );
+        var newDepositovinho = new Depositovinho(data);
         depositoVinhoRepository.save(newDepositovinho);
         return newDepositovinho;
     }
