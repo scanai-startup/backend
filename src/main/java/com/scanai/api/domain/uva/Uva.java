@@ -37,11 +37,10 @@ public class Uva {
 
 
     public Uva(DadosCadastroUva dados) {
-        this.qttcaixa = dados.qttcaixa();
         this.valid = true;
+        this.qttcaixa = dados.qttcaixa();
         this.datachegada = dados.datachegada();
         this.numerotalao = dados.numerotalao();
-        this.qttcaixa = dados.qttcaixa();
         this.sanidade = dados.sanidade();
         this.peso = dados.peso();
         this.so2 = dados.so2();

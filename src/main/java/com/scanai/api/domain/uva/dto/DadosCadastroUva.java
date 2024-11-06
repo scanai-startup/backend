@@ -28,6 +28,7 @@ public record DadosCadastroUva(
         Long fkviticultor,
         @NotNull
         Long fkfuncionario,
+
         Long fkmostro
 ) {
 }

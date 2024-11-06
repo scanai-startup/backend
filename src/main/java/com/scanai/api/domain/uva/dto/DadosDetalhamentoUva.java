@@ -8,7 +8,7 @@ import java.util.Date;
 public record DadosDetalhamentoUva(
     Long id,
     Date datachegada,
-    int nuumerotalao,
+    int numerotalao,
     int qttcaixa,
     int sanidade,
     int peso,
