@@ -1,5 +1,6 @@
 package com.scanai.api.domain.analisepedecuba;
 
+import com.scanai.api.domain.analisepedecuba.dto.DadosCadastroAnalisePeDeCuba;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,12 +25,12 @@ public class Analisepedecuba {
     private LocalDate data;
     private int temperatura;
 
-    public Analisepedecuba(Long fkpedecuba, Long fkfuncionario, float densidade, LocalDate data, int temperatura){
-        this.fkpedecuba = fkpedecuba;
-        this.fkfuncionario = fkfuncionario;
-        this.densidade = densidade;
-        this.data = data;
-        this.temperatura = temperatura;
+    public Analisepedecuba(DadosCadastroAnalisePeDeCuba data){
+        this.fkpedecuba = data.fkpedecuba();
+        this.fkfuncionario = data.fkfuncionario();
+        this.densidade = data.densidade();
+        this.data = data.data();
+        this.temperatura = data.temperatura();
     }
 
 }

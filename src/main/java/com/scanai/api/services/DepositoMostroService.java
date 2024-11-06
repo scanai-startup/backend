@@ -13,7 +13,7 @@ public class DepositoMostroService {
     DepositoMostroRepository repository;
 
     public Depositomostro register(DadosCadastroDepositoMostro data) {
-        var newDepositomostro = new Depositomostro(data.fkmostro(), data.fkdeposito(), data.datainicio(), data.fkfuncionario());
+        var newDepositomostro = new Depositomostro(data);
         repository.save(newDepositomostro);
         return newDepositomostro;
     }

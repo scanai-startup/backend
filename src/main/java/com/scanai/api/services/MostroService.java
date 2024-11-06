@@ -14,7 +14,7 @@ public class MostroService {
 
 
     public Mostro register(DadosCadastroMostro data) {
-        var newMostro = new Mostro(data.fkfuncionario(), data.volume());
+        var newMostro = new Mostro(data);
         repository.save(newMostro);
         return newMostro;
     }

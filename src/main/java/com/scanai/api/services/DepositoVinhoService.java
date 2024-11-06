@@ -13,7 +13,7 @@ public class DepositoVinhoService {
     DepositoVinhoRepository repository;
 
     public Depositovinho register(DadosCadastroDepositoVinho data) {
-        var newDepositovinho = new Depositovinho(data.fkfuncionario(), data.datainicio(), data.fkdeposito(), data.fkvinho() );
+        var newDepositovinho = new Depositovinho(data);
         repository.save(newDepositovinho);
         return newDepositovinho;
     }

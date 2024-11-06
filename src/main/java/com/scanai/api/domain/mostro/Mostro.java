@@ -1,5 +1,6 @@
 package com.scanai.api.domain.mostro;
 
+import com.scanai.api.domain.mostro.dto.DadosCadastroMostro;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,9 +24,9 @@ public class Mostro {
     private int volume;
     private boolean valid;
 
-    public Mostro(Long fkfuncionario, int volume){
-        this.fkfuncionario = fkfuncionario;
-        this.volume = volume;
+    public Mostro(DadosCadastroMostro data){
+        this.fkfuncionario = data.fkfuncionario();
+        this.volume = data.volume();
         this.valid = true;
     }
 

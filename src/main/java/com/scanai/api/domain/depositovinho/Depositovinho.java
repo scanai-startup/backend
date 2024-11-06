@@ -1,5 +1,6 @@
 package com.scanai.api.domain.depositovinho;
 
+import com.scanai.api.domain.depositovinho.dto.DadosCadastroDepositoVinho;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,10 +25,10 @@ public class Depositovinho {
     private LocalDate datafim;
     private Long fkfuncionario;
 
-    public Depositovinho(Long fkfuncionario, LocalDate datainicio, Long fkdeposito, Long fkvinho) {
-        this.fkfuncionario = fkfuncionario;
-        this.datainicio = datainicio;
-        this.fkdeposito = fkdeposito;
-        this.fkvinho = fkvinho;
+    public Depositovinho(DadosCadastroDepositoVinho data) {
+        this.fkfuncionario = data.fkfuncionario();
+        this.datainicio = data.datainicio();
+        this.fkdeposito = data.fkdeposito();
+        this.fkvinho = data.fkvinho();
     }
 }

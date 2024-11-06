@@ -13,7 +13,7 @@ public class AnalisepedecubaService {
     AnalisepedecubaRepository repository;
 
     public Analisepedecuba register(DadosCadastroAnalisePeDeCuba data) {
-        var newAnalisepedecuba = new Analisepedecuba(data.fkpedecuba(), data.fkfuncionario(), data.densidade(), data.data(), data.temperatura());
+        var newAnalisepedecuba = new Analisepedecuba(data);
         repository.save(newAnalisepedecuba);
         return newAnalisepedecuba;
     }

@@ -1,5 +1,6 @@
 package com.scanai.api.domain.depositopedecuba;
 
+import com.scanai.api.domain.depositopedecuba.dto.DadosCadastroDepositoPeDeCuba;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,10 +25,10 @@ public class Depositopedecuba {
     private LocalDate datafim;
     private Long fkfuncionario;
 
-    public Depositopedecuba(Long fkpedecuba, Long fkdeposito, LocalDate datainicio, Long fkfuncionario) {
-        this.fkpedecuba = fkpedecuba;
-        this.fkdeposito = fkdeposito;
-        this.datainicio = datainicio;
-        this.fkfuncionario = fkfuncionario;
+    public Depositopedecuba(DadosCadastroDepositoPeDeCuba data) {
+        this.fkpedecuba = data.fkpedecuba();
+        this.fkdeposito = data.fkdeposito();
+        this.datainicio = data.datainicio();
+        this.fkfuncionario = data.fkfuncionario();
     }
 }

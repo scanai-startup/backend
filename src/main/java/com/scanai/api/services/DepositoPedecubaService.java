@@ -13,7 +13,7 @@ public class DepositoPedecubaService {
     DepositoPedecubaRepository repository;
 
     public Depositopedecuba register(DadosCadastroDepositoPeDeCuba data) {
-        var newDepositopedecuba = new Depositopedecuba(data.fkpedecuba(), data.fkdeposito(), data.datainicio(), data.fkfuncionario());
+        var newDepositopedecuba = new Depositopedecuba(data);
         repository.save(newDepositopedecuba);
         return newDepositopedecuba;
     }

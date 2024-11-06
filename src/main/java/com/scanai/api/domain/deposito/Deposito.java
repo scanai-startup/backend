@@ -1,5 +1,6 @@
 package com.scanai.api.domain.deposito;
 
+import com.scanai.api.domain.deposito.dto.DadosCadastroDeposito;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,9 +21,9 @@ public class Deposito {
     private String numerodeposito;
     private boolean valid;
 
-    public Deposito(String tipodeposito, String numerodeposito){
-        this.tipodeposito = tipodeposito;
-        this.numerodeposito = numerodeposito;
+    public Deposito(DadosCadastroDeposito data){
+        this.tipodeposito = data.tipodeposito();
+        this.numerodeposito = data.numerodeposito();
         this.valid = true; //define sempre ativo ao criar o objeto;
     }
 

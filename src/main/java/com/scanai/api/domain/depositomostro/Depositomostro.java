@@ -1,5 +1,6 @@
 package com.scanai.api.domain.depositomostro;
 
+import com.scanai.api.domain.depositomostro.dto.DadosCadastroDepositoMostro;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,10 +25,10 @@ public class Depositomostro {
     private LocalDate datafim;
     private Long fkfuncionario;
 
-    public Depositomostro(Long fkmostro, Long fkdeposito, LocalDate datainicio, Long fkfuncionario) {
-        this.fkmostro = fkmostro;
-        this.fkdeposito = fkdeposito;
-        this.datainicio = datainicio;
-        this.fkfuncionario = fkfuncionario;
+    public Depositomostro(DadosCadastroDepositoMostro data) {
+        this.fkmostro = data.fkmostro();
+        this.fkdeposito = data.fkdeposito();
+        this.datainicio = data.datainicio();
+        this.fkfuncionario = data.fkfuncionario();
     }
 }

@@ -1,5 +1,6 @@
 package com.scanai.api.domain.higienedeposito;
 
+import com.scanai.api.domain.higienedeposito.dto.DadosCadastroHigieneDeposito;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -24,8 +25,8 @@ public class Higienedeposito {
 
     private Long fkdeposito;
 
-    public Higienedeposito(LocalDate datahigiene, Long fkdeposito) {
-        this.datahigiene = datahigiene;
-        this.fkdeposito = fkdeposito;
+    public Higienedeposito(DadosCadastroHigieneDeposito data) {
+        this.datahigiene = data.datahigiene();
+        this.fkdeposito = data.fkdeposito();
     }
 }

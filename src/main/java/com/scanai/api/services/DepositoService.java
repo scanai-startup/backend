@@ -15,7 +15,7 @@ public class DepositoService {
     private DepositoRepository repository;
 
     public Deposito register(DadosCadastroDeposito data){
-        Deposito newDeposito = new Deposito(data.tipodeposito(), data.numerodeposito());
+        Deposito newDeposito = new Deposito(data);
         repository.save(newDeposito);
         return newDeposito;
     }
