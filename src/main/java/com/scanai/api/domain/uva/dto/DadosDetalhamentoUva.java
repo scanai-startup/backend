@@ -9,6 +9,7 @@ public record DadosDetalhamentoUva(
     Long id,
     Date datachegada,
     int nuumerotalao,
+    int qttcaixa,
     int sanidade,
     int peso,
     String so2,
@@ -24,7 +25,8 @@ public record DadosDetalhamentoUva(
         this(
             uva.getId(),
             uva.getDatachegada(),
-            uva.getNumerolote(),
+            uva.getNumerotalao(),
+            uva.getQttcaixa(),
             uva.getSanidade(),
             uva.getPeso(),
             uva.getSo2(),

@@ -28,6 +28,8 @@ public class TokenService {
             String token = JWT.create()
                     .withIssuer("scanai-api")
                     .withSubject(funcionario.getUsername())
+                    .withClaim("id", funcionario.getId())
+                    .withClaim("role", funcionario.getRole().name())
                     .sign(algorithm);
             return token;
         }catch (JWTCreationException exception){

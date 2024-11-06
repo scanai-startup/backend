@@ -5,6 +5,8 @@ import com.scanai.api.domain.analiseprefermentacao.dto.DadosCadastroAnalisePreFe
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Table(name = "tb_analise_pre_fermentacao")
 @Entity(name = "tb_analise_pre_fermentacao")
 @Setter
@@ -12,11 +14,12 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-
 public class Analiseprefermentacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private LocalDate data;
 
     private Long fkfuncionario;
     private Long fkvinho;
@@ -28,6 +31,7 @@ public class Analiseprefermentacao {
     private float ta;
 
     public Analiseprefermentacao(DadosCadastroAnalisePreFermetacao data) {
+        this.data = data.data();
         this.fkfuncionario = data.fkfuncionario();
         this.fkvinho = data.fkvinho();
         this.atotal = data.atotal();

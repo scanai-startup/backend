@@ -1,16 +1,14 @@
 package com.scanai.api.controllers;
 
 import com.scanai.api.domain.deposito.Deposito;
-import com.scanai.api.domain.deposito.dto.DadosCadastroDeposito;
-import com.scanai.api.domain.deposito.dto.DadosAtualizarDeposito;
-import com.scanai.api.domain.deposito.dto.DadosDetalhamentoDeposito;
-import com.scanai.api.domain.deposito.dto.DadosListagemDeposito;
+import com.scanai.api.domain.deposito.dto.*;
 import com.scanai.api.domain.higienedeposito.dto.DadosListagemHigieneDeposito;
 import com.scanai.api.repositories.DepositoRepository;
 import com.scanai.api.services.DepositoService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.batch.BatchTransactionManager;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -22,14 +20,14 @@ import java.util.List;
 public class DepositoController {
 
     @Autowired
-    private DepositoRepository repository;
+    private DepositoRepository depositoRepository;
 
     @Autowired
-    private DepositoService service;
+    private DepositoService depositoService;
 
     @PostMapping("/register")
     public ResponseEntity<DadosDetalhamentoDeposito> register(@RequestBody @Valid DadosCadastroDeposito data, UriComponentsBuilder uriBuilder){
-        Deposito newDeposito = service.register(data);
+        Deposito newDeposito = depositoService.register(data);
         var uri = uriBuilder.path("deposito/register/{id}").buildAndExpand(newDeposito.getId()).toUri();
         return ResponseEntity.created(uri).body(new DadosDetalhamentoDeposito(newDeposito));
     }
@@ -37,27 +35,33 @@ public class DepositoController {
     @PutMapping("/update")
     @Transactional
     public ResponseEntity<DadosDetalhamentoDeposito> update(@RequestBody @Valid DadosAtualizarDeposito data){
-        Deposito deposito = service.update(data);
+        Deposito deposito = depositoService.update(data);
         return ResponseEntity.ok().body(new DadosDetalhamentoDeposito(deposito));
     }
 
     @GetMapping("/getAll")
     public ResponseEntity<List<DadosListagemDeposito>> getAll(){
-        return ResponseEntity.ok().body(repository.findAllByValidTrue().stream().map(DadosListagemDeposito::new).toList());
+        return ResponseEntity.ok().body(depositoRepository.findAllByValidTrue().stream().map(DadosListagemDeposito::new).toList());
     }
 
     @PutMapping("/softDelete/{id}")
     @Transactional
     public ResponseEntity<?> softDelete(@PathVariable Long id){
-        service.softDelete(repository.getReferenceById(id));
+        depositoService.softDelete(depositoRepository.getReferenceById(id));
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/activate/{id}")
     @Transactional
     public ResponseEntity<?> hardDelete(@PathVariable Long id){
-        service.activate(repository.getReferenceById(id));
+        depositoService.activate(depositoRepository.getReferenceById(id));
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/findDepositosComAnalises")
+    public ResponseEntity<List<DadosInformacoesDepositos>> findDepositosComAnalises(){
+        return ResponseEntity.ok().body(depositoRepository.findDepositosComAnalises());
+
     }
 
 }
