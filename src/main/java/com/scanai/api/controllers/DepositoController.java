@@ -2,13 +2,11 @@ package com.scanai.api.controllers;
 
 import com.scanai.api.domain.deposito.Deposito;
 import com.scanai.api.domain.deposito.dto.*;
-import com.scanai.api.domain.higienedeposito.dto.DadosListagemHigieneDeposito;
 import com.scanai.api.repositories.DepositoRepository;
 import com.scanai.api.services.DepositoService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.batch.BatchTransactionManager;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;

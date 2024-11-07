@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Depositomostro {
+public class DepositoMostro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +25,7 @@ public class Depositomostro {
     private LocalDate datafim;
     private Long fkfuncionario;
 
-    public Depositomostro(DadosCadastroDepositoMostro data) {
+    public DepositoMostro(DadosCadastroDepositoMostro data) {
         this.fkmostro = data.fkmostro();
         this.fkdeposito = data.fkdeposito();
         this.datainicio = data.datainicio();

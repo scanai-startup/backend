@@ -52,4 +52,9 @@ public class UvaService {
         var uva = getElement(id);
         uva.setValid(true);
     }
+    @Transactional
+    public void addFkMostro(Long uvaId, Long mostroId){
+        var uva = getElement(uvaId);
+        uva.setFkmostro(mostroId);
+    }
 }

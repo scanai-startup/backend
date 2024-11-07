@@ -1,6 +1,5 @@
 package com.scanai.api.controllers;
 
-import com.scanai.api.domain.deposito.dto.DadosListagemDeposito;
 import com.scanai.api.domain.mostro.Mostro;
 import com.scanai.api.domain.mostro.dto.DadosCadastroMostro;
 import com.scanai.api.domain.mostro.dto.DadosDetalhamentoMostro;
