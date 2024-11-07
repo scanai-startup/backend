@@ -18,7 +18,6 @@ public class DepositoMostroService {
     DepositoRepository depositoRepository;
 
     public DepositoMostro register(DadosCadastroDepositoMostro data) {
-        System.out.println(data.fkdeposito());
         if(depositoRepository.existsVinhoAtivo(data.fkdeposito()) || depositoRepository.existsPeDeCubaAtivo(data.fkdeposito())){
             throw new DataIntegrityViolationException("Impossível inserir, o deposito já contém outro produto ativo");
         }
