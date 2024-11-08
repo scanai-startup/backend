@@ -54,7 +54,7 @@ public interface DepositoRepository extends JpaRepository<Deposito, Long> {
         AND dv.fkdeposito IS NULL
     ORDER BY deposito
     """, nativeQuery = true)
-    public List<DadosInformacoesDepositos> findDepositosComAnalises();
+    public List<DadosInformacoesDepositos> getAllDepositosWithInformations();
 
     @Query("""
             SELECT COUNT(*) > 0
