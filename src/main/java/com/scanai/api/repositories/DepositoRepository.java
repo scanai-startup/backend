@@ -24,7 +24,9 @@ public interface DepositoRepository extends JpaRepository<Deposito, Long> {
             END AS conteudo,
         ROUND(COALESCE(adm.temperatura, adp.temperatura, adv.temperatura), 2) AS temperatura,
         ROUND(COALESCE(adm.densidade, adp.densidade, adv.densidade), 2) AS densidade,
-        ROUND(adv.pressao, 2) AS pressao
+        ROUND(adv.pressao, 2) AS pressao,
+        d.id as idDeposito,
+        COALESCE(m.id, p.id, v.id) as idConteudo
     FROM tb_deposito AS d
     LEFT JOIN tb_deposito_mostro AS dm ON d.id = dm.fkdeposito AND dm.datafim IS NULL
     LEFT JOIN tb_mostro AS m ON dm.fkmostro = m.id
@@ -44,7 +46,9 @@ public interface DepositoRepository extends JpaRepository<Deposito, Long> {
             NULL AS conteudo,
             NULL AS temperatura,
             NULL AS desidade,
-            NULL AS pressao
+            NULL AS pressao,
+            NULL AS idDeposito,
+            NULL AS idConteudo
     FROM tb_deposito AS d
     LEFT JOIN tb_deposito_mostro AS dm ON d.id = dm.fkdeposito AND dm.datafim IS NULL
     LEFT JOIN tb_deposito_pedecuba AS dp ON d.id = dp.fkdeposito AND dp.datafim IS NULL
