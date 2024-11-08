@@ -47,7 +47,7 @@ public interface DepositoRepository extends JpaRepository<Deposito, Long> {
             NULL AS temperatura,
             NULL AS desidade,
             NULL AS pressao,
-            NULL AS idDeposito,
+            d.id AS idDeposito,
             NULL AS idConteudo
     FROM tb_deposito AS d
     LEFT JOIN tb_deposito_mostro AS dm ON d.id = dm.fkdeposito AND dm.datafim IS NULL
