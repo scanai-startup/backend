@@ -7,8 +7,8 @@ import lombok.*;
 
 import java.util.Date;
 
-@Entity(name="tb_analisediariavinho")
-@Table(name="tb_analisediariavinho")
+@Entity(name="tb_analise_diaria_vinho")
+@Table(name="tb_analise_diaria_vinho")
 @Getter
 @Setter
 @NoArgsConstructor
