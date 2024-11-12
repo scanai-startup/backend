@@ -56,9 +56,9 @@ public class DepositoController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/findDepositosComAnalises")
-    public ResponseEntity<List<DadosInformacoesDepositos>> findDepositosComAnalises(){
-        return ResponseEntity.ok().body(depositoRepository.findDepositosComAnalises());
+    @GetMapping("/getAllDepositosWithInformations")
+    public ResponseEntity<List<DadosInformacoesDepositos>> getAllDepositosWithInformations(){
+        return ResponseEntity.ok().body(depositoService.getAllDepositosWithInformations());
 
     }
 

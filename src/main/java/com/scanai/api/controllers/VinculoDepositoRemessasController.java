@@ -18,6 +18,7 @@ public class VinculoDepositoRemessasController {
 
     @Autowired
     private VinculoDepositoRemessasService service;
+
     @PostMapping
     public ResponseEntity<DadosDetalhamentoVinculoDepositoRemessas> register(@RequestBody DadosCadastroVinculoDepositoRemessas data, UriComponentsBuilder uriBuilder){
         DadosDetalhamentoVinculoDepositoRemessas detalhamento = service.vincularDepositoRemessa(data);

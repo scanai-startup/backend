@@ -4,7 +4,6 @@ import com.scanai.api.domain.deposito.Deposito;
 import com.scanai.api.domain.deposito.dto.DadosCadastroDeposito;
 import com.scanai.api.domain.deposito.dto.DadosAtualizarDeposito;
 import com.scanai.api.domain.deposito.dto.DadosInformacoesDepositos;
-import com.scanai.api.domain.vinculodepositoremessas.dto.DadosCadastroVinculoDepositoRemessas;
 import com.scanai.api.repositories.DepositoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +40,8 @@ public class DepositoService {
         deposito.setValid(true);
     }
 
-    public List<DadosInformacoesDepositos> findDepositosComAnalises(){
-        return repository.findDepositosComAnalises();
+    public List<DadosInformacoesDepositos> getAllDepositosWithInformations(){
+        return repository.getAllDepositosWithInformations();
     }
 
 
