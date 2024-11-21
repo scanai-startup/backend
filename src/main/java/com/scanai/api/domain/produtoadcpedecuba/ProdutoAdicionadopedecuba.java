@@ -22,9 +22,9 @@ public class ProdutoAdicionadopedecuba {
     private String nome;
     private int quantidade;
 
-    public ProdutoAdicionadopedecuba(DadosCadastroProdutoAdicionadoPeDeCuba dados){
-        this.fkpedecuba = dados.fkpedecuba();
-        this.nome = dados.nome();
-        this.quantidade = dados.quantidade();
+    public ProdutoAdicionadopedecuba(Long fkpedecuba, String nome, int quantidade) {
+        this.fkpedecuba = fkpedecuba;
+        this.nome = nome;
+        this.quantidade = quantidade;
     }
 }
