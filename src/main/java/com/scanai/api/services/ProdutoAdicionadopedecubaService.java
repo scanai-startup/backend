@@ -19,7 +19,8 @@ public class ProdutoAdicionadopedecubaService {
                 .map(produtoDTO -> new ProdutoAdicionadopedecuba(
                         dados.fkpedecuba(),
                         produtoDTO.nome(),
-                        produtoDTO.quantidade()
+                        produtoDTO.quantidade(),
+                        produtoDTO.unidadeDeMedida()
                 ))
                 .peek(repository::save)
                 .toList();

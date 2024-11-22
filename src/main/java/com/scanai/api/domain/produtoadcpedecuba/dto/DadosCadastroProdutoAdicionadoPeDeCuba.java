@@ -1,5 +1,6 @@
 package com.scanai.api.domain.produtoadcpedecuba.dto;
 
+import com.scanai.api.domain.produtoadcpedecuba.UnidadeDeMedida;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -9,6 +10,7 @@ public record DadosCadastroProdutoAdicionadoPeDeCuba(@NotNull Long fkpedecuba, @
 ) {
     public static record ProdutoDTO(
             @NotNull String nome,
-            @NotNull int quantidade
+            @NotNull int quantidade,
+            @NotNull UnidadeDeMedida unidadeDeMedida
     ) {}
 }
