@@ -2,6 +2,10 @@ package com.scanai.api.repositories;
 
 import com.scanai.api.domain.deposito.Deposito;
 import com.scanai.api.domain.deposito.dto.DadosInformacoesDepositos;
+import com.scanai.api.domain.depositomostro.DepositoMostro;
+import com.scanai.api.domain.depositopedecuba.Depositopedecuba;
+import com.scanai.api.domain.depositovinho.Depositovinho;
+import com.scanai.api.domain.mostro.Mostro;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -61,22 +65,22 @@ public interface DepositoRepository extends JpaRepository<Deposito, Long> {
     public List<DadosInformacoesDepositos> getAllDepositosWithInformations();
 
     @Query("""
-            SELECT COUNT(*) > 0
+            SELECT dm
             FROM tb_deposito_mostro as dm WHERE dm.fkdeposito = :depositoId AND dm.datafim IS NULL
             """)
-    boolean existsMostroAtivo(@Param("depositoId") Long depositoId);
+    DepositoMostro existsMostroAtivo(@Param("depositoId") Long depositoId);
 
     @Query("""
-            SELECT COUNT(*) > 0
+            SELECT dp
             FROM tb_deposito_pedecuba as dp WHERE dp.fkdeposito = :depositoId AND dp.datafim IS NULL
             """)
-    boolean existsPeDeCubaAtivo(@Param("depositoId") Long depositoId);
+    Depositopedecuba existsPeDeCubaAtivo(@Param("depositoId") Long depositoId);
 
     @Query("""
-            SELECT COUNT(*) > 0
+            SELECT dv
             FROM tb_deposito_vinho as dv WHERE dv.fkdeposito = :depositoId AND dv.datafim IS NULL
             """)
-    boolean existsVinhoAtivo(@Param("depositoId") Long depositoId);
+    Depositovinho existsVinhoAtivo(@Param("depositoId") Long depositoId);
 
     @Query(value = """
     SELECT d.numerodeposito AS deposito,

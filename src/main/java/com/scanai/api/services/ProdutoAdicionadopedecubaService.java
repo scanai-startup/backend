@@ -1,15 +1,17 @@
 package com.scanai.api.services;
 
-import com.scanai.api.domain.deposito.Deposito;
-import com.scanai.api.domain.deposito.dto.DadosAtualizarDeposito;
+
 import com.scanai.api.domain.produtoadcpedecuba.ProdutoAdicionadopedecuba;
+import com.scanai.api.domain.produtoadcpedecuba.dto.DadosAtualizarProdutoAdicionadoPeDeCuba;
 import com.scanai.api.domain.produtoadcpedecuba.dto.DadosCadastroProdutoAdicionadoPeDeCuba;
 import com.scanai.api.domain.produtoadcpedecuba.dto.DadosDetalhamentoProdutoAdicionadoPeDeCuba;
 import com.scanai.api.repositories.ProdutoAdicionadopedecubaRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProdutoAdicionadopedecubaService {
@@ -34,6 +36,15 @@ public class ProdutoAdicionadopedecubaService {
     public List<DadosDetalhamentoProdutoAdicionadoPeDeCuba> getAllByPeDeCubaId(Long fkPeDeCuba) {
         List<DadosDetalhamentoProdutoAdicionadoPeDeCuba> lista = repository.findAllByFkpedecuba(fkPeDeCuba);
         return lista;
+    }
+
+    public DadosDetalhamentoProdutoAdicionadoPeDeCuba update(DadosAtualizarProdutoAdicionadoPeDeCuba dados) {
+        Optional<ProdutoAdicionadopedecuba> produtoAdicionadoPeDeCuba = repository.findById(dados.id());
+        if(produtoAdicionadoPeDeCuba.isEmpty()){
+            throw new EntityNotFoundException("No produto adicionado with this id");
+        }
+        produtoAdicionadoPeDeCuba.get().atualizar(dados);
+        return new DadosDetalhamentoProdutoAdicionadoPeDeCuba(produtoAdicionadoPeDeCuba.get());
     }
 
     public void hardDelete(Long id) {

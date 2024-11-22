@@ -1,5 +1,6 @@
 package com.scanai.api.domain.produtoadcpedecuba;
 
+import com.scanai.api.domain.produtoadcpedecuba.dto.DadosAtualizarProdutoAdicionadoPeDeCuba;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -35,6 +36,14 @@ public class ProdutoAdicionadopedecuba {
         this.quantidade = quantidade;
         this.unidade = unidade;
         this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public void atualizar(DadosAtualizarProdutoAdicionadoPeDeCuba dados) {
+        this.fkpedecuba = dados.fkpedecuba();
+        this.nome = dados.nome();
+        this.quantidade = dados.quantidade();
+        this.unidade = dados.unidade();
         this.updatedAt = LocalDateTime.now();
     }
 }

@@ -42,7 +42,7 @@ public class VinculoDepositoRemessasService {
             message = "Mostro encontrado e vinculado às remessas";
 
         } else{
-            mostro = _mostroService.register(new DadosCadastroMostro(data.funcionarioId(), 12));
+            mostro = _mostroService.register(new DadosCadastroMostro(data.funcionarioId(), 12, null, null));
             // vincular o mostro às remessas
             for (Long remessaUvaId : data.remessaUvaIdList()) {
                 _uvaService.addFkMostro(remessaUvaId, mostro.getId());

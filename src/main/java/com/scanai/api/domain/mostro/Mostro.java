@@ -24,10 +24,15 @@ public class Mostro {
     private int volume;
     private boolean valid;
 
+    private Long fkmostro1;
+    private Long fkmostro2;
+
     public Mostro(DadosCadastroMostro data){
         this.fkfuncionario = data.fkfuncionario();
         this.volume = data.volume();
         this.valid = true;
+        this.fkmostro1 = data.fkmostro1();
+        this.fkmostro2 = data.fkmostro2();
     }
 
 }
