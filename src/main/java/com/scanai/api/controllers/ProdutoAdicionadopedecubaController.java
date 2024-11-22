@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/produtoadcpedecuba")
 public class ProdutoAdicionadopedecubaController {
@@ -25,9 +27,8 @@ public class ProdutoAdicionadopedecubaController {
     ProdutoAdicionadopedecubaRepository repository;
 
     @PostMapping("/register")
-    public ResponseEntity<DadosDetalhamentoProdutoAdicionadoPeDeCuba> register(@RequestBody @Valid DadosCadastroProdutoAdicionadoPeDeCuba data, UriComponentsBuilder uriBuilder){
-        ProdutoAdicionadopedecuba newProdutoadcpedecuba = service.register(data);
-        var uri = uriBuilder.path("produtoadcpedecuba/register/{id}").buildAndExpand(newProdutoadcpedecuba.getId()).toUri();
-        return ResponseEntity.created(uri).body(new DadosDetalhamentoProdutoAdicionadoPeDeCuba(newProdutoadcpedecuba));
+    public ResponseEntity<List<ProdutoAdicionadopedecuba>> register(@RequestBody DadosCadastroProdutoAdicionadoPeDeCuba dados) {
+        List<ProdutoAdicionadopedecuba> produtos = service.register(dados);
+        return ResponseEntity.ok(produtos);
     }
 }
