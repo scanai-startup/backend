@@ -7,6 +7,7 @@ import com.scanai.api.domain.vinho.DTO.DadosListagemVinho;
 import com.scanai.api.services.VinhoService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -17,6 +18,8 @@ import java.util.List;
 @RequestMapping("/vinho")
 
 public class VinhoController {
+
+    @Autowired
     VinhoService vinhoService;
 
     @Transactional

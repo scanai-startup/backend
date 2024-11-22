@@ -8,10 +8,7 @@ import com.scanai.api.services.ProdutoAdicionadopedecubaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
@@ -30,5 +27,11 @@ public class ProdutoAdicionadopedecubaController {
     public ResponseEntity<List<ProdutoAdicionadopedecuba>> register(@RequestBody DadosCadastroProdutoAdicionadoPeDeCuba dados) {
         List<ProdutoAdicionadopedecuba> produtos = service.register(dados);
         return ResponseEntity.ok(produtos);
+    }
+
+    @GetMapping("/getAllByPeDeCubaId/{fkPeDeCuba}")
+    public ResponseEntity<List<DadosDetalhamentoProdutoAdicionadoPeDeCuba>> getAllByPeDeCubaId(@PathVariable Long fkPeDeCuba) {
+        List<DadosDetalhamentoProdutoAdicionadoPeDeCuba> lista = service.getAllByPeDeCubaId(fkPeDeCuba);
+        return ResponseEntity.ok(lista);
     }
 }

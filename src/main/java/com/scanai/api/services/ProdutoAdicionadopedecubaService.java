@@ -2,6 +2,7 @@ package com.scanai.api.services;
 
 import com.scanai.api.domain.produtoadcpedecuba.ProdutoAdicionadopedecuba;
 import com.scanai.api.domain.produtoadcpedecuba.dto.DadosCadastroProdutoAdicionadoPeDeCuba;
+import com.scanai.api.domain.produtoadcpedecuba.dto.DadosDetalhamentoProdutoAdicionadoPeDeCuba;
 import com.scanai.api.repositories.ProdutoAdicionadopedecubaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,5 +27,10 @@ public class ProdutoAdicionadopedecubaService {
                 .toList();
 
         return produtosSalvos;
+    }
+
+    public List<DadosDetalhamentoProdutoAdicionadoPeDeCuba> getAllByPeDeCubaId(Long fkPeDeCuba) {
+        List<DadosDetalhamentoProdutoAdicionadoPeDeCuba> lista = repository.findAllByFkpedecuba(fkPeDeCuba);
+        return lista;
     }
 }
