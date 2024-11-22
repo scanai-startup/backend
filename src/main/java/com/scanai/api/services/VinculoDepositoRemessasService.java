@@ -24,17 +24,36 @@ public class VinculoDepositoRemessasService {
     private DepositoMostroService _depositoMostroService;
 
     public DadosDetalhamentoVinculoDepositoRemessas vincularDepositoRemessa(DadosCadastroVinculoDepositoRemessas data) {
-        // criar mostro
-        Mostro mostro = _mostroService.register(new DadosCadastroMostro(data.funcionarioId(), 12));
+        Mostro mostro = null;
+        String message;
+        
+        //verifico se foi recebido mostroId na requisição
+        if(data.mostroId() != null) {
+            mostro = _mostroService.getElement(data.mostroId());
 
-        // vincular o mostro às remessas
-        for (Long remessaUvaId : data.remessaUvaIdList()) {
-            _uvaService.addFkMostro(remessaUvaId, mostro.getId());
+            if(mostro == null){
+                throw new IllegalArgumentException("Mostro não encontrado");
+            }
+            // se foi encontrado, então vinculo o mostro às remessas
+            for (Long remessaUvaId : data.remessaUvaIdList()) {
+                _uvaService.addFkMostro(remessaUvaId, mostro.getId());
+                _uvaService.softDelete(remessaUvaId);
+            }
+            message = "Mostro encontrado e vinculado às remessas";
+
+        } else{
+            mostro = _mostroService.register(new DadosCadastroMostro(data.funcionarioId(), 12));
+            // vincular o mostro às remessas
+            for (Long remessaUvaId : data.remessaUvaIdList()) {
+                _uvaService.addFkMostro(remessaUvaId, mostro.getId());
+                _uvaService.softDelete(remessaUvaId);
+            }
+            // vincular mostro ao deposito
+            DepositoMostro depositoMostro = _depositoMostroService.register(new DadosCadastroDepositoMostro(mostro.getId(), data.depositoId(), LocalDate.now(), data.funcionarioId()));
+
+            message = "Mostro criado e vinculado às remessas e ao depósito";
         }
 
-        // vincular mostro ao deposito
-        DepositoMostro depositoMostro = _depositoMostroService.register(new DadosCadastroDepositoMostro(mostro.getId(), data.depositoId(), LocalDate.now(), data.funcionarioId()));
-
-        return new DadosDetalhamentoVinculoDepositoRemessas(data.depositoId(), mostro.getId(), depositoMostro.getId(), data.funcionarioId(), data.remessaUvaIdList());
+        return new DadosDetalhamentoVinculoDepositoRemessas(data.depositoId(), mostro.getId(), data.funcionarioId(), data.remessaUvaIdList(), message);
     }
 }

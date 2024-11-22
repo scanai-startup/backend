@@ -26,4 +26,8 @@ public class MostroService {
     public void activate(Mostro mostro) {
         mostro.setValid(true);
     }
+
+    public Mostro getElement(Long id) {
+        return repository.getReferenceById(id);
+    }
 }

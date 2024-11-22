@@ -26,8 +26,11 @@ public class UvaService {
         return repository.getReferenceById(id);
     }
 
-    public List<DadosListagemUva> listAll() {
+    public List<DadosListagemUva> listAllByValidTrue() {
         return repository.findAllByValidTrue().stream().map(DadosListagemUva::new).toList();
+    }
+    public  List<DadosListagemUva> listAll(){
+        return repository.findAll().stream().map(DadosListagemUva::new).toList();
     }
 
     @Transactional

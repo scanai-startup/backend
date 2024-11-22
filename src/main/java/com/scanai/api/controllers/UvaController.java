@@ -29,9 +29,14 @@ public class UvaController {
         return  ResponseEntity.created(uri).body(new DadosDetalhamentoUva(uva));
     }
 
+    @GetMapping("/getAllByValidTrue")
+    public ResponseEntity<List<DadosListagemUva>> getAllByValidTrue(){
+        var lista = uvaService.listAllByValidTrue();
+        return ResponseEntity.ok(lista);
+    }
     @GetMapping("/getAll")
     public ResponseEntity<List<DadosListagemUva>> getAll(){
-        var lista = uvaService.listAll(); //.stream().map(DadosListagemRemessaUva::new).toList(); //função do proprio jpa
+        var lista = uvaService.listAll();
         return ResponseEntity.ok(lista);
     }
 
