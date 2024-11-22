@@ -1,11 +1,14 @@
 package com.scanai.api.controllers;
 
+import com.scanai.api.domain.produtoadcpedecuba.dto.DadosAtualizarProdutoAdicionadoPeDeCuba;
 import com.scanai.api.domain.produtoadcpedecuba.dto.DadosDetalhamentoProdutoAdicionadoPeDeCuba;
 import com.scanai.api.domain.produtoadcvinho.ProdutoAdicionadovinho;
+import com.scanai.api.domain.produtoadcvinho.dto.DadosAtualizarProdutoAdicionadoVinho;
 import com.scanai.api.domain.produtoadcvinho.dto.DadosCadastroProdutoAdicionadoVinho;
 import com.scanai.api.domain.produtoadcvinho.dto.DadosDetalhamentoProdutoAdicionadoVinho;
 import com.scanai.api.repositories.ProdutoAdicionadovinhoRepository;
 import com.scanai.api.services.ProdutoAdicionadovinhoService;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +36,12 @@ public class ProdutoAdicionadovinhoController {
     public ResponseEntity<List<DadosDetalhamentoProdutoAdicionadoVinho>> getAllByVinhoId(@PathVariable Long fkVinho) {
         List<DadosDetalhamentoProdutoAdicionadoVinho> lista = service.getAllByVinhoId(fkVinho);
         return ResponseEntity.ok(lista);
+    }
+
+    @Transactional
+    @PutMapping("/update")
+    public ResponseEntity<DadosDetalhamentoProdutoAdicionadoVinho> update(@RequestBody @Valid DadosAtualizarProdutoAdicionadoVinho data){
+        return ResponseEntity.ok().body(service.update(data));
     }
 
     @DeleteMapping("/hardDelete/{id}")
