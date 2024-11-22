@@ -62,7 +62,7 @@ public interface DepositoRepository extends JpaRepository<Deposito, Long> {
 
     @Query("""
             SELECT COUNT(*) > 0
-            FROM tb_deposito_mostro as dm WHERE dm.fkdeposito = 1 AND dm.datafim IS NULL
+            FROM tb_deposito_mostro as dm WHERE dm.fkdeposito = :depositoId AND dm.datafim IS NULL
             """)
     boolean existsMostroAtivo(@Param("depositoId") Long depositoId);
 
