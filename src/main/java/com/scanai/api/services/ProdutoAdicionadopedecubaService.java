@@ -1,5 +1,7 @@
 package com.scanai.api.services;
 
+import com.scanai.api.domain.deposito.Deposito;
+import com.scanai.api.domain.deposito.dto.DadosAtualizarDeposito;
 import com.scanai.api.domain.produtoadcpedecuba.ProdutoAdicionadopedecuba;
 import com.scanai.api.domain.produtoadcpedecuba.dto.DadosCadastroProdutoAdicionadoPeDeCuba;
 import com.scanai.api.domain.produtoadcpedecuba.dto.DadosDetalhamentoProdutoAdicionadoPeDeCuba;
@@ -32,5 +34,9 @@ public class ProdutoAdicionadopedecubaService {
     public List<DadosDetalhamentoProdutoAdicionadoPeDeCuba> getAllByPeDeCubaId(Long fkPeDeCuba) {
         List<DadosDetalhamentoProdutoAdicionadoPeDeCuba> lista = repository.findAllByFkpedecuba(fkPeDeCuba);
         return lista;
+    }
+
+    public void hardDelete(Long id) {
+        repository.deleteById(id);
     }
 }

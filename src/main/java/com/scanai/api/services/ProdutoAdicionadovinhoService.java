@@ -26,4 +26,8 @@ public class ProdutoAdicionadovinhoService {
         List<DadosDetalhamentoProdutoAdicionadoVinho> lista = repository.findAllByFkvinho(fkVinho);
         return lista;
     }
+
+    public void hardDelete(Long id) {
+        repository.deleteById(id);
+    }
 }

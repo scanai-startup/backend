@@ -34,4 +34,10 @@ public class ProdutoAdicionadovinhoController {
         List<DadosDetalhamentoProdutoAdicionadoVinho> lista = service.getAllByVinhoId(fkVinho);
         return ResponseEntity.ok(lista);
     }
+
+    @DeleteMapping("/hardDelete/{id}")
+    public ResponseEntity<?> hardDelete(@PathVariable Long id){
+        service.hardDelete(id);
+        return ResponseEntity.ok().build();
+    }
 }

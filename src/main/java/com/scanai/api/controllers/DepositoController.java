@@ -51,7 +51,7 @@ public class DepositoController {
 
     @PutMapping("/activate/{id}")
     @Transactional
-    public ResponseEntity<?> hardDelete(@PathVariable Long id){
+    public ResponseEntity<?>activate(@PathVariable Long id){
         depositoService.activate(depositoRepository.getReferenceById(id));
         return ResponseEntity.ok().build();
     }
