@@ -45,4 +45,7 @@ public class DepositoService {
     }
 
 
+    public DadosInformacoesDepositos getDepositoWithIdWithInformations(Long id) {
+        return repository.getDepositoWithIdWithInformations(id);
+    }
 }

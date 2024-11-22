@@ -56,10 +56,15 @@ public class DepositoController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/getDepositoWithIdWithInformations/{id}")
+    public ResponseEntity<DadosInformacoesDepositos> getDepositoWithIdWithInformations(@PathVariable Long id){
+        return ResponseEntity.ok().body(depositoService.getDepositoWithIdWithInformations(id));
+
+    }
+
     @GetMapping("/getAllDepositosWithInformations")
     public ResponseEntity<List<DadosInformacoesDepositos>> getAllDepositosWithInformations(){
         return ResponseEntity.ok().body(depositoService.getAllDepositosWithInformations());
-
     }
 
 }
