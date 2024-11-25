@@ -21,6 +21,7 @@ public class Pedecuba {
     private Long id;
 
     private Long fkfuncionario;
+    private Long fkpedecuba;
     private LocalDate datafimfermentacao;
     private LocalDate datainicio;
     private int volume;
@@ -31,6 +32,7 @@ public class Pedecuba {
         this.datainicio = dados.datainicio();
         this.volume = dados.volume();
         this.valid = true;
+        this.fkpedecuba = dados.fkpedecuba();
     }
 
 }

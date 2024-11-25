@@ -19,16 +19,12 @@ public class PedecubaService {
     @Autowired
     ProdutoAdicionadopedecubaService produtoAdicionadopedecubaService;
 
-    @Autowired
-    DepositoPedecubaService depositoPedecubaService;
-
     public Pedecuba register(DadosCadastroPeDeCuba dados) {
         Pedecuba newPedecuba = new Pedecuba(dados);
         repository.save(newPedecuba);
         if(dados.produtos() != null){
             produtoAdicionadopedecubaService.register(new DadosCadastroProdutoAdicionadoPeDeCuba(newPedecuba.getId(), dados.produtos()));
         }
-        depositoPedecubaService.register(new DadosCadastroDepositoPeDeCuba(newPedecuba.getId(), dados.fkdeposito(), LocalDate.now(), dados.fkfuncionario()));
         return newPedecuba;
     }
 
@@ -38,5 +34,9 @@ public class PedecubaService {
 
     public void activate(Pedecuba pedecuba) {
         pedecuba.setValid(true);
+    }
+
+    public Pedecuba getElement(Long id) {
+        return repository.getReferenceById(id);
     }
 }
