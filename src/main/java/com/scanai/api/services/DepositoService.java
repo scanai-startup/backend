@@ -40,6 +40,14 @@ public class DepositoService {
         deposito.setValid(true);
     }
 
+    public List<Deposito> getAll(){
+        return repository.findAllByValidTrue();
+    }
+
+    public Deposito getElement(Long id){
+        return repository.findDepositoById(id);
+    }
+
     public List<DadosInformacoesDepositos> getAllDepositosWithInformations(){
         return repository.getAllDepositosWithInformations();
     }

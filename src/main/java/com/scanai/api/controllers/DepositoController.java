@@ -55,6 +55,11 @@ public class DepositoController {
         depositoService.activate(depositoRepository.getReferenceById(id));
         return ResponseEntity.ok().build();
     }
+    @GetMapping("/getElement/{id}")
+    public ResponseEntity<DadosDetalhamentoDeposito> getElement(@PathVariable Long id){
+        Deposito deposito = depositoService.getElement(id);
+        return ResponseEntity.ok().body(new DadosDetalhamentoDeposito(deposito));
+    }
 
     @GetMapping("/getDepositoWithIdWithInformations/{id}")
     public ResponseEntity<DadosInformacoesDepositos> getDepositoWithIdWithInformations(@PathVariable Long id){
@@ -66,5 +71,7 @@ public class DepositoController {
     public ResponseEntity<List<DadosInformacoesDepositos>> getAllDepositosWithInformations(){
         return ResponseEntity.ok().body(depositoService.getAllDepositosWithInformations());
     }
+
+
 
 }

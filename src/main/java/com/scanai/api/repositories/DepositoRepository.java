@@ -13,6 +13,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface DepositoRepository extends JpaRepository<Deposito, Long> {
+    public Deposito findDepositoById(Long id);
 
     public Deposito findByNumerodeposito(String numerodeposito);
 
