@@ -48,4 +48,14 @@ public class DepositoMostroService {
             return newDepositomostro;
         }
     }
+
+    public DepositoMostro findDepositoMostroByFkdepositoFkmostro(Long fkdeposito, Long fkmostro){
+        return depositoMostroRepository.findDepositoMostroByFkdepositoFkmostro(fkdeposito, fkmostro);
+    }
+    public void softDelete(Long fkdeposito, Long fkmostro){
+        // implementando o softDelete
+        DepositoMostro depositoMostro = depositoMostroRepository.findDepositoMostroByFkdepositoFkmostro(fkdeposito, fkmostro);
+        depositoMostro.setDatafim(LocalDate.now());
+        depositoMostroRepository.save(depositoMostro);
+    }
 }
