@@ -50,11 +50,11 @@ public class DepositoMostroService {
     }
 
     public DepositoMostro findDepositoMostroByFkdepositoFkmostro(Long fkdeposito, Long fkmostro){
-        return depositoMostroRepository.findDepositoMostroByFkdepositoFkmostro(fkdeposito, fkmostro);
+        return depositoMostroRepository.findByFkdepositoAndFkmostro(fkdeposito, fkmostro);
     }
     public void softDelete(Long fkdeposito, Long fkmostro){
         // implementando o softDelete
-        DepositoMostro depositoMostro = depositoMostroRepository.findDepositoMostroByFkdepositoFkmostro(fkdeposito, fkmostro);
+        DepositoMostro depositoMostro = depositoMostroRepository.findByFkdepositoAndFkmostro(fkdeposito, fkmostro);
         depositoMostro.setDatafim(LocalDate.now());
         depositoMostroRepository.save(depositoMostro);
     }

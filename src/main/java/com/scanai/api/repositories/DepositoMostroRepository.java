@@ -4,5 +4,5 @@ import com.scanai.api.domain.depositomostro.DepositoMostro;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface DepositoMostroRepository extends JpaRepository<DepositoMostro, Long> {
-    DepositoMostro findDepositoMostroByFkdepositoFkmostro(Long fkdeposito, Long fkmostro);
+    DepositoMostro findByFkdepositoAndFkmostro(Long fkdeposito, Long fkmostro);
 }
