@@ -2,6 +2,7 @@ package com.scanai.api.domain.analisediariamostro.dto;
 
 import com.scanai.api.domain.analisediariamostro.AnaliseDiariaMostro;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public record DadosListagemAnaliseDiariaMostro(
@@ -9,7 +10,7 @@ public record DadosListagemAnaliseDiariaMostro(
        Long fkmostro,
        Long fkfuncionario,
        float densidade,
-       Date data,
+       LocalDateTime data,
        float temperatura) {
     public DadosListagemAnaliseDiariaMostro(AnaliseDiariaMostro analiseDiariaMostro){
         this(

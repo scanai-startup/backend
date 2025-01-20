@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Table(name = "tb_analise_diaria_pedecuba")
 @Entity(name = "tb_analise_diaria_pedecuba")
@@ -22,14 +23,14 @@ public class Analisepedecuba {
     private Long fkpedecuba;
     private Long fkfuncionario;
     private float densidade;
-    private LocalDate data;
+    private LocalDateTime data;
     private int temperatura;
 
     public Analisepedecuba(DadosCadastroAnalisePeDeCuba data){
         this.fkpedecuba = data.fkpedecuba();
         this.fkfuncionario = data.fkfuncionario();
         this.densidade = data.densidade();
-        this.data = data.data();
+        this.data = LocalDateTime.now();
         this.temperatura = data.temperatura();
     }
 

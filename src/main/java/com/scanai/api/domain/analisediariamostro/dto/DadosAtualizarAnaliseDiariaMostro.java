@@ -3,6 +3,7 @@ package com.scanai.api.domain.analisediariamostro.dto;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public record DadosAtualizarAnaliseDiariaMostro(
@@ -10,6 +11,6 @@ public record DadosAtualizarAnaliseDiariaMostro(
         Long fkmostro,
         Long fkfuncionario,
         float densidade,
-        Date data,
+        LocalDateTime data,
         float temperatura) {
 }

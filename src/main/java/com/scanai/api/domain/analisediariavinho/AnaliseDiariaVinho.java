@@ -5,6 +5,7 @@ import com.scanai.api.domain.analisediariavinho.dto.DadosCadastroAnaliseDiariaVi
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity(name="tb_analise_diaria_vinho")
@@ -21,7 +22,7 @@ public class AnaliseDiariaVinho {
     private Long fkfuncionario;
     private Long fkvinho;
     private float densidade;
-    private Date data;
+    private LocalDateTime data;
     private float temperatura;
     private float pressao;
 
@@ -29,7 +30,7 @@ public class AnaliseDiariaVinho {
         this.fkvinho = dados.fkvinho();
         this.fkfuncionario = dados.fkfuncionario();
         this.densidade = dados.densidade();
-        this.data = dados.data();
+        this.data = LocalDateTime.now();
         this.temperatura = dados.temperatura();
         this.pressao = dados.pressao();
     }
@@ -37,7 +38,7 @@ public class AnaliseDiariaVinho {
         this.fkvinho = dados.fkvinho();
         this.fkfuncionario = dados.fkfuncionario();
         this.densidade = dados.densidade();
-        this.data = dados.data();
+        this.data = LocalDateTime.now();
         this.temperatura = dados.temperatura();
         this.pressao = dados.pressao();
     }

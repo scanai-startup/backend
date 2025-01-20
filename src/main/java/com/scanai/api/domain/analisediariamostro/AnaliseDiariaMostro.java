@@ -5,6 +5,8 @@ import com.scanai.api.domain.analisediariamostro.dto.DadosCadastroAnaliseDiariaM
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity(name="tb_analise_diaria_mostro")
@@ -22,21 +24,22 @@ public class AnaliseDiariaMostro {
     private Long fkmostro;
     private float densidade;
     private float temperatura;
-    private Date data;
+
+    private LocalDateTime data;
 
     public AnaliseDiariaMostro(DadosCadastroAnaliseDiariaMostro dados){
         this.fkmostro = dados.fkmostro();
         this.fkfuncionario = dados.fkfuncionario();
         this.densidade = dados.densidade();
         this.temperatura = dados.temperatura();
-        this.data = dados.data();
+        this.data = LocalDateTime.now();
     }
     public void atualizar(DadosAtualizarAnaliseDiariaMostro dados){
         this.fkmostro = dados.fkmostro();
         this.fkfuncionario = dados.fkfuncionario();
         this.densidade = dados.densidade();
         this.temperatura = dados.temperatura();
-        this.data = dados.data();
+        this.data = LocalDateTime.now();
     }
 
 }

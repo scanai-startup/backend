@@ -3,6 +3,7 @@ package com.scanai.api.domain.analisediariavinho.dto;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public record DadosAtualizarAnaliseDiariaVinho(
@@ -10,7 +11,6 @@ public record DadosAtualizarAnaliseDiariaVinho(
     Long fkvinho,
     Long fkfuncionario,
     float densidade,
-    Date data,
     float temperatura,
     float pressao ) {
 }

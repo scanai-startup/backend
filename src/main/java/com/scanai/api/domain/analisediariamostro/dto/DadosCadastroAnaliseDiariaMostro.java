@@ -9,6 +9,5 @@ public record DadosCadastroAnaliseDiariaMostro(
         @NotNull Long fkmostro ,
       @NotNull Long fkfuncionario,
       @NotNull float densidade,
-      @NotNull @PastOrPresent Date data,
       @NotNull float temperatura) {
 }

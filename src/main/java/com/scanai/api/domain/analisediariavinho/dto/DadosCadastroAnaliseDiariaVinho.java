@@ -9,7 +9,6 @@ public record DadosCadastroAnaliseDiariaVinho(
         @NotNull Long fkvinho,
         @NotNull Long fkfuncionario,
         @NotNull float densidade,
-        @NotNull @PastOrPresent Date data,
         @NotNull float temperatura,
         float pressao //pela regra de negocio, pressao pode ser um campo adicional
 ) {

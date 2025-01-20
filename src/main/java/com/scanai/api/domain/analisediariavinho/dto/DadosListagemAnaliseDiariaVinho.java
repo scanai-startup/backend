@@ -2,6 +2,7 @@ package com.scanai.api.domain.analisediariavinho.dto;
 
 import com.scanai.api.domain.analisediariavinho.AnaliseDiariaVinho;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public record DadosListagemAnaliseDiariaVinho(
@@ -9,7 +10,7 @@ public record DadosListagemAnaliseDiariaVinho(
        Long fkvinho,
        Long fkfuncionario,
        float densidade,
-       Date data,
+       LocalDateTime data,
        float temperatura,
        float pressao ) {
     public DadosListagemAnaliseDiariaVinho(AnaliseDiariaVinho analiseDiariaVinho){
