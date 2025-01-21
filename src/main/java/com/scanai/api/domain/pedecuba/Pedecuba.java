@@ -24,7 +24,7 @@ public class Pedecuba {
     private Long fkpedecuba;
     private LocalDate datafimfermentacao;
     private LocalDate datainicio;
-    private int volume;
+    private float volume;
     private boolean valid;
 
     public Pedecuba(DadosCadastroPeDeCuba dados){

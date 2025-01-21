@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Null;
 import java.time.LocalDate;
 import java.util.List;
 
-public record DadosCadastroPeDeCuba(@NotNull Long fkfuncionario, Long fkpedecuba, @NotNull LocalDate datainicio, @NotNull int volume, List<DadosCadastroProdutoAdicionadoPeDeCuba.ProdutoDTO> produtos
+public record DadosCadastroPeDeCuba(@NotNull Long fkfuncionario, Long fkpedecuba, @NotNull LocalDate datainicio, @NotNull float volume, List<DadosCadastroProdutoAdicionadoPeDeCuba.ProdutoDTO> produtos
 ) {
     public static record ProdutoDTO(
             String nome,
