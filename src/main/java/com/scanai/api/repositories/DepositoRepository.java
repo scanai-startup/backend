@@ -20,7 +20,8 @@ public interface DepositoRepository extends JpaRepository<Deposito, Long> {
     public List<Deposito> findAllByValidTrue();
 
     @Query(value = """
-    WITH UltimaAnaliseMostro AS (
+
+            WITH UltimaAnaliseMostro AS (
         SELECT adm.fkmostro, MAX(adm.data) AS ultima_data
         FROM tb_analise_diaria_mostro adm
         GROUP BY adm.fkmostro
@@ -42,10 +43,12 @@ public interface DepositoRepository extends JpaRepository<Deposito, Long> {
                WHEN dv.fkdeposito IS NOT NULL THEN 'Vinho'
                ELSE 'Desconhecido'
            END AS conteudo,
-           ROUND(COALESCE(ua_mostro.temperatura, ua_pedecuba.temperatura, ua_vinho.temperatura), 2) AS temperatura,
-           ROUND(COALESCE(ua_mostro.densidade, ua_pedecuba.densidade, ua_vinho.densidade), 2) AS densidade,
-           ROUND(ua_vinho.pressao, 2) AS pressao,
+           ROUND(COALESCE(ua_mostro.temperatura, ua_pedecuba.temperatura, ua_vinho.temperatura, 0), 2) AS temperatura,
+           ROUND(COALESCE(ua_mostro.densidade, ua_pedecuba.densidade, ua_vinho.densidade, 0), 2) AS densidade,
+           ROUND(COALESCE(ua_vinho.pressao, 0), 2) AS pressao,
            d.id AS idDeposito,
+           d.capacidade AS capacidade,
+           COALESCE(m.volume, p.volume, v.volume, 0) AS volume,
            COALESCE(m.id, p.id, v.id) AS idConteudo
     FROM tb_deposito AS d
     LEFT JOIN tb_deposito_mostro AS dm ON d.id = dm.fkdeposito AND dm.datafim IS NULL
@@ -70,6 +73,8 @@ public interface DepositoRepository extends JpaRepository<Deposito, Long> {
            NULL AS densidade,
            NULL AS pressao,
            d.id AS idDeposito,
+           d.capacidade AS capacidade,
+           NULL AS volume,
            NULL AS idConteudo
     FROM tb_deposito AS d
     LEFT JOIN tb_deposito_mostro AS dm ON d.id = dm.fkdeposito AND dm.datafim IS NULL
@@ -78,7 +83,7 @@ public interface DepositoRepository extends JpaRepository<Deposito, Long> {
     WHERE dm.fkdeposito IS NULL
         AND dp.fkdeposito IS NULL
         AND dv.fkdeposito IS NULL
-    ORDER BY deposito
+    ORDER BY deposito;
     """, nativeQuery = true)
     public List<DadosInformacoesDepositos> getAllDepositosWithInformations();
 
@@ -112,6 +117,7 @@ public interface DepositoRepository extends JpaRepository<Deposito, Long> {
         ROUND(COALESCE(adm.densidade, adp.densidade, adv.densidade), 2) AS densidade,
         ROUND(adv.pressao, 2) AS pressao,
         d.id as idDeposito,
+        d.capacidade as capacidade,
         COALESCE(m.id, p.id, v.id) as idConteudo
     FROM tb_deposito AS d
     LEFT JOIN tb_deposito_mostro AS dm ON d.id = dm.fkdeposito AND dm.datafim IS NULL

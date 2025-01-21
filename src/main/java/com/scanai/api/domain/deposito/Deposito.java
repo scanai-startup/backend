@@ -20,10 +20,12 @@ public class Deposito {
     private String tipodeposito;
     private String numerodeposito;
     private boolean valid;
+    private float capacidade;
 
     public Deposito(DadosCadastroDeposito data){
         this.tipodeposito = data.tipodeposito();
         this.numerodeposito = data.numerodeposito();
+        this.capacidade = data.capacidade();
         this.valid = true; //define sempre ativo ao criar o objeto;
     }
 
