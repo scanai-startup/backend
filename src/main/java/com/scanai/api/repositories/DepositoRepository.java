@@ -47,8 +47,8 @@ public interface DepositoRepository extends JpaRepository<Deposito, Long> {
            ROUND(COALESCE(ua_mostro.densidade, ua_pedecuba.densidade, ua_vinho.densidade, 0), 2) AS densidade,
            ROUND(COALESCE(ua_vinho.pressao, 0), 2) AS pressao,
            d.id AS idDeposito,
-           d.capacidade AS capacidade,
-           COALESCE(m.volume, p.volume, v.volume, 0) AS volume,
+           d.capacidade AS capacidadeDeposito,
+           COALESCE(m.volume, p.volume, v.volume, 0) AS volumeConteudo,
            COALESCE(m.id, p.id, v.id) AS idConteudo
     FROM tb_deposito AS d
     LEFT JOIN tb_deposito_mostro AS dm ON d.id = dm.fkdeposito AND dm.datafim IS NULL

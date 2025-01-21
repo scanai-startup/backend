@@ -5,7 +5,7 @@ import com.scanai.api.domain.analisepedecuba.Analisepedecuba;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public record DadosListagemAnalisesPeDeCuba(Long fkpedecuba, Long fkfuncionario, float densidade, LocalDateTime data, int temperatura) {
+public record DadosListagemAnalisesPeDeCuba(Long fkpedecuba, Long fkfuncionario, Float densidade, LocalDateTime data, Float temperatura) {
 
     public DadosListagemAnalisesPeDeCuba(Analisepedecuba analisespedecuba){
         this(

@@ -22,9 +22,9 @@ public class Analisepedecuba {
 
     private Long fkpedecuba;
     private Long fkfuncionario;
-    private float densidade;
+    private Float densidade;
     private LocalDateTime data;
-    private int temperatura;
+    private Float temperatura;
 
     public Analisepedecuba(DadosCadastroAnalisePeDeCuba data){
         this.fkpedecuba = data.fkpedecuba();

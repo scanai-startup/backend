@@ -21,7 +21,7 @@ public class Mostro {
 
     private LocalDate fimfermentacao;
     private Long fkfuncionario;
-    private int volume;
+    private Float volume;
     private boolean valid;
 
     private Long fkmostro1;

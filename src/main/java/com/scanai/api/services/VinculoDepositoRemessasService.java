@@ -42,7 +42,7 @@ public class VinculoDepositoRemessasService {
             message = "Mostro encontrado e vinculado às remessas";
 
         } else{
-            mostro = _mostroService.register(new DadosCadastroMostro(data.funcionarioId(), 12, null, null));
+            mostro = _mostroService.register(new DadosCadastroMostro(data.funcionarioId(), data.volume(), null, null));
             // vincular o mostro às remessas
             for (Long remessaUvaId : data.remessaUvaIdList()) {
                 _uvaService.addFkMostro(remessaUvaId, mostro.getId());
@@ -54,6 +54,6 @@ public class VinculoDepositoRemessasService {
             message = "Mostro criado e vinculado às remessas e ao depósito";
         }
 
-        return new DadosDetalhamentoVinculoDepositoRemessas(data.depositoId(), mostro.getId(), data.funcionarioId(), data.remessaUvaIdList(), message);
+        return new DadosDetalhamentoVinculoDepositoRemessas(data.depositoId(), mostro.getId(), mostro.getVolume() ,data.funcionarioId(), data.remessaUvaIdList(), message);
     }
 }

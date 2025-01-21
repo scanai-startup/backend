@@ -31,7 +31,7 @@ public class DepositoMostroService {
         if(depositoRepository.existsVinhoAtivo(data.fkdeposito()) != null || depositoRepository.existsPeDeCubaAtivo(data.fkdeposito()) != null){
             throw new DataIntegrityViolationException("Impossível inserir, o deposito já contém outro produto ativo");
         }else if(depositoMostro != null){
-            int totalVolume = 0;
+            Float totalVolume = (float) 0;
             Mostro mostro1 = mostroService.getElement(data.fkmostro());
             Mostro mostro2 = mostroService.getElement(depositoMostro.getFkmostro());
             mostro1.setFimfermentacao(now);
