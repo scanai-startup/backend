@@ -48,6 +48,8 @@ public interface DepositoRepository extends JpaRepository<Deposito, Long> {
            ROUND(COALESCE(ua_vinho.pressao, 0), 2) AS pressao,
            d.id AS idDeposito,
            d.capacidade AS capacidadeDeposito,
+            d.numerodeposito AS numeroDeposito,
+            d.tipodeposito AS tipoDeposito,
            COALESCE(m.volume, p.volume, v.volume, 0) AS volumeConteudo,
            COALESCE(m.id, p.id, v.id) AS idConteudo
     FROM tb_deposito AS d
@@ -74,6 +76,8 @@ public interface DepositoRepository extends JpaRepository<Deposito, Long> {
            NULL AS pressao,
            d.id AS idDeposito,
            d.capacidade AS capacidade,
+            d.numerodeposito AS numeroDeposito,
+            d.tipodeposito AS tipoDeposito,
            NULL AS volume,
            NULL AS idConteudo
     FROM tb_deposito AS d
