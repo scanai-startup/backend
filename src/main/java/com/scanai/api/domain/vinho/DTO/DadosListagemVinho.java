@@ -9,7 +9,6 @@ public record DadosListagemVinho(
         Date datafimfermentacao,
         float volume,
         Long fkrotulo,
-        Long fkmostro,
         Long fkpedecuba
 ) {
 
@@ -19,7 +18,6 @@ public record DadosListagemVinho(
                 vinho.getDatafimfermentacao(),
                 vinho.getVolume(),
                 vinho.getFkrotulo(),
-                vinho.getFkmostro(),
                 vinho.getFkpedecuba()
         );
     }

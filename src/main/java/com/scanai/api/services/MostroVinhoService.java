@@ -7,6 +7,7 @@ import com.scanai.api.domain.mostrovinho.dto.DadosDetalhamentoMostroVinho;
 import com.scanai.api.domain.mostrovinho.dto.DadosListagemMostroVinho;
 import com.scanai.api.repositories.MostroVinhoRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,11 +15,11 @@ import java.util.List;
 @Service
 public class MostroVinhoService {
 
+    @Autowired
     MostroVinhoRepository repository;
+
     @Transactional
-
     public MostroVinho register(DadosCadastroMostroVinho dados){
-
         return repository.save(new MostroVinho(dados));
     }
     public MostroVinho getElement(Long id) {
