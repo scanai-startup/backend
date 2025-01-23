@@ -21,73 +21,98 @@ public interface DepositoRepository extends JpaRepository<Deposito, Long> {
 
     @Query(value = """
 
-            WITH UltimaAnaliseMostro AS (
-        SELECT adm.fkmostro, MAX(adm.data) AS ultima_data
-        FROM tb_analise_diaria_mostro adm
-        GROUP BY adm.fkmostro
-    ),
-    UltimaAnalisePedeCuba AS (
-        SELECT adp.fkpedecuba, MAX(adp.data) AS ultima_data
-        FROM tb_analise_diaria_pedecuba adp
-        GROUP BY adp.fkpedecuba
-    ),
-    UltimaAnaliseVinho AS (
-        SELECT adv.fkvinho, MAX(adv.data) AS ultima_data
-        FROM tb_analise_diaria_vinho adv
-        GROUP BY adv.fkvinho
-    )
-    SELECT d.numerodeposito AS deposito,
-           CASE
-               WHEN dm.fkdeposito IS NOT NULL THEN 'Mostro'
-               WHEN dp.fkdeposito IS NOT NULL THEN 'Pé de Cuba'
-               WHEN dv.fkdeposito IS NOT NULL THEN 'Vinho'
-               ELSE 'Desconhecido'
-           END AS conteudo,
-           ROUND(COALESCE(ua_mostro.temperatura, ua_pedecuba.temperatura, ua_vinho.temperatura, 0), 2) AS temperatura,
-           ROUND(COALESCE(ua_mostro.densidade, ua_pedecuba.densidade, ua_vinho.densidade, 0), 2) AS densidade,
-           ROUND(COALESCE(ua_vinho.pressao, 0), 2) AS pressao,
-           d.id AS idDeposito,
-           d.capacidade AS capacidadeDeposito,
+        WITH UltimaAnaliseMostro AS (
+            SELECT adm.fkmostro, MAX(adm.data) AS ultima_data
+            FROM tb_analise_diaria_mostro adm
+            GROUP BY adm.fkmostro
+        ),
+        UltimaAnalisePedeCuba AS (
+            SELECT adp.fkpedecuba, MAX(adp.data) AS ultima_data
+            FROM tb_analise_diaria_pedecuba adp
+            GROUP BY adp.fkpedecuba
+        ),
+        UltimaAnaliseVinho AS (
+            SELECT adv.fkvinho, MAX(adv.data) AS ultima_data
+            FROM tb_analise_diaria_vinho adv
+            GROUP BY adv.fkvinho
+        )
+        SELECT
+            d.numerodeposito AS deposito,
+            CASE
+                WHEN (dm.fkdeposito IS NOT NULL AND m.valid = 1) THEN 'Mostro'
+                WHEN (dp.fkdeposito IS NOT NULL AND p.valid = 1) THEN 'Pé de Cuba'
+                WHEN (dv.fkdeposito IS NOT NULL AND v.valid = 1) THEN 'Vinho'
+                ELSE NULL
+            END AS conteudo,
+            CASE
+                WHEN (dm.fkdeposito IS NOT NULL AND m.valid = 1) THEN ROUND(ua_mostro.temperatura, 2)
+                WHEN (dp.fkdeposito IS NOT NULL AND p.valid = 1) THEN ROUND(ua_pedecuba.temperatura, 2)
+                WHEN (dv.fkdeposito IS NOT NULL AND v.valid = 1) THEN ROUND(ua_vinho.temperatura, 2)
+                ELSE NULL
+            END AS temperatura,
+            CASE
+                WHEN (dm.fkdeposito IS NOT NULL AND m.valid = 1) THEN ROUND(ua_mostro.densidade, 2)
+                WHEN (dp.fkdeposito IS NOT NULL AND p.valid = 1) THEN ROUND(ua_pedecuba.densidade, 2)
+                WHEN (dv.fkdeposito IS NOT NULL AND v.valid = 1) THEN ROUND(ua_vinho.densidade, 2)
+                ELSE NULL
+            END AS densidade,
+            CASE
+                WHEN (dv.fkdeposito IS NOT NULL AND v.valid = 1) THEN ROUND(ua_vinho.pressao, 2)
+                ELSE NULL
+            END AS pressao,
+            d.id AS idDeposito,
+            d.capacidade AS capacidadeDeposito,
             d.numerodeposito AS numeroDeposito,
             d.tipodeposito AS tipoDeposito,
-           COALESCE(m.volume, p.volume, v.volume, 0) AS volumeConteudo,
-           COALESCE(m.id, p.id, v.id) AS idConteudo
-    FROM tb_deposito AS d
-    LEFT JOIN tb_deposito_mostro AS dm ON d.id = dm.fkdeposito AND dm.datafim IS NULL
-    LEFT JOIN tb_mostro AS m ON dm.fkmostro = m.id
-    LEFT JOIN UltimaAnaliseMostro uam ON uam.fkmostro = m.id
-    LEFT JOIN tb_analise_diaria_mostro AS ua_mostro ON ua_mostro.fkmostro = uam.fkmostro AND ua_mostro.data = uam.ultima_data
-    LEFT JOIN tb_deposito_pedecuba AS dp ON d.id = dp.fkdeposito AND dp.datafim IS NULL
-    LEFT JOIN tb_pe_de_cuba AS p ON dp.fkpedecuba = p.id
-    LEFT JOIN UltimaAnalisePedeCuba uap ON uap.fkpedecuba = p.id
-    LEFT JOIN tb_analise_diaria_pedecuba AS ua_pedecuba ON ua_pedecuba.fkpedecuba = uap.fkpedecuba AND ua_pedecuba.data = uap.ultima_data
-    LEFT JOIN tb_deposito_vinho AS dv ON d.id = dv.fkdeposito AND dv.datafim IS NULL
-    LEFT JOIN tb_vinho AS v ON dv.fkvinho = v.id
-    LEFT JOIN UltimaAnaliseVinho uav ON uav.fkvinho = v.id
-    LEFT JOIN tb_analise_diaria_vinho AS ua_vinho ON ua_vinho.fkvinho = uav.fkvinho AND ua_vinho.data = uav.ultima_data
-    WHERE (dm.fkdeposito IS NOT NULL OR dp.fkdeposito IS NOT NULL OR dv.fkdeposito IS NOT NULL)
-    
-    UNION ALL
-    
-    SELECT d.numerodeposito AS deposito,
-           NULL AS conteudo,
-           NULL AS temperatura,
-           NULL AS densidade,
-           NULL AS pressao,
-           d.id AS idDeposito,
-           d.capacidade AS capacidade,
+            CASE
+                WHEN (dm.fkdeposito IS NOT NULL AND m.valid = 1) THEN m.volume
+                WHEN (dp.fkdeposito IS NOT NULL AND p.valid = 1) THEN p.volume
+                WHEN (dv.fkdeposito IS NOT NULL AND v.valid = 1) THEN v.volume
+                ELSE NULL
+            END AS volumeConteudo,
+            CASE
+                WHEN (dm.fkdeposito IS NOT NULL AND m.valid = 1) THEN m.id
+                WHEN (dp.fkdeposito IS NOT NULL AND p.valid = 1) THEN p.id
+                WHEN (dv.fkdeposito IS NOT NULL AND v.valid = 1) THEN v.id
+                ELSE NULL
+            END AS idConteudo
+        FROM tb_deposito AS d
+        LEFT JOIN tb_deposito_mostro AS dm ON d.id = dm.fkdeposito AND dm.datafim IS NULL
+        LEFT JOIN tb_mostro AS m ON dm.fkmostro = m.id
+        LEFT JOIN UltimaAnaliseMostro uam ON uam.fkmostro = m.id
+        LEFT JOIN tb_analise_diaria_mostro AS ua_mostro ON ua_mostro.fkmostro = uam.fkmostro AND ua_mostro.data = uam.ultima_data
+        LEFT JOIN tb_deposito_pedecuba AS dp ON d.id = dp.fkdeposito AND dp.datafim IS NULL
+        LEFT JOIN tb_pe_de_cuba AS p ON dp.fkpedecuba = p.id
+        LEFT JOIN UltimaAnalisePedeCuba uap ON uap.fkpedecuba = p.id
+        LEFT JOIN tb_analise_diaria_pedecuba AS ua_pedecuba ON ua_pedecuba.fkpedecuba = uap.fkpedecuba AND ua_pedecuba.data = uap.ultima_data
+        LEFT JOIN tb_deposito_vinho AS dv ON d.id = dv.fkdeposito AND dv.datafim IS NULL
+        LEFT JOIN tb_vinho AS v ON dv.fkvinho = v.id
+        LEFT JOIN UltimaAnaliseVinho uav ON uav.fkvinho = v.id
+        LEFT JOIN tb_analise_diaria_vinho AS ua_vinho ON ua_vinho.fkvinho = uav.fkvinho AND ua_vinho.data = uav.ultima_data
+        WHERE (dm.fkdeposito IS NOT NULL OR dp.fkdeposito IS NOT NULL OR dv.fkdeposito IS NOT NULL)
+        
+        UNION ALL
+        
+        SELECT
+            d.numerodeposito AS deposito,
+            NULL AS conteudo,
+            NULL AS temperatura,
+            NULL AS densidade,
+            NULL AS pressao,
+            d.id AS idDeposito,
+            d.capacidade AS capacidadeDeposito,
             d.numerodeposito AS numeroDeposito,
             d.tipodeposito AS tipoDeposito,
-           NULL AS volume,
-           NULL AS idConteudo
-    FROM tb_deposito AS d
-    LEFT JOIN tb_deposito_mostro AS dm ON d.id = dm.fkdeposito AND dm.datafim IS NULL
-    LEFT JOIN tb_deposito_pedecuba AS dp ON d.id = dp.fkdeposito AND dp.datafim IS NULL
-    LEFT JOIN tb_deposito_vinho AS dv ON d.id = dv.fkdeposito AND dv.datafim IS NULL
-    WHERE dm.fkdeposito IS NULL
-        AND dp.fkdeposito IS NULL
-        AND dv.fkdeposito IS NULL
-    ORDER BY deposito;
+            NULL AS volumeConteudo,
+            NULL AS idConteudo
+        FROM tb_deposito AS d
+        LEFT JOIN tb_deposito_mostro AS dm ON d.id = dm.fkdeposito AND dm.datafim IS NULL
+        LEFT JOIN tb_deposito_pedecuba AS dp ON d.id = dp.fkdeposito AND dp.datafim IS NULL
+        LEFT JOIN tb_deposito_vinho AS dv ON d.id = dv.fkdeposito AND dv.datafim IS NULL
+        WHERE dm.fkdeposito IS NULL
+          AND dp.fkdeposito IS NULL
+          AND dv.fkdeposito IS NULL
+        ORDER BY deposito;
     """, nativeQuery = true)
     public List<DadosInformacoesDepositos> getAllDepositosWithInformations();
 
@@ -111,29 +136,55 @@ public interface DepositoRepository extends JpaRepository<Deposito, Long> {
 
     @Query(value = """
     SELECT d.numerodeposito AS deposito,
-            CASE
-                       WHEN dm.fkdeposito IS NOT NULL THEN 'Mostro'
-                       WHEN dp.fkdeposito IS NOT NULL THEN 'Pé de Cuba'
-                       WHEN dv.fkdeposito IS NOT NULL THEN 'Vinho'
-                       ELSE 'Desconhecido'
-            END AS conteudo,
-        ROUND(COALESCE(adm.temperatura, adp.temperatura, adv.temperatura), 2) AS temperatura,
-        ROUND(COALESCE(adm.densidade, adp.densidade, adv.densidade), 2) AS densidade,
-        ROUND(adv.pressao, 2) AS pressao,
-        d.id as idDeposito,
-        d.capacidade as capacidade,
-        COALESCE(m.id, p.id, v.id) as idConteudo
-    FROM tb_deposito AS d
-    LEFT JOIN tb_deposito_mostro AS dm ON d.id = dm.fkdeposito AND dm.datafim IS NULL
-    LEFT JOIN tb_mostro AS m ON dm.fkmostro = m.id
-    LEFT JOIN tb_analise_diaria_mostro AS adm ON adm.fkmostro = m.id
-    LEFT JOIN tb_deposito_pedecuba AS dp ON d.id = dp.fkdeposito AND dp.datafim IS NULL
-    LEFT JOIN tb_pe_de_cuba AS p ON dp.fkpedecuba = p.id
-    LEFT JOIN tb_analise_diaria_pedecuba AS adp ON adp.fkpedecuba = p.id
-    LEFT JOIN tb_deposito_vinho AS dv ON d.id = dv.fkdeposito AND dv.datafim IS NULL
-    LEFT JOIN tb_vinho AS v ON dv.fkvinho = v.id
-    LEFT JOIN tb_analise_diaria_vinho AS adv ON adv.fkvinho = v.id
-    
+        CASE
+            WHEN (dm.fkdeposito IS NOT NULL AND m.valid = 1) THEN 'Mostro'
+            WHEN (dp.fkdeposito IS NOT NULL AND p.valid = 1) THEN 'Pé de Cuba'
+            WHEN (dv.fkdeposito IS NOT NULL AND v.valid = 1) THEN 'Vinho'
+            ELSE NULL
+        END AS conteudo,
+        CASE
+            WHEN (dm.fkdeposito IS NOT NULL AND m.valid = 1) THEN ROUND(adm.temperatura, 2)
+            WHEN (dp.fkdeposito IS NOT NULL AND p.valid = 1) THEN ROUND(adp.temperatura, 2)
+            WHEN (dv.fkdeposito IS NOT NULL AND v.valid = 1) THEN ROUND(adv.temperatura, 2)
+            ELSE NULL
+        END AS temperatura,
+        CASE
+            WHEN (dm.fkdeposito IS NOT NULL AND m.valid = 1) THEN ROUND(adm.densidade, 2)
+            WHEN (dp.fkdeposito IS NOT NULL AND p.valid = 1) THEN ROUND(adp.densidade, 2)
+            WHEN (dv.fkdeposito IS NOT NULL AND v.valid = 1) THEN ROUND(adv.densidade, 2)
+            ELSE NULL
+        END AS densidade,
+        CASE
+            WHEN (dv.fkdeposito IS NOT NULL AND v.valid = 1) THEN ROUND(adv.pressao, 2)
+            ELSE NULL
+        END AS pressao,
+        d.id AS idDeposito,
+        d.capacidade AS capacidadeDeposito,
+        d.numerodeposito AS numeroDeposito,
+        d.tipodeposito AS tipoDeposito,
+        CASE
+            WHEN (dm.fkdeposito IS NOT NULL AND m.valid = 1) THEN m.volume
+            WHEN (dp.fkdeposito IS NOT NULL AND p.valid = 1) THEN p.volume
+            WHEN (dv.fkdeposito IS NOT NULL AND v.valid = 1) THEN v.volume
+            ELSE NULL
+        END AS volumeConteudo,
+        CASE
+            WHEN (dm.fkdeposito IS NOT NULL AND m.valid = 1) THEN m.id
+            WHEN (dp.fkdeposito IS NOT NULL AND p.valid = 1) THEN p.id
+            WHEN (dv.fkdeposito IS NOT NULL AND v.valid = 1) THEN v.id
+            ELSE NULL
+        END AS idConteudo
+        FROM tb_deposito AS d
+        LEFT JOIN tb_deposito_mostro AS dm ON d.id = dm.fkdeposito AND dm.datafim IS NULL
+        LEFT JOIN tb_mostro AS m ON dm.fkmostro = m.id
+        LEFT JOIN tb_analise_diaria_mostro AS adm ON adm.fkmostro = m.id
+        LEFT JOIN tb_deposito_pedecuba AS dp ON d.id = dp.fkdeposito AND dp.datafim IS NULL
+        LEFT JOIN tb_pe_de_cuba AS p ON dp.fkpedecuba = p.id
+        LEFT JOIN tb_analise_diaria_pedecuba AS adp ON adp.fkpedecuba = p.id
+        LEFT JOIN tb_deposito_vinho AS dv ON d.id = dv.fkdeposito AND dv.datafim IS NULL
+        LEFT JOIN tb_vinho AS v ON dv.fkvinho = v.id
+        LEFT JOIN tb_analise_diaria_vinho AS adv ON adv.fkvinho = v.id
+        
         WHERE (dm.fkdeposito IS NOT NULL OR dp.fkdeposito IS NOT NULL OR dv.fkdeposito IS NOT NULL) and d.id =:depositoId
     """, nativeQuery = true)
     public DadosInformacoesDepositos getDepositoWithIdWithInformations(@Param("depositoId") Long depositoId);
