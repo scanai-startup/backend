@@ -1,6 +1,7 @@
 package com.scanai.api.services;
 
 import com.scanai.api.domain.deposito.Deposito;
+import com.scanai.api.domain.depositovinho.dto.DadosCadastroDepositoVinho;
 import com.scanai.api.domain.mostro.Mostro;
 import com.scanai.api.domain.mostrovinho.MostroVinho;
 import com.scanai.api.domain.mostrovinho.dto.DadosCadastroMostroVinho;
@@ -14,6 +15,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -55,8 +57,10 @@ public class VinculoDepositoVinhoService {
 
         // Somando o volume do pe de cuba ao volume do vinho
         Float volumeVinho = pedecuba.getVolume();
+
         // Aplicando softdelete no pé de cuba
         pedecuba.setValid(false);
+
         // Verificar se o rótulo existe e é válido
         Rotulo rotulo = _rotuloService.getElement(data.rotuloId());
         if(rotulo == null){
@@ -87,6 +91,9 @@ public class VinculoDepositoVinhoService {
             // aplicando soft delete no mostro
             mostro.setValid(false);
         }
+
+        _depositoVinhoService.register(new DadosCadastroDepositoVinho(vinho.getId(), deposito.getId(), LocalDate.now(), data.funcionarioId()));
+
         String message = "Vinho " + rotulo.getNome()+" : "+rotulo.getTipo()+" criado e vinculado com sucesso";
         // Retornar os detalhes do vínculo criado
         return new DadosDetalhamentoVinculoDepositoVinho(
