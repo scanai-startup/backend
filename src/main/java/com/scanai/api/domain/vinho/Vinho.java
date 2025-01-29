@@ -36,7 +36,7 @@ public class Vinho {
         this.datafimfermentacao = dados.datafimfermentacao();
         this.volume = dados.volume();
         this.fkrotulo = dados.fkpedecuba();
-        // this.fkmostro = dados.fkmostro();
+        this.fkmostro = dados.fkmostro();
         this.fkpedecuba = dados.fkpedecuba();
     }
 
@@ -44,7 +44,7 @@ public class Vinho {
         this.datafimfermentacao = dados.datafimfermentacao();
         this.volume = dados.volume();
         this.fkrotulo = dados.fkpedecuba();
-        // this.fkmostro = dados.fkmostro();
+        this.fkmostro = dados.fkmostro();
         this.fkpedecuba = dados.fkpedecuba();
     }
 

@@ -58,4 +58,10 @@ public class DepositoMostroService {
         depositoMostro.setDatafim(LocalDate.now());
         depositoMostroRepository.save(depositoMostro);
     }
+    public void setDataFim(Long fkmostro){
+        // implementando o softDelete
+        DepositoMostro depositoMostro = depositoMostroRepository.findByFkmostroAndDatafimIsNull(fkmostro);
+        depositoMostro.setDatafim(LocalDate.now());
+        depositoMostroRepository.save(depositoMostro);
+    }
 }

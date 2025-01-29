@@ -45,4 +45,10 @@ public class DepositoPedecubaService {
             return newDepositopedecuba;
         }
     }
+    public void setDataFim(Long fkpedecuba){
+        // implementando o softDelete
+        Depositopedecuba depositopedecuba = depositoPedecubaRepository.findByFkpedecubaAndDatafimIsNull(fkpedecuba);
+        depositopedecuba.setDatafim(LocalDate.now());
+        depositoPedecubaRepository.save(depositopedecuba);
+    }
 }

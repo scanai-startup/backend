@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
 public class DepositoVinhoService {
 
@@ -24,5 +26,11 @@ public class DepositoVinhoService {
         var newDepositovinho = new Depositovinho(data);
         depositoVinhoRepository.save(newDepositovinho);
         return newDepositovinho;
+    }
+    public void setDataFim(Long fkvinho){
+        // implementando o softDelete
+        Depositovinho depositovinho = depositoVinhoRepository.findByFkvinhoAndDatafimIsNull(fkvinho);
+        depositovinho.setDatafim(LocalDate.now());
+        depositoVinhoRepository.save(depositovinho);
     }
 }

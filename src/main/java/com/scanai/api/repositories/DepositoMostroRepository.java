@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface DepositoMostroRepository extends JpaRepository<DepositoMostro, Long> {
     DepositoMostro findByFkdepositoAndFkmostro(Long fkdeposito, Long fkmostro);
+    DepositoMostro findByFkmostroAndDatafimIsNull(Long fkmostro);
 }
