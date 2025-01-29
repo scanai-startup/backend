@@ -7,5 +7,5 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
-public record DadosCadastroVinculoDepositoVinho(@NotNull Long depositoId, @FutureOrPresent Date dataFimFermentacao, @NotNull Long pedecubaId, @NotNull Long rotuloId, @NotNull List<Long> mostroIds, @NotNull Long funcionarioId) {
+public record DadosCadastroVinculoDepositoVinho(@NotNull Long depositoId, @FutureOrPresent Date dataFimFermentacao, @NotNull Long pedecubaId, Float pedecubaVolumePerda, @NotNull Long rotuloId, @NotNull Long mostroId, @NotNull Float volumeMostro, @NotNull Float volumeMostroPerda, @NotNull Long funcionarioId) {
 }

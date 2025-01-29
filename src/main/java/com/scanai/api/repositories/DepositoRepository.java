@@ -39,21 +39,21 @@ public interface DepositoRepository extends JpaRepository<Deposito, Long> {
         SELECT
             d.numerodeposito AS deposito,
             CASE
-                WHEN (dm.fkdeposito IS NOT NULL AND m.valid = 1) THEN 'Mostro'
-                WHEN (dp.fkdeposito IS NOT NULL AND p.valid = 1) THEN 'Pé de Cuba'
-                WHEN (dv.fkdeposito IS NOT NULL AND v.valid = 1) THEN 'Vinho'
+                WHEN (dm.fkdeposito IS NOT NULL) THEN 'Mostro'
+                WHEN (dp.fkdeposito IS NOT NULL) THEN 'Pé de Cuba'
+                WHEN (dv.fkdeposito IS NOT NULL) THEN 'Vinho'
                 ELSE NULL
             END AS conteudo,
             CASE
-                WHEN (dm.fkdeposito IS NOT NULL AND m.valid = 1) THEN ROUND(ua_mostro.temperatura, 2)
-                WHEN (dp.fkdeposito IS NOT NULL AND p.valid = 1) THEN ROUND(ua_pedecuba.temperatura, 2)
-                WHEN (dv.fkdeposito IS NOT NULL AND v.valid = 1) THEN ROUND(ua_vinho.temperatura, 2)
+                WHEN (dm.fkdeposito IS NOT NULL) THEN ROUND(ua_mostro.temperatura, 2)
+                WHEN (dp.fkdeposito IS NOT NULL) THEN ROUND(ua_pedecuba.temperatura, 2)
+                WHEN (dv.fkdeposito IS NOT NULL) THEN ROUND(ua_vinho.temperatura, 2)
                 ELSE NULL
             END AS temperatura,
             CASE
-                WHEN (dm.fkdeposito IS NOT NULL AND m.valid = 1) THEN ROUND(ua_mostro.densidade, 2)
-                WHEN (dp.fkdeposito IS NOT NULL AND p.valid = 1) THEN ROUND(ua_pedecuba.densidade, 2)
-                WHEN (dv.fkdeposito IS NOT NULL AND v.valid = 1) THEN ROUND(ua_vinho.densidade, 2)
+                WHEN (dm.fkdeposito IS NOT NULL) THEN ROUND(ua_mostro.densidade, 2)
+                WHEN (dp.fkdeposito IS NOT NULL) THEN ROUND(ua_pedecuba.densidade, 2)
+                WHEN (dv.fkdeposito IS NOT NULL) THEN ROUND(ua_vinho.densidade, 2)
                 ELSE NULL
             END AS densidade,
             CASE
@@ -65,15 +65,15 @@ public interface DepositoRepository extends JpaRepository<Deposito, Long> {
             d.numerodeposito AS numeroDeposito,
             d.tipodeposito AS tipoDeposito,
             CASE
-                WHEN (dm.fkdeposito IS NOT NULL AND m.valid = 1) THEN m.volume
-                WHEN (dp.fkdeposito IS NOT NULL AND p.valid = 1) THEN p.volume
-                WHEN (dv.fkdeposito IS NOT NULL AND v.valid = 1) THEN v.volume
+                WHEN (dm.fkdeposito IS NOT NULL) THEN m.volume
+                WHEN (dp.fkdeposito IS NOT NULL) THEN p.volume
+                WHEN (dv.fkdeposito IS NOT NULL) THEN v.volume
                 ELSE NULL
             END AS volumeConteudo,
             CASE
-                WHEN (dm.fkdeposito IS NOT NULL AND m.valid = 1) THEN m.id
-                WHEN (dp.fkdeposito IS NOT NULL AND p.valid = 1) THEN p.id
-                WHEN (dv.fkdeposito IS NOT NULL AND v.valid = 1) THEN v.id
+                WHEN (dm.fkdeposito IS NOT NULL) THEN m.id
+                WHEN (dp.fkdeposito IS NOT NULL) THEN p.id
+                WHEN (dv.fkdeposito IS NOT NULL) THEN v.id
                 ELSE NULL
             END AS idConteudo
         FROM tb_deposito AS d
@@ -135,57 +135,55 @@ public interface DepositoRepository extends JpaRepository<Deposito, Long> {
     Depositovinho existsVinhoAtivo(@Param("depositoId") Long depositoId);
 
     @Query(value = """
-    SELECT d.numerodeposito AS deposito,
-        CASE
-            WHEN (dm.fkdeposito IS NOT NULL AND m.valid = 1) THEN 'Mostro'
-            WHEN (dp.fkdeposito IS NOT NULL AND p.valid = 1) THEN 'Pé de Cuba'
-            WHEN (dv.fkdeposito IS NOT NULL AND v.valid = 1) THEN 'Vinho'
-            ELSE NULL
-        END AS conteudo,
-        CASE
-            WHEN (dm.fkdeposito IS NOT NULL AND m.valid = 1) THEN ROUND(adm.temperatura, 2)
-            WHEN (dp.fkdeposito IS NOT NULL AND p.valid = 1) THEN ROUND(adp.temperatura, 2)
-            WHEN (dv.fkdeposito IS NOT NULL AND v.valid = 1) THEN ROUND(adv.temperatura, 2)
-            ELSE NULL
-        END AS temperatura,
-        CASE
-            WHEN (dm.fkdeposito IS NOT NULL AND m.valid = 1) THEN ROUND(adm.densidade, 2)
-            WHEN (dp.fkdeposito IS NOT NULL AND p.valid = 1) THEN ROUND(adp.densidade, 2)
-            WHEN (dv.fkdeposito IS NOT NULL AND v.valid = 1) THEN ROUND(adv.densidade, 2)
-            ELSE NULL
-        END AS densidade,
-        CASE
-            WHEN (dv.fkdeposito IS NOT NULL AND v.valid = 1) THEN ROUND(adv.pressao, 2)
-            ELSE NULL
-        END AS pressao,
-        d.id AS idDeposito,
-        d.capacidade AS capacidadeDeposito,
-        d.numerodeposito AS numeroDeposito,
-        d.tipodeposito AS tipoDeposito,
-        CASE
-            WHEN (dm.fkdeposito IS NOT NULL AND m.valid = 1) THEN m.volume
-            WHEN (dp.fkdeposito IS NOT NULL AND p.valid = 1) THEN p.volume
-            WHEN (dv.fkdeposito IS NOT NULL AND v.valid = 1) THEN v.volume
-            ELSE NULL
-        END AS volumeConteudo,
-        CASE
-            WHEN (dm.fkdeposito IS NOT NULL AND m.valid = 1) THEN m.id
-            WHEN (dp.fkdeposito IS NOT NULL AND p.valid = 1) THEN p.id
-            WHEN (dv.fkdeposito IS NOT NULL AND v.valid = 1) THEN v.id
-            ELSE NULL
-        END AS idConteudo
-        FROM tb_deposito AS d
-        LEFT JOIN tb_deposito_mostro AS dm ON d.id = dm.fkdeposito AND dm.datafim IS NULL
-        LEFT JOIN tb_mostro AS m ON dm.fkmostro = m.id
-        LEFT JOIN tb_analise_diaria_mostro AS adm ON adm.fkmostro = m.id
-        LEFT JOIN tb_deposito_pedecuba AS dp ON d.id = dp.fkdeposito AND dp.datafim IS NULL
-        LEFT JOIN tb_pe_de_cuba AS p ON dp.fkpedecuba = p.id
-        LEFT JOIN tb_analise_diaria_pedecuba AS adp ON adp.fkpedecuba = p.id
-        LEFT JOIN tb_deposito_vinho AS dv ON d.id = dv.fkdeposito AND dv.datafim IS NULL
-        LEFT JOIN tb_vinho AS v ON dv.fkvinho = v.id
-        LEFT JOIN tb_analise_diaria_vinho AS adv ON adv.fkvinho = v.id
-        
-        WHERE (dm.fkdeposito IS NOT NULL OR dp.fkdeposito IS NOT NULL OR dv.fkdeposito IS NOT NULL) and d.id =:depositoId
+        SELECT d.numerodeposito AS deposito,
+            CASE
+                WHEN (dm.fkdeposito IS NOT NULL) THEN 'Mostro'
+                WHEN (dp.fkdeposito IS NOT NULL) THEN 'Pé de Cuba'
+                WHEN (dv.fkdeposito IS NOT NULL) THEN 'Vinho'
+                ELSE NULL
+            END AS conteudo,
+            CASE
+                WHEN (dm.fkdeposito IS NOT NULL) THEN ROUND(adm.temperatura, 2)
+                WHEN (dp.fkdeposito IS NOT NULL) THEN ROUND(adp.temperatura, 2)
+                WHEN (dv.fkdeposito IS NOT NULL) THEN ROUND(adv.temperatura, 2)
+                ELSE NULL
+            END AS temperatura,
+            CASE
+                WHEN (dm.fkdeposito IS NOT NULL) THEN ROUND(adm.densidade, 2)
+                WHEN (dp.fkdeposito IS NOT NULL) THEN ROUND(adp.densidade, 2)
+                WHEN (dv.fkdeposito IS NOT NULL) THEN ROUND(adv.densidade, 2)
+                ELSE NULL
+            END AS densidade,
+            CASE
+                WHEN (dv.fkdeposito IS NOT NULL) THEN ROUND(adv.pressao, 2)
+                ELSE NULL
+            END AS pressao,
+            d.id AS idDeposito,
+            d.capacidade AS capacidadeDeposito,
+            d.numerodeposito AS numeroDeposito,
+            d.tipodeposito AS tipoDeposito,
+            CASE
+                WHEN (dm.fkdeposito IS NOT NULL) THEN m.volume
+                WHEN (dp.fkdeposito IS NOT NULL) THEN p.volume
+                WHEN (dv.fkdeposito IS NOT NULL) THEN v.volume
+                ELSE NULL
+            END AS volumeConteudo,
+            CASE
+                WHEN (dm.fkdeposito IS NOT NULL) THEN m.id
+                WHEN (dp.fkdeposito IS NOT NULL) THEN p.id
+                WHEN (dv.fkdeposito IS NOT NULL) THEN v.id
+                ELSE NULL
+            END AS idConteudo
+            FROM tb_deposito AS d
+            LEFT JOIN tb_deposito_mostro AS dm ON d.id = dm.fkdeposito AND dm.datafim IS NULL
+            LEFT JOIN tb_mostro AS m ON dm.fkmostro = m.id
+            LEFT JOIN tb_analise_diaria_mostro AS adm ON adm.fkmostro = m.id
+            LEFT JOIN tb_deposito_pedecuba AS dp ON d.id = dp.fkdeposito AND dp.datafim IS NULL
+            LEFT JOIN tb_pe_de_cuba AS p ON dp.fkpedecuba = p.id
+            LEFT JOIN tb_analise_diaria_pedecuba AS adp ON adp.fkpedecuba = p.id
+            LEFT JOIN tb_deposito_vinho AS dv ON d.id = dv.fkdeposito AND dv.datafim IS NULL
+            LEFT JOIN tb_vinho AS v ON dv.fkvinho = v.id
+            LEFT JOIN tb_analise_diaria_vinho AS adv ON adv.fkvinho = v.id
     """, nativeQuery = true)
     public DadosInformacoesDepositos getDepositoWithIdWithInformations(@Param("depositoId") Long depositoId);
 }
