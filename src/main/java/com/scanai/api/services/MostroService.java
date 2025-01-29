@@ -30,4 +30,12 @@ public class MostroService {
     public Mostro getElement(Long id) {
         return repository.getReferenceById(id);
     }
+
+    public Mostro createMostroFilho(Long idMostroOrigem, float volumeMostroFilho, float volumeRetiradoMostroOrigem, Long idFuncionario) {
+        Mostro mostroOrigem = repository.getReferenceById(idMostroOrigem);
+        mostroOrigem.setVolume(mostroOrigem.getVolume() - volumeRetiradoMostroOrigem);
+        Mostro mostroFilho = new Mostro(new DadosCadastroMostro(idFuncionario, volumeMostroFilho, mostroOrigem.getId(), null));
+        repository.save(mostroFilho);
+        return mostroFilho;
+    }
 }
