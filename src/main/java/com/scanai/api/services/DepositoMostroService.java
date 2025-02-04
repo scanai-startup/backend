@@ -67,6 +67,7 @@ public class DepositoMostroService {
             if(depositoOrigem != null){
                 depositoOrigem.setDatafim(LocalDate.now());
             }
+            mostroOrigem.setVolume(data.volumechegada());
             var newDepositomostro = new DepositoMostro(data);
             depositoMostroRepository.save(newDepositomostro);
             return newDepositomostro;
