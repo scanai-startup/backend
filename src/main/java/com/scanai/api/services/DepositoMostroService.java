@@ -35,13 +35,15 @@ public class DepositoMostroService {
             if(data.volumetrasfega() == mostroOrigem.getVolume()){//case volume total
                 DepositoMostro depositoOrigem = depositoMostroRepository.findByFkmostroAndDatafimIsNull(data.fkmostro());
                 depositoOrigem.setDatafim(LocalDate.now());
-                DepositoMostro depositoMisturaMostro = mixMostros(data.fkdeposito(), data.fkfuncionario(), mostroOrigem, mostroDestino, depositoMostroExistente, data.volumetrasfega(), data.volumechegada());
+                DepositoMostro depositoMisturaMostro = mixMostros(data.fkdeposito(), data.fkfuncionario(), mostroOrigem, mostroDestino,
+                        depositoMostroExistente, data.volumetrasfega(), data.volumechegada());
                 depositoMostroRepository.save(depositoMisturaMostro);
                 return depositoMisturaMostro;
             }else if(data.volumetrasfega() < mostroOrigem.getVolume()){//case volume parcial
                 float volumeMostroFilho = data.volumechegada() - mostroDestino.getVolume();
                 Mostro mostroFilho = mostroService.createMostroFilho(data.fkmostro(), volumeMostroFilho, data.volumetrasfega(), data.fkfuncionario());
-                DepositoMostro depositoMisturaMostro = mixMostros(data.fkdeposito(), data.fkfuncionario(), mostroFilho, mostroDestino, depositoMostroExistente, data.volumetrasfega(), data.volumechegada());
+                DepositoMostro depositoMisturaMostro = mixMostros(data.fkdeposito(), data.fkfuncionario(), mostroFilho, mostroDestino, depositoMostroExistente,
+                        data.volumetrasfega(), data.volumechegada());
                 depositoMostroRepository.save(depositoMisturaMostro);
                 return depositoMisturaMostro;
             }else {
@@ -50,10 +52,13 @@ public class DepositoMostroService {
         }else if(data.volumetrasfega() != 0){ // case deposito vazio volume parcial
             float volumeMostroFilho = data.volumechegada();
             Mostro mostroFilho = mostroService.createMostroFilho(data.fkmostro(), volumeMostroFilho, data.volumetrasfega(), data.fkfuncionario());
-            var newDepositomostro = new DepositoMostro(new DadosCadastroDepositoMostro(mostroFilho.getId(), data.fkdeposito(), LocalDate.now(), data.fkfuncionario(), data.volumetrasfega(), data.volumechegada()));
+            var newDepositomostro = new DepositoMostro(new DadosCadastroDepositoMostro(mostroFilho.getId(), data.fkdeposito(), LocalDate.now(), data.fkfuncionario(),
+                    data.volumetrasfega(), data.volumechegada()));
             depositoMostroRepository.save(newDepositomostro);
             return newDepositomostro;
         } else{ // case deposito vazio volume total
+            DepositoMostro depositoOrigem = depositoMostroRepository.findByFkmostroAndDatafimIsNull(data.fkmostro());
+            depositoOrigem.setDatafim(LocalDate.now());
             var newDepositomostro = new DepositoMostro(data);
             depositoMostroRepository.save(newDepositomostro);
             return newDepositomostro;
