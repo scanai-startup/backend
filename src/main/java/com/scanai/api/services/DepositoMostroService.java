@@ -49,7 +49,7 @@ public class DepositoMostroService {
             }else {
                 throw new DataIntegrityViolationException("Impossível realizar trasfega com volume maior que o existente");
             }
-        }else if(data.volumetrasfega() != 0){ // case deposito vazio volume parcial
+        }else if(data.volumetrasfega() == mostroOrigem.getVolume()){ // case deposito vazio volume parcial
             float volumeMostroFilho = data.volumechegada();
             Mostro mostroFilho = mostroService.createMostroFilho(data.fkmostro(), volumeMostroFilho, data.volumetrasfega(), data.fkfuncionario());
             var newDepositomostro = new DepositoMostro(new DadosCadastroDepositoMostro(mostroFilho.getId(), data.fkdeposito(), LocalDate.now(), data.fkfuncionario(),
