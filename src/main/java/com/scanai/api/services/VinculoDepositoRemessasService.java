@@ -49,7 +49,7 @@ public class VinculoDepositoRemessasService {
                 _uvaService.softDelete(remessaUvaId);
             }
             // vincular mostro ao deposito
-            DepositoMostro depositoMostro = _depositoMostroService.register(new DadosCadastroDepositoMostro(mostro.getId(), data.depositoId(), LocalDate.now(), data.funcionarioId(), 0, 0));
+            DepositoMostro depositoMostro = _depositoMostroService.registerRemessa(new DadosCadastroDepositoMostro(mostro.getId(), data.depositoId(), LocalDate.now(), data.funcionarioId(), 0, 0));
 
             message = "Mostro criado e vinculado às remessas e ao depósito";
         }

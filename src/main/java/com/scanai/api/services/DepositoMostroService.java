@@ -25,6 +25,12 @@ public class DepositoMostroService {
     MostroService mostroService;
 
 
+    public DepositoMostro registerRemessa(DadosCadastroDepositoMostro data) {
+        var newDepositomostro = new DepositoMostro(data);
+        depositoMostroRepository.save(newDepositomostro);
+        return newDepositomostro;
+    }
+
     public DepositoMostro register(DadosCadastroDepositoMostro data) {
         DepositoMostro depositoMostroExistente = depositoRepository.existsMostroAtivo(data.fkdeposito());
         Mostro mostroOrigem = mostroService.getElement(data.fkmostro());
