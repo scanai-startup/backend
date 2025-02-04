@@ -58,7 +58,9 @@ public class DepositoMostroService {
             return newDepositomostro;
         } else{ // case deposito vazio volume total
             DepositoMostro depositoOrigem = depositoMostroRepository.findByFkmostroAndDatafimIsNull(data.fkmostro());
-            depositoOrigem.setDatafim(LocalDate.now());
+            if(depositoOrigem != null){
+                depositoOrigem.setDatafim(LocalDate.now());
+            }
             var newDepositomostro = new DepositoMostro(data);
             depositoMostroRepository.save(newDepositomostro);
             return newDepositomostro;
