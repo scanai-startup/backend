@@ -6,6 +6,7 @@ import com.scanai.api.repositories.DepositoRepository;
 import com.scanai.api.services.DepositoService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -73,7 +74,7 @@ public class DepositoController {
     }
 
     @PostMapping("/realizarTrasfega")
-    public ResponseEntity<DadosDetalhamentoTrasfegaDeposito> realizarTrasfega(@RequestBody @Valid DadosTrasfegaDeposito data){
+    public ResponseEntity<DadosDetalhamentoTrasfegaDeposito> realizarTrasfega(@RequestBody @Valid DadosTrasfegaDeposito data) throws BadRequestException {
         return ResponseEntity.ok().body(depositoService.realizarTrasfega(data));
     }
 
