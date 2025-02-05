@@ -4,7 +4,7 @@ import com.scanai.api.domain.entradamaterial.dto.DadosCadastroEntradaMaterial;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity(name="tb_entradamaterial")
 @Table(name="tb_entradamaterial")
@@ -22,12 +22,14 @@ public class EntradaMaterial {
     private Long fkmaterial;
     private int qttentrada;
     private float valorunidade;
-    private Date data;
+    private LocalDate dataentrada;
+    private Long fklotematerial;
 
     public EntradaMaterial(DadosCadastroEntradaMaterial dados) {
         this.fkmaterial = dados.fkmaterial();
         this.qttentrada = dados.qttentrada();
         this.valorunidade = dados.valorunidade();
-        this.data = dados.data();
+        this.dataentrada = dados.dataentrada()  ;
+        this.fklotematerial = dados.fklotematerial();
     }
 }

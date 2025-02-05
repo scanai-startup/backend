@@ -3,14 +3,14 @@ package com.scanai.api.domain.entradamaterial.dto;
 
 import com.scanai.api.domain.entradamaterial.EntradaMaterial;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public record DadosDetalhamentoEntradaMaterial(
         Long id,
         Long fkmaterial,
         int qttentrada,
         float valorunidade,
-        Date data) {
+        LocalDate dataentrada) {
 
     public DadosDetalhamentoEntradaMaterial(EntradaMaterial entradaMaterial){
         this(
@@ -18,7 +18,7 @@ public record DadosDetalhamentoEntradaMaterial(
                 entradaMaterial.getFkmaterial(),
                 entradaMaterial.getQttentrada(),
                 entradaMaterial.getValorunidade(),
-                entradaMaterial.getData()
+                entradaMaterial.getDataentrada()
         );
     }
 }

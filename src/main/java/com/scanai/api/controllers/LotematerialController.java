@@ -31,9 +31,9 @@ public class LotematerialController {
         return ResponseEntity.created(uri).body(new DadosDetalhamentoLoteMaterial(newLotematerial));
     }
 
-    @GetMapping("/listByFk/{fk}")
-    public ResponseEntity<List<DadosListagemLoteMaterial>> list(@PathVariable Long fk){
-        var list = repository.findAllByFkmaterial(fk).stream().map(DadosListagemLoteMaterial::new).toList();
-        return ResponseEntity.ok(list);
+    @GetMapping("/getAll")
+    public ResponseEntity<List<DadosListagemLoteMaterial>> getAll(){
+        List<Lotematerial> lotematerialList = service.getAll();
+        return ResponseEntity.ok().body(lotematerialList.stream().map(DadosListagemLoteMaterial::new).toList());
     }
 }
