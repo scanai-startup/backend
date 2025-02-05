@@ -2,6 +2,7 @@ package com.scanai.api.services;
 
 import com.scanai.api.domain.depositomostro.DepositoMostro;
 import com.scanai.api.domain.depositomostro.dto.DadosCadastroDepositoMostro;
+import com.scanai.api.domain.depositomostro.dto.DadosTrasfegaDepositoMostro;
 import com.scanai.api.domain.mostro.Mostro;
 import com.scanai.api.domain.mostro.dto.DadosCadastroMostro;
 import com.scanai.api.repositories.DepositoMostroRepository;
@@ -25,13 +26,13 @@ public class DepositoMostroService {
     MostroService mostroService;
 
 
-    public DepositoMostro registerRemessa(DadosCadastroDepositoMostro data) {
+    public DepositoMostro register(DadosCadastroDepositoMostro data) {
         var newDepositomostro = new DepositoMostro(data);
         depositoMostroRepository.save(newDepositomostro);
         return newDepositomostro;
     }
 
-    public DepositoMostro register(DadosCadastroDepositoMostro data) {
+    public DepositoMostro trasfegaMostro(DadosTrasfegaDepositoMostro data) {
         DepositoMostro depositoMostroExistente = depositoRepository.existsMostroAtivo(data.fkdeposito());
         Mostro mostroOrigem = mostroService.getElement(data.fkmostro());
         if(depositoRepository.existsVinhoAtivo(data.fkdeposito()) != null || depositoRepository.existsPeDeCubaAtivo(data.fkdeposito()) != null){
@@ -58,8 +59,7 @@ public class DepositoMostroService {
         }else if(data.volumetrasfega() != mostroOrigem.getVolume()){ // case deposito vazio volume parcial
             float volumeMostroFilho = data.volumechegada();
             Mostro mostroFilho = mostroService.createMostroFilho(data.fkmostro(), volumeMostroFilho, data.volumetrasfega(), data.fkfuncionario());
-            var newDepositomostro = new DepositoMostro(new DadosCadastroDepositoMostro(mostroFilho.getId(), data.fkdeposito(), LocalDate.now(), data.fkfuncionario(),
-                    data.volumetrasfega(), data.volumechegada()));
+            var newDepositomostro = new DepositoMostro(new DadosCadastroDepositoMostro(mostroFilho.getId(), data.fkdeposito(), LocalDate.now(), data.fkfuncionario()));
             depositoMostroRepository.save(newDepositomostro);
             return newDepositomostro;
         } else{ // case deposito vazio volume total
@@ -68,7 +68,7 @@ public class DepositoMostroService {
                 depositoOrigem.setDatafim(LocalDate.now());
             }
             mostroOrigem.setVolume(data.volumechegada());
-            var newDepositomostro = new DepositoMostro(data);
+            var newDepositomostro = new DepositoMostro(new DadosCadastroDepositoMostro(data.fkmostro(), data.fkdeposito(), LocalDate.now(), data.fkfuncionario()));
             depositoMostroRepository.save(newDepositomostro);
             return newDepositomostro;
         }
@@ -99,6 +99,6 @@ public class DepositoMostroService {
         float totalVolume = volumeChegada; //Volume que ficou no tanque de destino após mistura
         Mostro newMostro = mostroService.register(new DadosCadastroMostro(idFuncionario, totalVolume, mostroOrigem.getId(), mostroDestino.getId()));
         depositoMostroExistente.setDatafim(now);
-        return new DepositoMostro(new DadosCadastroDepositoMostro(newMostro.getId(), idDepositoDestino, now, idFuncionario, 0,0));
+        return new DepositoMostro(new DadosCadastroDepositoMostro(newMostro.getId(), idDepositoDestino, now, idFuncionario));
     }
 }

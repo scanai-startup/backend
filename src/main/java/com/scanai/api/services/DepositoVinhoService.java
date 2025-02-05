@@ -2,6 +2,7 @@ package com.scanai.api.services;
 
 import com.scanai.api.domain.depositovinho.Depositovinho;
 import com.scanai.api.domain.depositovinho.dto.DadosCadastroDepositoVinho;
+import com.scanai.api.domain.depositovinho.dto.DadosTrasfegaDepositoVinho;
 import com.scanai.api.repositories.DepositoRepository;
 import com.scanai.api.repositories.DepositoVinhoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +28,14 @@ public class DepositoVinhoService {
         depositoVinhoRepository.save(newDepositovinho);
         return newDepositovinho;
     }
+
     public void setDataFim(Long fkvinho){
         // implementando o softDelete
         Depositovinho depositovinho = depositoVinhoRepository.findByFkvinhoAndDatafimIsNull(fkvinho);
         depositovinho.setDatafim(LocalDate.now());
         depositoVinhoRepository.save(depositovinho);
+    }
+
+    public Depositovinho trasfegaVinho(DadosTrasfegaDepositoVinho dadosTrasfegaDepositoVinho) {
     }
 }

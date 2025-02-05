@@ -1,15 +1,20 @@
 package com.scanai.api.services;
 
 import com.scanai.api.domain.deposito.Deposito;
-import com.scanai.api.domain.deposito.dto.DadosCadastroDeposito;
-import com.scanai.api.domain.deposito.dto.DadosAtualizarDeposito;
-import com.scanai.api.domain.deposito.dto.DadosInformacoesDepositos;
+import com.scanai.api.domain.deposito.dto.*;
+import com.scanai.api.domain.depositomostro.DepositoMostro;
+import com.scanai.api.domain.depositomostro.dto.DadosTrasfegaDepositoMostro;
+import com.scanai.api.domain.depositopedecuba.Depositopedecuba;
+import com.scanai.api.domain.depositovinho.Depositovinho;
+import com.scanai.api.domain.depositovinho.dto.DadosTrasfegaDepositoVinho;
 import com.scanai.api.repositories.DepositoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class DepositoService {
@@ -19,6 +24,12 @@ public class DepositoService {
 
     @Autowired
     private DepositoMostroService depositoMostroService;
+
+    @Autowired
+    private DepositoVinhoService depositoVinhoService;
+
+    @Autowired
+    private DepositoPedecubaService depositoPedecubaService;
 
     public Deposito register(DadosCadastroDeposito data){
         Deposito newDeposito = new Deposito(data);
@@ -55,8 +66,21 @@ public class DepositoService {
         return repository.getAllDepositosWithInformations();
     }
 
-
     public DadosInformacoesDepositos getDepositoWithIdWithInformations(Long id) {
         return repository.getDepositoWithIdWithInformations(id);
+    }
+
+    public DadosDetalhamentoTrasfegaDeposito realizarTrasfega(DadosTrasfegaDeposito data){
+        if(Objects.equals(data.tipo(), "Mostro")){
+            DepositoMostro trasfega = depositoMostroService.trasfegaMostro(new DadosTrasfegaDepositoMostro(data.idLiquidoOrigem(), data.idDepositoDestino(), LocalDate.now(), data.fkfuncionario(), data.volumetrasfega(), data.volumechegada()));
+            return new DadosDetalhamentoTrasfegaDeposito("Mostro", trasfega.getFkmostro(), data.idDepositoDestino(), data.fkfuncionario(), "Trasfega de mostro realizada com sucesso");
+        }else if(Objects.equals(data.tipo(), "Vinho")){
+            Depositovinho trasfega = depositoVinhoService.trasfegaVinho(new DadosTrasfegaDepositoVinho(data.idLiquidoOrigem(), data.idDepositoDestino(), LocalDate.now(), data.fkfuncionario(), data.volumetrasfega(), data.volumechegada()));
+            return new DadosDetalhamentoTrasfegaDeposito("Vinho", trasfega.getFkVinho(), data.idDepositoDestino(), data.fkfuncionario(), "Trasfega de vinho realizada com sucesso");
+        } else if (Objects.equals(data.tipo(), "PeDeCuba")) {
+            Depositopedecuba trasfega = depositoPedecubaService.trasfegaPedecuba(new DadosTrasfegaDepositoPedecuba(data.idLiquidoOrigem(), data.idDepositoDestino(), LocalDate.now(), data.fkfuncionario(), data.volumetrasfega(), data.volumechegada()));
+            return new DadosDetalhamentoTrasfegaDeposito("PeDeCuba", trasfega.getFkpedecuba(), data.idDepositoDestino(), data.fkfuncionario(), "Trasfega de pe de cuba realizada com sucesso");
+        }
+        return null;
     }
 }
