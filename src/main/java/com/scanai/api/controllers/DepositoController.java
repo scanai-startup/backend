@@ -72,7 +72,9 @@ public class DepositoController {
         return ResponseEntity.ok().body(depositoService.getAllDepositosWithInformations());
     }
 
-//    @PostMapping("/realizarTrasfega")
-//    public ResponseEntity<>
+    @PostMapping("/realizarTrasfega")
+    public ResponseEntity<DadosDetalhamentoTrasfegaDeposito> realizarTrasfega(@RequestBody @Valid DadosTrasfegaDeposito data){
+        return ResponseEntity.ok().body(depositoService.realizarTrasfega(data));
+    }
 
 }
