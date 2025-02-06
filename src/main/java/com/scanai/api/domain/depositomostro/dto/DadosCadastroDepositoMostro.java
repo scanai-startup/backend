@@ -1,6 +1,7 @@
 package com.scanai.api.domain.depositomostro.dto;
 
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
 
 import java.time.LocalDate;
 
