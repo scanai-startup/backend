@@ -184,6 +184,7 @@ public interface DepositoRepository extends JpaRepository<Deposito, Long> {
             LEFT JOIN tb_deposito_vinho AS dv ON d.id = dv.fkdeposito AND dv.datafim IS NULL
             LEFT JOIN tb_vinho AS v ON dv.fkvinho = v.id
             LEFT JOIN tb_analise_diaria_vinho AS adv ON adv.fkvinho = v.id
+        WHERE d.id = :depositoId
     """, nativeQuery = true)
     public DadosInformacoesDepositos getDepositoWithIdWithInformations(@Param("depositoId") Long depositoId);
 }
