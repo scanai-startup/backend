@@ -31,7 +31,6 @@ public class EntradaMaterialController {
     @GetMapping("/getAll")
     public ResponseEntity<List<DadosListagemEntradaMaterial>> getAll(){
         List<DadosListagemEntradaMaterial> dados = service.getAll();
-        System.out.println(1);
         return ResponseEntity.ok().body(dados);
     }
 }

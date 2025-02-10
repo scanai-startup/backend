@@ -75,7 +75,6 @@ public class VinculoDepositoVinhoService {
         if(rotulo == null){
             throw new IllegalArgumentException("Rótulo não encontrado");
         }
-        System.out.println(rotulo.getNome());
 
         Mostro mostro = _mostroService.getElement(data.mostroId());
         if(mostro == null){

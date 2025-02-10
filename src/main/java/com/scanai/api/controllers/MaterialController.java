@@ -34,7 +34,7 @@ public class MaterialController {
 
     @GetMapping("/getAll")
     public ResponseEntity<List<DadosListagemMaterial>> list(){
-        return ResponseEntity.ok().body(repository.findAll().stream().map(DadosListagemMaterial::new).toList());
+        return ResponseEntity.ok().body(service.getAll());
     }
 
 
