@@ -33,7 +33,6 @@ public class Vinho {
 
     public Vinho(DadosCadastroVinho dados) {
         this.valid = true;
-        this.datafimfermentacao = dados.datafimfermentacao();
         this.volume = dados.volume();
         this.fkrotulo = dados.fkpedecuba();
         this.fkmostro = dados.fkmostro();
@@ -41,9 +40,9 @@ public class Vinho {
     }
 
     public void atualizar(DadosAtualizarVinho dados){
-        this.datafimfermentacao = dados.datafimfermentacao();
         this.volume = dados.volume();
         this.fkrotulo = dados.fkpedecuba();
+        this.datafimfermentacao = dados.datafimfermentacao();
         this.fkmostro = dados.fkmostro();
         this.fkpedecuba = dados.fkpedecuba();
     }

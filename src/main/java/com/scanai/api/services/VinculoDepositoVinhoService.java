@@ -126,7 +126,7 @@ public class VinculoDepositoVinhoService {
         if(mostro.getVolume().equals(data.volumeTrasfegaMostro())){
 
             // Criando registro de vinhoo e Vinculando ao mostro e ao pe de cuba
-            vinho = _vinhoService.register(new DadosCadastroVinho(data.mostroId(), data.dataFimFermentacao(), volumeVinho, data.rotuloId(), pedecuba.getId()));
+            vinho = _vinhoService.register(new DadosCadastroVinho(data.mostroId(), volumeVinho, data.rotuloId(), pedecuba.getId()));
 
             // aplicando soft delete no mostro
             mostro.setValid(false);
@@ -142,7 +142,7 @@ public class VinculoDepositoVinhoService {
 
             // Criando registro de vinho e Vinculando ao mostro
             //System.out.println(data.rotuloId());
-            vinho = _vinhoService.register(new DadosCadastroVinho(novoMostro.getId(), data.dataFimFermentacao(), volumeVinho, data.rotuloId(), pedecuba.getId()));
+            vinho = _vinhoService.register(new DadosCadastroVinho(novoMostro.getId(), volumeVinho, data.rotuloId(), pedecuba.getId()));
             System.out.println(vinho.getFkmostro());
         }
 

@@ -7,9 +7,9 @@ import jakarta.validation.constraints.NotNull;
 
 import java.util.Date;
 
-public record DadosCadastroVinho(@NotNull Long fkmostro, @Future Date datafimfermentacao,@NotNull Float volume, @NotNull Long fkrotulo, @NotNull Long fkpedecuba) {
+public record DadosCadastroVinho(@NotNull Long fkmostro, @NotNull Float volume, @NotNull Long fkrotulo, @NotNull Long fkpedecuba) {
 
     public DadosCadastroVinho(Vinho vinho) {
-        this(vinho.getFkmostro(), vinho.getDatafimfermentacao(), vinho.getVolume(), vinho.getFkrotulo(), vinho.getFkpedecuba());
+        this(vinho.getFkmostro(), vinho.getVolume(), vinho.getFkrotulo(), vinho.getFkpedecuba());
     }
 }
