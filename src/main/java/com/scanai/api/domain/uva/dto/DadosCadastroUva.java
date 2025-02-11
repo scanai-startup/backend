@@ -25,8 +25,6 @@ public record DadosCadastroUva(
         @NotBlank
         String casta,
         @NotNull
-        Long fkviticultor,
-        @NotNull
         Long fkfuncionario,
 
         Long fkmostro

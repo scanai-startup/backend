@@ -31,7 +31,6 @@ public class Uva {
     private String tipovinho;
     private String casta;
 
-    private Long fkviticultor;
     private Long fkfuncionario;
     private Long fkmostro;
 
@@ -47,7 +46,6 @@ public class Uva {
         this.numerolote = dados.numerolote();
         this.tipovinho = dados.tipodevinho();
         this.casta = dados.casta();
-        this.fkviticultor = dados.fkviticultor();
         this.fkfuncionario = dados.fkfuncionario();
         this.fkmostro = dados.fkmostro();
     }
@@ -61,7 +59,6 @@ public class Uva {
         this.so2 = dados.so2();
         this.numerolote = dados.numerolote();
         this.tipovinho = dados.tipodevinho();
-        this.fkviticultor = dados.fkviticultor();
         this.fkfuncionario = dados.fkfuncionario();
         this.fkmostro = dados.fkmostro();
     }

@@ -15,7 +15,6 @@ public record DadosAtualizarUva(
         int numerolote,
         String tipodevinho,
         String casta,
-        Long fkviticultor,
         Long fkfuncionario,
         Long fkmostro
 ) {

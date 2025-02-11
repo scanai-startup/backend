@@ -16,7 +16,6 @@ public record DadosListagemUva(
         int numerolote,
         String tipovinho,
         String casta,
-        Long fkviticultor,
         Long fkfuncionario,
         Long fkmostro
 ) {
@@ -33,7 +32,6 @@ public record DadosListagemUva(
             uva.getNumerolote(),
             uva.getTipovinho(),
             uva.getCasta(),
-            uva.getFkviticultor(),
             uva.getFkfuncionario(),
                 uva.getFkmostro()
         );
