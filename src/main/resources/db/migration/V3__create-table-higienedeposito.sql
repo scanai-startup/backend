@@ -6,6 +6,6 @@ CREATE TABLE IF NOT EXISTS tb_higienedeposito (
   INDEX `fk_depositoHigiene_idx` (`fkdeposito` ASC) VISIBLE,
   CONSTRAINT `fk_depositoHigiene`
     FOREIGN KEY (`fkdeposito`)
-    REFERENCES `scanAi`.`tb_deposito` (`id`)
+    REFERENCES `tb_deposito` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

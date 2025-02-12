@@ -10,11 +10,11 @@ CREATE TABLE IF NOT EXISTS tb_analise_diaria_pedecuba (
   INDEX `fk_idPeDeCuba_idx` (`fkpedecuba` ASC) VISIBLE,
   CONSTRAINT `fk_idFuncionarioAnalisePeDeCuba`
     FOREIGN KEY (`fkfuncionario`)
-    REFERENCES `scanAi`.`tb_funcionario` (`id`)
+    REFERENCES `tb_funcionario` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_idPeDeCubaAnalisePeDeCuba`
     FOREIGN KEY (`fkpedecuba`)
-    REFERENCES `scanAi`.`tb_pe_de_cuba` (`id`)
+    REFERENCES `tb_pe_de_cuba` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

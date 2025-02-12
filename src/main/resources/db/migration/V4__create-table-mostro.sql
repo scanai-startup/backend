@@ -8,5 +8,5 @@ CREATE TABLE IF NOT EXISTS tb_mostro (
   INDEX `fk_TB_MOSTRO_1_idx` (`fkfuncionario` ASC) VISIBLE,
   CONSTRAINT `fk_TB_MOSTRO_1`
     FOREIGN KEY (`fkfuncionario`)
-    REFERENCES `scanAi`.`tb_funcionario` (`id`)
+    REFERENCES `tb_funcionario` (`id`)
     )

@@ -11,11 +11,11 @@ CREATE TABLE IF NOT EXISTS tb_analise_diaria_vinho (
   INDEX `fk_idVinhoFermentacao_idx` (`fkvinho` ASC) VISIBLE,
   CONSTRAINT `fk_idFuncionarioAnaliseVinhoFermentacao`
     FOREIGN KEY (`fkfuncionario`)
-    REFERENCES `scanAi`.`tb_funcionario` (`id`)
+    REFERENCES `tb_funcionario` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_idVinhoFermentacaoAnaliseVinhoFermentacao`
     FOREIGN KEY (`fkvinho`)
-    REFERENCES `scanAi`.`tb_vinho` (`id`)
+    REFERENCES `tb_vinho` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

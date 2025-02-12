@@ -10,11 +10,11 @@ CREATE TABLE IF NOT EXISTS tb_analise_diaria_mostro (
   INDEX `fk_idMostroAnaliseMostro_idx` (`fkmostro` ASC) VISIBLE,
   CONSTRAINT `fk_idFuncionarioAnaliseMostro`
     FOREIGN KEY (`fkfuncionario`)
-    REFERENCES `scanAi`.`tb_funcionario` (`id`)
+    REFERENCES `tb_funcionario` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_idMostroAnaliseMostro`
     FOREIGN KEY (`fkmostro`)
-    REFERENCES `scanAi`.`tb_mostro` (`id`)
+    REFERENCES `tb_mostro` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

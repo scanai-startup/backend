@@ -34,21 +34,21 @@ CREATE TABLE IF NOT EXISTS tb_enchimento (
   INDEX `fk_tb_enchimento_3_idx` (`fkrespenchimento` ASC) VISIBLE,
   CONSTRAINT `fk_tb_engarrafamento_1`
     FOREIGN KEY (`fkvinho`)
-    REFERENCES `scanAi`.`tb_vinho` (`id`)
+    REFERENCES `tb_vinho` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_tb_enchimento_1`
     FOREIGN KEY (`fkrespproducao`)
-    REFERENCES `scanAi`.`tb_funcionario` (`id`)
+    REFERENCES `tb_funcionario` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_tb_enchimento_2`
     FOREIGN KEY (`fkrespdespaletizacao`)
-    REFERENCES `scanAi`.`tb_funcionario` (`id`)
+    REFERENCES `tb_funcionario` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_tb_enchimento_3`
     FOREIGN KEY (`fkrespenchimento`)
-    REFERENCES `scanAi`.`tb_funcionario` (`id`)
+    REFERENCES `tb_funcionario` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

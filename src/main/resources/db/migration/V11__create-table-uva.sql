@@ -18,16 +18,16 @@ CREATE TABLE IF NOT EXISTS tb_uva (
     INDEX `fk_TB_REMESSA_UVA_1_idx` (`fkmostro` ASC) VISIBLE,
     CONSTRAINT `fk_IdViticultor_remessaUva`
     FOREIGN KEY (`fkviticultor`)
-    REFERENCES `scanAi`.`tb_viticultor` (`id`)
+    REFERENCES `tb_viticultor` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
     CONSTRAINT `fk_idFuncionarioRemeessaUva`
     FOREIGN KEY (`fkfuncionario`)
-    REFERENCES `scanAi`.`tb_funcionario` (`id`)
+    REFERENCES `tb_funcionario` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
     CONSTRAINT `fk_TB_REMESSA_UVA_5`
     FOREIGN KEY (`fkmostro`)
-    REFERENCES `scanAi`.`tb_mostro` (`id`)
+    REFERENCES `tb_mostro` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

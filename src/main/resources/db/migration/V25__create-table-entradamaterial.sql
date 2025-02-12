@@ -8,6 +8,6 @@ CREATE TABLE IF NOT EXISTS tb_entradamaterial(
   INDEX `fk_entrada_material_1_idx` (`fkmaterial` ASC) VISIBLE,
   CONSTRAINT `fk_entrada_material_1`
     FOREIGN KEY (`fkmaterial`)
-    REFERENCES `scanAi`.`tb_material` (`id`)
+    REFERENCES `tb_material` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

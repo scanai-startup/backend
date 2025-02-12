@@ -12,11 +12,11 @@ CREATE TABLE IF NOT EXISTS tb_analise_pre_fermentacao (
   INDEX `fk_TB_ANALISE_PRE_FERMENTACAO_2_idx` (`fkfuncionario` ASC) VISIBLE,
   CONSTRAINT `fk_TB_ANALISE_PRE_FERMENTACAO_1`
     FOREIGN KEY (`fkvinho`)
-    REFERENCES `scanAi`.`tb_vinho` (`id`)
+    REFERENCES `tb_vinho` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_TB_ANALISE_PRE_FERMENTACAO_2`
     FOREIGN KEY (`fkfuncionario`)
-    REFERENCES `scanAi`.`tb_funcionario` (`id`)
+    REFERENCES `tb_funcionario` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

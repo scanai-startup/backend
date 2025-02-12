@@ -11,16 +11,16 @@ CREATE TABLE IF NOT EXISTS tb_deposito_vinho (
   INDEX `fk_TB_DEPOSITO_VINHO_FERMENTACAO_1_idx` (`fkfuncionario` ASC) VISIBLE,
   CONSTRAINT `fk_idVinhoFermentacao`
     FOREIGN KEY (`fkvinho`)
-    REFERENCES `scanAi`.`tb_vinho` (`id`)
+    REFERENCES `tb_vinho` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_idDepositoVinhoFermentacao`
     FOREIGN KEY (`fkdeposito`)
-    REFERENCES `scanAi`.`tb_deposito` (`id`)
+    REFERENCES `tb_deposito` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_TB_DEPOSITO_VINHO_FERMENTACAO_1`
     FOREIGN KEY (`fkfuncionario`)
-    REFERENCES `scanAi`.`tb_funcionario` (`id`)
+    REFERENCES `tb_funcionario` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

@@ -7,6 +7,6 @@ CREATE TABLE IF NOT EXISTS tb_produto_adicionado_vinho (
   INDEX `fk_idvinho_idx` (`fkvinho` ASC) VISIBLE,
   CONSTRAINT `fk_idvinhoProdutoAdicionado`
     FOREIGN KEY (`fkvinho`)
-    REFERENCES `scanAi`.`tb_vinho` (`id`)
+    REFERENCES `tb_vinho` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

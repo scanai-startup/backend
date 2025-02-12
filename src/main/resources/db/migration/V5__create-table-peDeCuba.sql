@@ -9,5 +9,5 @@ CREATE TABLE IF NOT EXISTS tb_pe_de_cuba (
   INDEX `fk_idUsuario_idx` (`fkfuncionario` ASC) VISIBLE,
   CONSTRAINT `fk_idUsuarioPeDeCuba`
     FOREIGN KEY (`fkfuncionario`)
-    REFERENCES `scanAi`.`tb_funcionario` (`id`)
+    REFERENCES `tb_funcionario` (`id`)
     )

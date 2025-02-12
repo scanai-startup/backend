@@ -7,6 +7,6 @@ CREATE TABLE IF NOT EXISTS tb_produto_adicionado_pedecuba (
   INDEX `fk_idPeDeCuba_idx` (`fkpedecuba` ASC) VISIBLE,
   CONSTRAINT `fk_idPeDeCubaProdutoAdicionado`
     FOREIGN KEY (`fkpedecuba`)
-    REFERENCES `scanAi`.`tb_pe_de_cuba` (`id`)
+    REFERENCES `tb_pe_de_cuba` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

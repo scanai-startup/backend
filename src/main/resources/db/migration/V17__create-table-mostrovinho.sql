@@ -7,11 +7,11 @@ CREATE TABLE IF NOT EXISTS tb_mostrovinho (
   INDEX `fk_tb_mostrovinho_2_idx` (`fkvinho` ASC) VISIBLE,
   CONSTRAINT `fk_tb_mostrovinho_1`
     FOREIGN KEY (`fkmostro`)
-    REFERENCES `scanAi`.`tb_mostro` (`id`)
+    REFERENCES `tb_mostro` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_tb_mostrovinho_2`
     FOREIGN KEY (`fkvinho`)
-    REFERENCES `scanAi`.`tb_vinho` (`id`)
+    REFERENCES `tb_vinho` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
