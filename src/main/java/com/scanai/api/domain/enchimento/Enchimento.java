@@ -54,7 +54,7 @@ public class Enchimento {
     private Long fkrespenchimento;
 
     public Enchimento(DadosCadastroEnchimento dados) {
-        this.volume = dados.volume();
+        this.volume = dados.volumeTrasfega() - dados.volumeChegada();
         this.datainiciodespaletizacao = dados.datainiciodespaletizacao();
         this.datafimdespaletizacao = dados.datafimdespaletizacao();
         this.conformeosdespaletizacao = dados.conformeosdespaletizacao();
@@ -84,8 +84,8 @@ public class Enchimento {
     }
 
     public void atualizar(DadosAtualizarEnchimento dados){
-        if (dados.volume() != 0) {
-            this.volume = dados.volume();
+        if (dados.volumeTrasfega() - dados.volumeChegada() != 0) {
+            this.volume = dados.volumeTrasfega() - dados.volumeChegada();
         }
         if (dados.datainiciodespaletizacao() != null) {
             this.datainiciodespaletizacao = dados.datainiciodespaletizacao();

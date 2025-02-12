@@ -7,7 +7,8 @@ import jakarta.validation.constraints.PastOrPresent;
 import java.time.LocalDateTime;
 
 public record DadosCadastroEnchimento(
-        float volume,
+        @NotNull float volumeTrasfega,
+        @NotNull float volumeChegada,
         @PastOrPresent LocalDateTime datainiciodespaletizacao,
         @Future LocalDateTime datafimdespaletizacao,
         @NotNull  Boolean conformeosdespaletizacao,

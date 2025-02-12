@@ -5,6 +5,8 @@ import com.scanai.api.domain.vinho.DTO.DadosCadastroVinho;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Table(name = "tb_vinho")
@@ -23,7 +25,7 @@ public class Vinho {
 
     private boolean valid;
 
-    private Date datafimfermentacao;
+    private LocalDate datafimfermentacao;
     private float volume;
 
     // Chaves estrangeiras

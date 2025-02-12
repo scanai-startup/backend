@@ -4,7 +4,8 @@ import java.time.LocalDateTime;
 
 public record DadosAtualizarEnchimento(
         Long id,
-        float volume,
+        float volumeTrasfega,
+        float volumeChegada,
         LocalDateTime datainiciodespaletizacao,
         LocalDateTime datafimdespaletizacao,
         Boolean conformeosdespaletizacao,

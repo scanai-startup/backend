@@ -2,11 +2,12 @@ package com.scanai.api.domain.vinho.DTO;
 
 import com.scanai.api.domain.vinho.Vinho;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public record DadosListagemVinho(
         Long id,
-        Date datafimfermentacao,
+        LocalDate datafimfermentacao,
         float volume,
         Long fkrotulo,
         Long fkpedecuba
