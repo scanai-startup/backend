@@ -29,7 +29,7 @@ public record DadosAtualizarEnchimento(
         Boolean corposestranhos,
         Long fkvinho,
         Long fkrespproducao,
-        Long fkrespdespaleticacao,
+        Long fkrespdespaletizacao,
         Long fkrespenchimento
 ) {
 }

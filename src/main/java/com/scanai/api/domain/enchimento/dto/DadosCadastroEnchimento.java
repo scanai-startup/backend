@@ -32,7 +32,7 @@ public record DadosCadastroEnchimento(
         @NotNull Boolean corposestranhos,
         @NotNull Long fkvinho,
         @NotNull Long fkrespproducao,
-        @NotNull Long fkrespdespaleticacao,
+        @NotNull Long fkrespdespaletizacao,
         @NotNull Long fkrespenchimento) {
 
 }

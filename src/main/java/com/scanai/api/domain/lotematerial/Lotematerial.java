@@ -20,8 +20,11 @@ public class Lotematerial {
     private String fornecedor;
     private String numerolote;
 
+    private Long fkmaterial;
+
     public Lotematerial(DadosCadastroLoteMaterial dados) {
         this.fornecedor = dados.fornecedor();
         this.numerolote = dados.numerolote();
+        this.fkmaterial = dados.fkmaterial();
     }
 }

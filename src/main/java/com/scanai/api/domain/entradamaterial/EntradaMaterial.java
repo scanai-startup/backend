@@ -19,14 +19,12 @@ public class EntradaMaterial {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long fkmaterial;
     private int qttentrada;
     private float valorunidade;
     private LocalDate dataentrada;
     private Long fklotematerial;
 
     public EntradaMaterial(DadosCadastroEntradaMaterial dados) {
-        this.fkmaterial = dados.fkmaterial();
         this.qttentrada = dados.qttentrada();
         this.valorunidade = dados.valorunidade();
         this.dataentrada = dados.dataentrada()  ;

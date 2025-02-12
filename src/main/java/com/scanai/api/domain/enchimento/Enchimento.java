@@ -7,7 +7,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Table(name = "tb_enchimento")
 @Entity(name = "tb_enchimento")
@@ -51,7 +50,7 @@ public class Enchimento {
     // chaves estrangeiras
     private Long fkvinho;
     private Long fkrespproducao;
-    private Long fkrespdespaleticacao;
+    private Long fkrespdespaletizacao;
     private Long fkrespenchimento;
 
     public Enchimento(DadosCadastroEnchimento dados) {
@@ -80,7 +79,7 @@ public class Enchimento {
         this.corposestranhos = dados.corposestranhos();
         this.fkvinho = dados.fkvinho();
         this.fkrespproducao = dados.fkrespproducao();
-        this.fkrespdespaleticacao = dados.fkrespdespaleticacao();
+        this.fkrespdespaletizacao = dados.fkrespdespaletizacao();
         this.fkrespenchimento = dados.fkrespenchimento();
     }
 
@@ -160,8 +159,8 @@ public class Enchimento {
         if (dados.fkrespproducao() != null) {
             this.fkrespproducao = dados.fkrespproducao();
         }
-        if (dados.fkrespdespaleticacao() != null) {
-            this.fkrespdespaleticacao = dados.fkrespdespaleticacao();
+        if (dados.fkrespdespaletizacao() != null) {
+            this.fkrespdespaletizacao = dados.fkrespdespaletizacao();
         }
         if (dados.fkrespenchimento() != null) {
             this.fkrespenchimento = dados.fkrespenchimento();

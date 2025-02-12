@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.util.Date;
 
 public record DadosCadastroEntradaMaterial(
-        @NotNull Long fkmaterial,
         @NotNull int qttentrada,
         @NotNull float valorunidade,
         @NotNull @PastOrPresent LocalDate dataentrada,

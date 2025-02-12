@@ -31,7 +31,7 @@ public record DadosDetalhamentoEnchimento(
         Boolean corposestranhos,
         Long fkvinho,
         Long fkrespproducao,
-        Long fkrespdespaleticacao,
+        Long fkrespdespaletizacao,
         Long fkrespenchimento
 ) {
 
@@ -63,7 +63,7 @@ public record DadosDetalhamentoEnchimento(
             dados.getCorposestranhos(),
             dados.getFkvinho(),
             dados.getFkrespproducao(),
-            dados.getFkrespdespaleticacao(),
+            dados.getFkrespdespaletizacao(),
             dados.getFkrespenchimento()
         );
     }

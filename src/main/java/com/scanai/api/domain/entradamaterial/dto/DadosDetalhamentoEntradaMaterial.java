@@ -7,7 +7,6 @@ import java.time.LocalDate;
 
 public record DadosDetalhamentoEntradaMaterial(
         Long id,
-        Long fkmaterial,
         int qttentrada,
         float valorunidade,
         LocalDate dataentrada) {
@@ -15,7 +14,6 @@ public record DadosDetalhamentoEntradaMaterial(
     public DadosDetalhamentoEntradaMaterial(EntradaMaterial entradaMaterial){
         this(
                 entradaMaterial.getId(),
-                entradaMaterial.getFkmaterial(),
                 entradaMaterial.getQttentrada(),
                 entradaMaterial.getValorunidade(),
                 entradaMaterial.getDataentrada()
