@@ -5,7 +5,7 @@ public interface DadosInformacoesDepositos {
     Double getTemperatura();
     Double getDensidade();
     Double getPressao();
-    String getIdDeposito();
+    Long getIdDeposito();
     String getNumeroDeposito();
     String getTipoDeposito();
     Float getCapacidadeDeposito();
