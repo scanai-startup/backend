@@ -58,7 +58,7 @@ public class VinculoDepositoVinhoService {
         if (deposito == null) {
             throw new IllegalArgumentException("Depósito não encontrado");
         }
-        if(dadosInformacoesDepositos.getConteudo().equals("Vinho")){
+        if(dadosInformacoesDepositos.getConteudo() != null && dadosInformacoesDepositos.getConteudo().equals("Vinho")){
             throw new IllegalArgumentException("Depósito já contém um vinho ativo");
         }
         if(data.volumeChegadaPedecuba() > data.volumeTrasfegaPedecuba()){
