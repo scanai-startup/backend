@@ -6,6 +6,7 @@ import com.scanai.api.services.FuncionarioService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,16 +21,16 @@ public class FuncionarioController {
     private FuncionarioRepository repository;
 
     @PutMapping("/updatePassword")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
-    public ResponseEntity<?> update(@RequestBody @Valid ResetPasswordDTO data){
+    public void update(@RequestBody @Valid ResetPasswordDTO data){
         service.resetPassword(data);
-        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/hardDelete/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
-    public ResponseEntity<?> delete(@PathVariable Long id){
+    public void delete(@PathVariable Long id){
         repository.deleteById(id);
-        return ResponseEntity.ok().build();
     }
 }

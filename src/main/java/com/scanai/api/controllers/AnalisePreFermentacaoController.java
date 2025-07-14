@@ -13,7 +13,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/analiseprefermentacao")
-public class AnalisePrefermentacaoController {
+public class AnalisePreFermentacaoController {
 
     @Autowired
     private AnaliseprefermentacaoRepository repository;
@@ -22,9 +22,8 @@ public class AnalisePrefermentacaoController {
     private AnaliseprefermentacaoService service;
 
     @PostMapping("/register")
-    public ResponseEntity<DadosDetalhamentoAnalisePreFermentacao> register(@RequestBody @Valid DadosCadastroAnalisePreFermetacao data, UriComponentsBuilder uriBuilder){
+    public DadosDetalhamentoAnalisePreFermentacao register(@RequestBody @Valid DadosCadastroAnalisePreFermetacao data){
         Analiseprefermentacao newAnaliseprefermentacao = service.register(data);
-        var uri = uriBuilder.path("analiseprefermentacao/register/{id}").buildAndExpand(newAnaliseprefermentacao.getId()).toUri();
-        return ResponseEntity.created(uri).body(new DadosDetalhamentoAnalisePreFermentacao(newAnaliseprefermentacao));
+        return new DadosDetalhamentoAnalisePreFermentacao(newAnaliseprefermentacao);
     }
 }

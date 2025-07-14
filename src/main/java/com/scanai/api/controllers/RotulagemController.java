@@ -22,9 +22,8 @@ public class RotulagemController {
 
     @Transactional
     @PostMapping("/register")
-    public ResponseEntity<DadosDetalhamentoRotulagem> register(@RequestBody @Valid DadosCadastroRotulagem dados, UriComponentsBuilder builder){
+    public DadosDetalhamentoRotulagem register(@RequestBody @Valid DadosCadastroRotulagem dados){
         var newRotulagem = service.register(dados);
-        var uri = builder.path("/rotulagem/{id}").buildAndExpand(newRotulagem.getId()).toUri();
-        return  ResponseEntity.created(uri).body(new DadosDetalhamentoRotulagem(newRotulagem));
+        return new DadosDetalhamentoRotulagem(newRotulagem);
     }
 }

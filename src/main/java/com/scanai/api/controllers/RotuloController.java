@@ -8,6 +8,7 @@ import com.scanai.api.services.RotuloService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -23,36 +24,33 @@ public class RotuloController {
 
     @Transactional
     @PostMapping("/register")
-    public ResponseEntity<DadosDetalhamentoRotulo> register(@RequestBody @Valid DadosCadastroRotulo dados, UriComponentsBuilder builder){ //DadosCadastroRemedio é um DTO construido nu
+    public DadosDetalhamentoRotulo register(@RequestBody @Valid DadosCadastroRotulo dados){
         var rotulo = rotuloService.register(dados);
-        var uri = builder.path("/rotulo/{id}").buildAndExpand(rotulo.getId()).toUri();
-        return  ResponseEntity.created(uri).body(new DadosDetalhamentoRotulo(rotulo));
+        return new DadosDetalhamentoRotulo(rotulo);
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<DadosListagemRotulo>> getAll(){
-        var lista = rotuloService.listAll();
-        return ResponseEntity.ok(lista);
+    public List<DadosListagemRotulo> getAll(){
+        return rotuloService.listAll();
     }
 
     @GetMapping("/getElement/{id}")
-    public ResponseEntity<DadosDetalhamentoRotulo> getElement(@PathVariable Long id){
+    public DadosDetalhamentoRotulo getElement(@PathVariable Long id){
         var rotulo = rotuloService.getElement(id);
-        return ResponseEntity.ok(new DadosDetalhamentoRotulo(rotulo));
+        return new DadosDetalhamentoRotulo(rotulo);
     }
 
     @PutMapping("/update")
     @Transactional
-    public ResponseEntity<DadosDetalhamentoRotulo> update(@RequestBody DadosAtualizarRotulo dados){
-        var dadosDetalhamentoRotulo = rotuloService.update(dados);
-        return ResponseEntity.ok(dadosDetalhamentoRotulo);
+    public DadosDetalhamentoRotulo update(@RequestBody DadosAtualizarRotulo dados){
+        return rotuloService.update(dados);
     }
 
     @Transactional
     @DeleteMapping("hardDelete/{id}")
-    public ResponseEntity<?> hardDelete(@PathVariable Long id){
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void hardDelete(@PathVariable Long id){
         rotuloService.hardDelete(id);
-        return ResponseEntity.noContent().build();
     }
 
 }

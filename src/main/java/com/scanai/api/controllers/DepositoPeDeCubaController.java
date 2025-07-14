@@ -1,6 +1,5 @@
 package com.scanai.api.controllers;
 
-import com.scanai.api.domain.analisediariamostro.dto.DadosDetalhamentoAnaliseDiariaMostro;
 import com.scanai.api.domain.depositopedecuba.Depositopedecuba;
 import com.scanai.api.domain.depositopedecuba.dto.DadosCadastroDepositoPeDeCuba;
 import com.scanai.api.domain.depositopedecuba.dto.DadosDetalhamentoDepositoPeDeCuba;
@@ -17,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
-@RequestMapping("/depositopedecuba")
-public class DepositoPedecubaController {
+@RequestMapping("/depositoPeDeCuba")
+public class DepositoPeDeCubaController {
 
     @Autowired
     private DepositoPedecubaService service;
@@ -28,9 +27,8 @@ public class DepositoPedecubaController {
 
     @PostMapping("/register")
     @Transactional
-    public ResponseEntity<DadosDetalhamentoDepositoPeDeCuba> register(@RequestBody @Valid DadosCadastroDepositoPeDeCuba data, UriComponentsBuilder uriBuilder){
+    public DadosDetalhamentoDepositoPeDeCuba register(@RequestBody @Valid DadosCadastroDepositoPeDeCuba data){
         Depositopedecuba newDepositopedecuba = service.register(data);
-        var uri = uriBuilder.path("depositopedecuba/register/{id}").buildAndExpand(newDepositopedecuba.getId()).toUri();
-        return ResponseEntity.created(uri).body(new DadosDetalhamentoDepositoPeDeCuba(newDepositopedecuba));
+        return new DadosDetalhamentoDepositoPeDeCuba(newDepositopedecuba);
     }
 }

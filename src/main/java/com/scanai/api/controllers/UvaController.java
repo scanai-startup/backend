@@ -8,6 +8,7 @@ import com.scanai.api.services.UvaService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -17,59 +18,56 @@ import java.util.List;
 @RestController
 @RequestMapping("/uva")
 public class UvaController {
-    @Autowired //o autowired instancia a classe automaticamente
+
+    @Autowired
     private UvaService uvaService;
 
     @PostMapping("/register")
     @Transactional
-    public ResponseEntity<DadosDetalhamentoUva> register(@RequestBody @Valid DadosCadastroUva dados, UriComponentsBuilder builder){ //DadosCadastroRemedio é um DTO construido nu
-        var uva = uvaService.register(dados); // função do proprio jpa
-        // o DTO passado como argumento é lido no construtor, que retorna os atributos
-        var uri = builder.path("/uva/{id}").buildAndExpand(uva.getId()).toUri();
-        return  ResponseEntity.created(uri).body(new DadosDetalhamentoUva(uva));
+    public DadosDetalhamentoUva register(@RequestBody @Valid DadosCadastroUva dados){
+        var uva = uvaService.register(dados);
+        return new DadosDetalhamentoUva(uva);
     }
 
     @GetMapping("/getAllByValidTrue")
-    public ResponseEntity<List<DadosListagemUva>> getAllByValidTrue(){
-        var lista = uvaService.listAllByValidTrue();
-        return ResponseEntity.ok(lista);
+    public List<DadosListagemUva> getAllByValidTrue(){
+        return uvaService.listAllByValidTrue();
     }
+
     @GetMapping("/getAll")
-    public ResponseEntity<List<DadosListagemUva>> getAll(){
-        var lista = uvaService.listAll();
-        return ResponseEntity.ok(lista);
+    public List<DadosListagemUva> getAll(){
+        return uvaService.listAll();
     }
 
     @GetMapping("getElement/{id}")
-    public ResponseEntity<DadosDetalhamentoUva> getElement(@PathVariable Long id){
+    public DadosDetalhamentoUva getElement(@PathVariable Long id){
         var uva = uvaService.getElement(id);
-        return ResponseEntity.ok(new DadosDetalhamentoUva(uva));
+        return new DadosDetalhamentoUva(uva);
     }
 
     @PutMapping("/update")
     @Transactional
-    public ResponseEntity<?> update(@RequestBody DadosAtualizarUva dados){
-        var uva = uvaService.update(dados);
-        return ResponseEntity.ok(uva);
+    public DadosDetalhamentoUva update(@RequestBody DadosAtualizarUva dados){
+        return uvaService.update(dados);
     }
 
     @DeleteMapping("hardDelete/{id}")
-    public ResponseEntity<?> hardDelete(@PathVariable Long id){
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void hardDelete(@PathVariable Long id){
         uvaService.hardDelete(id);
-        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/softDelete/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
-    public ResponseEntity<?> softDelete(@PathVariable Long id){
+    public void softDelete(@PathVariable Long id){
         uvaService.softDelete(id);
-        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/activate/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
-    public ResponseEntity<?> activate(@PathVariable Long id){
+    public void activate(@PathVariable Long id){
         uvaService.activate(id);
-        return ResponseEntity.noContent().build();
     }
 }

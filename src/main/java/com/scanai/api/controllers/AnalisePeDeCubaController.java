@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/analisepedecuba")
-public class AnalisePedecubaController {
+public class AnalisePeDeCubaController {
 
     @Autowired
     private AnalisepedecubaRepository repository;
@@ -25,15 +25,13 @@ public class AnalisePedecubaController {
     private AnalisepedecubaService service;
 
     @PostMapping("/register")
-    public ResponseEntity<DadosDetalhamentoAnalisePeDeCuba> register(@RequestBody @Valid DadosCadastroAnalisePeDeCuba data, UriComponentsBuilder uriBuilder){
+    public DadosDetalhamentoAnalisePeDeCuba register(@RequestBody @Valid DadosCadastroAnalisePeDeCuba data){
         Analisepedecuba newAnalisepedecuba = service.register(data);
-        var uri = uriBuilder.path("analisepedecuba/register/{id}").buildAndExpand(newAnalisepedecuba.getId()).toUri();
-        return ResponseEntity.created(uri).body(new DadosDetalhamentoAnalisePeDeCuba(newAnalisepedecuba));
+        return new DadosDetalhamentoAnalisePeDeCuba(newAnalisepedecuba);
     }
 
     @GetMapping("/listByFk/{fk}")
-    public ResponseEntity<List<DadosListagemAnalisesPeDeCuba>> list(@PathVariable Long fk){
-        var lista = repository.findAllByFkpedecuba(fk).stream().map(DadosListagemAnalisesPeDeCuba::new).toList();
-        return ResponseEntity.ok(lista);
+    public List<DadosListagemAnalisesPeDeCuba> list(@PathVariable Long fk){
+        return repository.findAllByFkpedecuba(fk).stream().map(DadosListagemAnalisesPeDeCuba::new).toList();
     }
 }
