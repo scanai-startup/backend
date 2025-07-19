@@ -25,11 +25,15 @@ public class TokenService {
     public String generateToken(Funcionario funcionario){
         try{
             Algorithm algorithm = Algorithm.HMAC256(secret);
+            Instant now = Instant.now();
+            Instant expiration_time = now.plusSeconds(3600); // tempo de expiração do token para 1 hora
             String token = JWT.create()
                     .withIssuer("scanai-api")
                     .withSubject(funcionario.getUsername())
                     .withClaim("id", funcionario.getId())
                     .withClaim("role", funcionario.getRole().name())
+                    .withIssuedAt(now)
+                    .withExpiresAt(expiration_time) // Token válido por 1 min
                     .sign(algorithm);
             return token;
         }catch (JWTCreationException exception){
