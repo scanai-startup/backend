@@ -1,6 +1,5 @@
 package com.scanai.api.services;
 
-import com.scanai.api.domain.depositopedecuba.dto.DadosCadastroDepositoPeDeCuba;
 import com.scanai.api.domain.pedecuba.Pedecuba;
 import com.scanai.api.domain.pedecuba.dto.DadosCadastroPeDeCuba;
 import com.scanai.api.domain.pedecuba.dto.DadosDetalhamentoPeDeCuba;

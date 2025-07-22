@@ -3,7 +3,6 @@ package com.scanai.api.controllers;
 import com.scanai.api.domain.pedecuba.Pedecuba;
 import com.scanai.api.domain.pedecuba.dto.DadosCadastroPeDeCuba;
 import com.scanai.api.domain.pedecuba.dto.DadosDetalhamentoPeDeCuba;
-import com.scanai.api.repositories.PedecubaRepository;
 import com.scanai.api.services.PedecubaService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
