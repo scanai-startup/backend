@@ -33,7 +33,7 @@ public class TokenService {
                     .withClaim("id", funcionario.getId())
                     .withClaim("role", funcionario.getRole().name())
                     .withIssuedAt(now)
-                    .withExpiresAt(expiration_time) // Token válido por 1 min
+                    .withExpiresAt(expiration_time)
                     .sign(algorithm);
             return token;
         }catch (JWTCreationException exception){
