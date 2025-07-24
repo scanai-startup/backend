@@ -75,7 +75,7 @@ class UvaServiceTest {
     void update_Cenario1() {
         // Arrange
         var idUva = 1L;
-        var dadosAtualizacao = new DadosAtualizarUva(idUva, new Date(), 124, 55, 98, 1100, "SO2-AJUSTADO", 202402, "Branco", "Chardonay", 2L, null);
+        var dadosAtualizacao = new DadosAtualizarUva(idUva, new Date(), 124, 55, 98, 1100, "SO2-AJUSTADO", 202402, "Branco", "Chardonnay", 2L, null);
         var uvaExistente = new Uva(new DadosCadastroUva(new Date(), 1, 1, 1, 1, "s", 1, "t", "c", 1L, null));
         uvaExistente.setId(idUva);
 
@@ -94,7 +94,7 @@ class UvaServiceTest {
 
     @Test
     @DisplayName("Deve desativar uma uva (soft delete)")
-    void softDelete_Cenario1() {
+    void softDelete_softDelete_Cenario1Cenario1() {
         // Arrange
         var idUva = 1L;
         var uvaAtiva = new Uva();
@@ -107,8 +107,7 @@ class UvaServiceTest {
         uvaService.softDelete(idUva);
 
         // Assert
-        // Captura o objeto 'Uva' que foi modificado para verificar seu estado
-        ArgumentCaptor<Uva> uvaCaptor = ArgumentCaptor.forClass(Uva.class);
+
         // O método save não é chamado, a modificação ocorre na instância em memória gerenciada pelo mock.
         // A asserção é feita diretamente no objeto retornado pelo mock.
         assertFalse(uvaAtiva.getValid());
@@ -137,7 +136,7 @@ class UvaServiceTest {
     @Test
     @DisplayName("Deve remover uma uva permanentemente (hard delete)")
     void hardDelete_Cenario1(){
-        // Arange
+        // Arrange
         var idUva = 1L;
 
         // Act
