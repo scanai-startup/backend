@@ -36,6 +36,7 @@ class UvaServiceTest {
         var uvaSalva = new Uva(dadosCadastro);
         uvaSalva.setId(1L); // Simula o ID que seria gerado pelo banco
 
+        // Simula o comportamento do repositório
         when(repository.save(any(Uva.class))).thenReturn(uvaSalva);
 
         // Act (Agir)
@@ -131,5 +132,20 @@ class UvaServiceTest {
         // Assert
         assertTrue(uvaInativa.getValid());
         verify(repository, times(1)).getReferenceById(idUva);
+    }
+
+    @Test
+    @DisplayName("Deve remover uma uva permanentemente (hard delete)")
+    void hardDelete_Cenario1(){
+        // Arange
+        var idUva = 1L;
+
+        // Act
+        uvaService.hardDelete(idUva);
+
+        // Assert
+        verify(repository, times(1)).deleteById(idUva);
+
+        verifyNoMoreInteractions(repository);
     }
 }
