@@ -4,7 +4,8 @@ import com.scanai.api.domain.mostrovinho.dto.DadosAtualizarMostroVinho;
 import com.scanai.api.domain.mostrovinho.dto.DadosCadastroMostroVinho;
 import com.scanai.api.domain.mostrovinho.dto.DadosDetalhamentoMostroVinho;
 import com.scanai.api.domain.mostrovinho.dto.DadosListagemMostroVinho;
-import com.scanai.api.services.MostroVinhoService;
+import com.scanai.api.services.MostroVinhoServiceInterface;
+import com.scanai.api.services.implement.MostroVinhoService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import java.util.List;
 @RequestMapping("/mostrovinho")
 public class MostroVinhoController {
     @Autowired
-    MostroVinhoService mostroVinhoService;
+    MostroVinhoServiceInterface mostroVinhoService;
     public ResponseEntity<DadosDetalhamentoMostroVinho> register(@RequestBody @Valid DadosCadastroMostroVinho dados, UriComponentsBuilder builder){ //DadosCadastroRemedio é um DTO construido nu
 
         var mostroVinho = mostroVinhoService.register(dados);// função do proprio jpa

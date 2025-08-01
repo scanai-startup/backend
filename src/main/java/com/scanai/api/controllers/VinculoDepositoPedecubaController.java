@@ -2,8 +2,8 @@ package com.scanai.api.controllers;
 
 import com.scanai.api.domain.vinculodepositopedecuba.dto.DadosCadastroVinculoDepositoPedecuba;
 import com.scanai.api.domain.vinculodepositopedecuba.dto.DadosDetalhamentoVinculoDepositoPedecuba;
-import com.scanai.api.services.VinculoDepositoPedecubaService;
-import com.scanai.api.services.VinculoDepositoRemessasService;
+import com.scanai.api.services.VinculoDepositoPeDeCubaServiceInterface;
+import com.scanai.api.services.implement.VinculoDepositoPeDeCubaService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequestMapping("/vinculodepositopedecuba")
 public class VinculoDepositoPedecubaController {
     @Autowired
-    private VinculoDepositoPedecubaService service;
+    private VinculoDepositoPeDeCubaServiceInterface service;
 
     @Transactional
     @PostMapping

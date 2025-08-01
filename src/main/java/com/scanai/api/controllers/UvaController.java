@@ -4,7 +4,8 @@ import com.scanai.api.domain.uva.dto.DadosAtualizarUva;
 import com.scanai.api.domain.uva.dto.DadosCadastroUva;
 import com.scanai.api.domain.uva.dto.DadosDetalhamentoUva;
 import com.scanai.api.domain.uva.dto.DadosListagemUva;
-import com.scanai.api.services.UvaService;
+import com.scanai.api.services.UvaServiceInterface;
+import com.scanai.api.services.implement.UvaService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import java.util.List;
 @RequestMapping("/uva")
 public class UvaController {
     @Autowired //o autowired instancia a classe automaticamente
-    private UvaService uvaService;
+    private UvaServiceInterface uvaService;
 
     @PostMapping("/register")
     @Transactional

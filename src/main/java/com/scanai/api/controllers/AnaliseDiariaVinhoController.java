@@ -4,7 +4,7 @@ import com.scanai.api.domain.analisediariavinho.dto.DadosAtualizarAnaliseDiariaV
 import com.scanai.api.domain.analisediariavinho.dto.DadosCadastroAnaliseDiariaVinho;
 import com.scanai.api.domain.analisediariavinho.dto.DadosDetalhamentoAnaliseDiariaVinho;
 import com.scanai.api.domain.analisediariavinho.dto.DadosListagemAnaliseDiariaVinho;
-import com.scanai.api.services.AnaliseDiariaVinhoService;
+import com.scanai.api.services.AnaliseDiariaVinhoServiceInterface;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ import java.util.List;
 
 public class AnaliseDiariaVinhoController {
     @Autowired
-    AnaliseDiariaVinhoService analiseDiariaVinhoService;
+    AnaliseDiariaVinhoServiceInterface analiseDiariaVinhoService;
 
     @Transactional
     @PostMapping("/register")

@@ -5,7 +5,8 @@ import com.scanai.api.domain.analisepedecuba.dto.DadosCadastroAnalisePeDeCuba;
 import com.scanai.api.domain.analisepedecuba.dto.DadosDetalhamentoAnalisePeDeCuba;
 import com.scanai.api.domain.analisepedecuba.dto.DadosListagemAnalisesPeDeCuba;
 import com.scanai.api.repositories.AnalisepedecubaRepository;
-import com.scanai.api.services.AnalisepedecubaService;
+import com.scanai.api.services.AnalisePeDeCubaServiceInterface;
+import com.scanai.api.services.implement.AnalisePeDeCubaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class AnalisePedecubaController {
     private AnalisepedecubaRepository repository;
 
     @Autowired
-    private AnalisepedecubaService service;
+    private AnalisePeDeCubaServiceInterface service;
 
     @PostMapping("/register")
     public ResponseEntity<DadosDetalhamentoAnalisePeDeCuba> register(@RequestBody @Valid DadosCadastroAnalisePeDeCuba data, UriComponentsBuilder uriBuilder){

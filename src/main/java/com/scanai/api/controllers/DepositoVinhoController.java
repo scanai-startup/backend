@@ -4,7 +4,7 @@ import com.scanai.api.domain.depositovinho.Depositovinho;
 import com.scanai.api.domain.depositovinho.dto.DadosCadastroDepositoVinho;
 import com.scanai.api.domain.depositovinho.dto.DadosDetalhamentoDepositoVinho;
 import com.scanai.api.repositories.DepositoVinhoRepository;
-import com.scanai.api.services.DepositoVinhoService;
+import com.scanai.api.services.implement.DepositoVinhoService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

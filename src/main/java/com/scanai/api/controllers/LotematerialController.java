@@ -5,7 +5,8 @@ import com.scanai.api.domain.lotematerial.dto.DadosDetalhamentoLoteMaterial;
 import com.scanai.api.domain.lotematerial.dto.DadosListagemLoteMaterial;
 import com.scanai.api.domain.lotematerial.dto.DadosCadastroLoteMaterial;
 import com.scanai.api.repositories.LotematerialRepository;
-import com.scanai.api.services.LotematerialService;
+import com.scanai.api.services.LoteMaterialServiceInterface;
+import com.scanai.api.services.implement.LoteMaterialService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class LotematerialController {
     private LotematerialRepository repository;
 
     @Autowired
-    private LotematerialService service;
+    private LoteMaterialServiceInterface service;
 
     @PostMapping("/register")
     public ResponseEntity<DadosDetalhamentoLoteMaterial> register(@RequestBody @Valid DadosCadastroLoteMaterial data, UriComponentsBuilder uriBuilder){

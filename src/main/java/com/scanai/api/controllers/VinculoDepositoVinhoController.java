@@ -1,11 +1,8 @@
 package com.scanai.api.controllers;
 
-import com.scanai.api.domain.vinculodepositoremessas.dto.DadosCadastroVinculoDepositoRemessas;
-import com.scanai.api.domain.vinculodepositoremessas.dto.DadosDetalhamentoVinculoDepositoRemessas;
 import com.scanai.api.domain.vinculodepositovinho.dto.DadosCadastroVinculoDepositoVinho;
 import com.scanai.api.domain.vinculodepositovinho.dto.DadosDetalhamentoVinculoDepositoVinho;
-import com.scanai.api.services.VinculoDepositoRemessasService;
-import com.scanai.api.services.VinculoDepositoVinhoService;
+import com.scanai.api.services.implement.VinculoDepositoVinhoService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

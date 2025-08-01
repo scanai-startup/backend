@@ -4,7 +4,8 @@ import com.scanai.api.domain.enchimento.dto.DadosAtualizarEnchimento;
 import com.scanai.api.domain.enchimento.dto.DadosCadastroEnchimento;
 import com.scanai.api.domain.enchimento.dto.DadosDetalhamentoEnchimento;
 import com.scanai.api.domain.enchimento.dto.DadosListagemEnchimento;
-import com.scanai.api.services.EnchimentoService;
+import com.scanai.api.services.EnchimentoServiceInterface;
+import com.scanai.api.services.implement.EnchimentoService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ import java.util.List;
 @RequestMapping("/enchimento")
 public class EnchimentoController {
 
-    private final EnchimentoService enchimentoService;
+    private final EnchimentoServiceInterface enchimentoService;
 
     public EnchimentoController(EnchimentoService enchimentoService) {
         this.enchimentoService = enchimentoService;
