@@ -15,7 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 
 @RestController
-@RequestMapping("/entradamaterial")
+@RequestMapping("/entradaMaterial")
 public class EntradaMaterialController {
 
     @Autowired
@@ -23,14 +23,13 @@ public class EntradaMaterialController {
 
     @PostMapping("/register")
     @Transactional
-    public ResponseEntity<DadosDetalhamentoEntradaMaterial> register(@RequestBody @Valid DadosCadastroEntradaMaterial data, UriComponentsBuilder uriBuilder){
+    public DadosDetalhamentoEntradaMaterial register(@RequestBody @Valid DadosCadastroEntradaMaterial data){
         EntradaMaterial newEntradaMaterial = service.register(data);
-        var uri = uriBuilder.path("entradamaterial/register/{id}").buildAndExpand(newEntradaMaterial.getId()).toUri();
-        return ResponseEntity.created(uri).body(new DadosDetalhamentoEntradaMaterial(newEntradaMaterial));
+        return new DadosDetalhamentoEntradaMaterial(newEntradaMaterial);
     }
+
     @GetMapping("/getAll")
-    public ResponseEntity<List<DadosListagemEntradaMaterial>> getAll(){
-        List<DadosListagemEntradaMaterial> dados = service.getAll();
-        return ResponseEntity.ok().body(dados);
+    public List<DadosListagemEntradaMaterial> getAll(){
+        return service.getAll();
     }
 }

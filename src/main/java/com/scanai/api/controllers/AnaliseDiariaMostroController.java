@@ -8,6 +8,7 @@ import com.scanai.api.services.AnaliseDiariaMostroService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -15,7 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 
 @RestController
-@RequestMapping("/analisediariamostro")
+@RequestMapping("/analiseDiariaMostro")
 
 public class AnaliseDiariaMostroController {
     @Autowired
@@ -23,38 +24,33 @@ public class AnaliseDiariaMostroController {
 
     @Transactional
     @PostMapping("/register")
-    public ResponseEntity<DadosDetalhamentoAnaliseDiariaMostro> register(@RequestBody @Valid DadosCadastroAnaliseDiariaMostro dados, UriComponentsBuilder builder){
-
+    public DadosDetalhamentoAnaliseDiariaMostro register(@RequestBody @Valid DadosCadastroAnaliseDiariaMostro dados){
         var analiseDiariaMostro = analiseDiariaMostroService.register(dados);
-        var uri = builder.path("/analisediariamostro/{id}").buildAndExpand(analiseDiariaMostro.getId()).toUri();
-
-        return  ResponseEntity.created(uri).body(new DadosDetalhamentoAnaliseDiariaMostro(analiseDiariaMostro));
+        return new DadosDetalhamentoAnaliseDiariaMostro(analiseDiariaMostro);
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<DadosListagemAnaliseDiariaMostro>> getAll(){
-        var lista = analiseDiariaMostroService.getAll();
-        return ResponseEntity.ok(lista);
+    public List<DadosListagemAnaliseDiariaMostro> getAll(){
+        return analiseDiariaMostroService.getAll();
     }
 
     @GetMapping("/getElement/{id}")
-    public ResponseEntity<DadosDetalhamentoAnaliseDiariaMostro> getElement(@PathVariable Long id){
+    public DadosDetalhamentoAnaliseDiariaMostro getElement(@PathVariable Long id){
         var analiseDiariaMostro = analiseDiariaMostroService.getElement(id);
-        return ResponseEntity.ok(new DadosDetalhamentoAnaliseDiariaMostro(analiseDiariaMostro));
+        return new DadosDetalhamentoAnaliseDiariaMostro(analiseDiariaMostro);
     }
 
     @PutMapping("/update")
     @Transactional
-    public ResponseEntity<DadosDetalhamentoAnaliseDiariaMostro> update(@RequestBody DadosAtualizarAnaliseDiariaMostro dados){
-        var analiseDiariaMostro = analiseDiariaMostroService.update(dados);
-        return ResponseEntity.ok(analiseDiariaMostro);
+    public DadosDetalhamentoAnaliseDiariaMostro update(@RequestBody DadosAtualizarAnaliseDiariaMostro dados){
+        return analiseDiariaMostroService.update(dados);
     }
 
     @DeleteMapping("hardDelete/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
-    public ResponseEntity<?> hardDelete(@PathVariable Long id){
+    public void hardDelete(@PathVariable Long id){
         analiseDiariaMostroService.hardDelete(id);
-        return ResponseEntity.noContent().build();
     }
 
 }

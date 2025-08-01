@@ -7,6 +7,7 @@ import com.scanai.api.domain.liberacao.dto.DadosListagemLiberacao;
 import com.scanai.api.services.LiberacaoService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -21,39 +22,33 @@ public class LiberacaoController {
 
     @Transactional
     @PostMapping("/register")
-    public ResponseEntity<DadosDetalhamentoLiberacao> register(@RequestBody @Valid DadosCadastroLiberacao dados, UriComponentsBuilder builder){ //DadosCadastroRemedio é um DTO construido nu
-
-        var liberacao = liberacaoService.register(dados);// função do proprio jpa
-        // o DTO passado como argumento é lido no construtor, que retorna os atributos
-        var uri = builder.path("/liberacao/{id}").buildAndExpand(liberacao.getId()).toUri();
-
-        return  ResponseEntity.created(uri).body(new DadosDetalhamentoLiberacao(liberacao));
+    public DadosDetalhamentoLiberacao register(@RequestBody @Valid DadosCadastroLiberacao dados){
+        var liberacao = liberacaoService.register(dados);
+        return new DadosDetalhamentoLiberacao(liberacao);
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<DadosListagemLiberacao>> getAll(){
-        var lista = liberacaoService.getAll();
-        return ResponseEntity.ok(lista);
+    public List<DadosListagemLiberacao> getAll(){
+        return liberacaoService.getAll();
     }
 
     @GetMapping("/getElement/{id}")
-    public ResponseEntity<DadosDetalhamentoLiberacao> getElement(@PathVariable Long id){
+    public DadosDetalhamentoLiberacao getElement(@PathVariable Long id){
         var liberacao = liberacaoService.getElement(id);
-        return ResponseEntity.ok(new DadosDetalhamentoLiberacao(liberacao));
+        return new DadosDetalhamentoLiberacao(liberacao);
     }
 
     @PutMapping("/update")
     @Transactional
-    public ResponseEntity<DadosDetalhamentoLiberacao> update(@RequestBody DadosAtualizarLiberacao dados){
-        var liberacao = liberacaoService.update(dados);
-        return ResponseEntity.ok(liberacao);
+    public DadosDetalhamentoLiberacao update(@RequestBody DadosAtualizarLiberacao dados){
+        return liberacaoService.update(dados);
     }
 
     @DeleteMapping("hardDelete/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
-    public ResponseEntity<?> hardDelete(@PathVariable Long id){
+    public void hardDelete(@PathVariable Long id){
         liberacaoService.hardDelete(id);
-        return ResponseEntity.noContent().build();
     }
 
 }

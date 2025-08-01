@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
-@RequestMapping("/depositomostro")
+@RequestMapping("/depositoMostro")
 public class DepositoMostroController {
 
     @Autowired
@@ -27,9 +27,8 @@ public class DepositoMostroController {
 
     @PostMapping("/register")
     @Transactional
-    public ResponseEntity<DadosDetalhamentoDepositoMostro> register(@RequestBody @Valid DadosCadastroDepositoMostro data, UriComponentsBuilder uriBuilder){
+    public DadosDetalhamentoDepositoMostro register(@RequestBody @Valid DadosCadastroDepositoMostro data){
         DepositoMostro newDepositoMostro = service.register(data);
-        var uri = uriBuilder.path("depositomostro/register/{id}").buildAndExpand(newDepositoMostro.getId()).toUri();
-        return ResponseEntity.created(uri).body(new DadosDetalhamentoDepositoMostro(newDepositoMostro));
+        return new DadosDetalhamentoDepositoMostro(newDepositoMostro);
     }
 }

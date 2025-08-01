@@ -8,6 +8,7 @@ import com.scanai.api.domain.depositopedecuba.Depositopedecuba;
 import com.scanai.api.domain.depositopedecuba.dto.DadosTrasfegaDepositoPeDeCuba;
 import com.scanai.api.domain.depositovinho.Depositovinho;
 import com.scanai.api.domain.depositovinho.dto.DadosTrasfegaDepositoVinho;
+import com.scanai.api.infra.exceptions.customExceptions.BadRequest;
 import com.scanai.api.repositories.DepositoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.apache.coyote.BadRequestException;
@@ -74,7 +75,7 @@ public class DepositoService {
         return repository.getDepositoWithIdWithInformations(id);
     }
 
-    public DadosDetalhamentoTrasfegaDeposito realizarTrasfega(DadosTrasfegaDeposito data) throws BadRequestException {
+    public DadosDetalhamentoTrasfegaDeposito realizarTrasfega(DadosTrasfegaDeposito data) {
         if(Objects.equals(data.tipo(), "Mostro")){
             DepositoMostro trasfega = depositoMostroService.trasfegaMostro(new DadosTrasfegaDepositoMostro(data.idLiquidoOrigem(), data.idDepositoDestino(), LocalDate.now(), data.fkfuncionario(), data.volumetrasfega(), data.volumechegada()));
             return new DadosDetalhamentoTrasfegaDeposito("Mostro", trasfega.getFkmostro(), data.idDepositoDestino(), data.fkfuncionario(), "Trasfega de Mostro realizada com sucesso");
@@ -85,7 +86,7 @@ public class DepositoService {
             Depositopedecuba trasfega = depositoPedecubaService.trasfegaPedecuba(new DadosTrasfegaDepositoPeDeCuba(data.idLiquidoOrigem(), data.idDepositoDestino(), LocalDate.now(), data.fkfuncionario(), data.volumetrasfega(), data.volumechegada()));
             return new DadosDetalhamentoTrasfegaDeposito("PeDeCuba", trasfega.getFkpedecuba(), data.idDepositoDestino(), data.fkfuncionario(), "Trasfega de PeDeCuba realizada com sucesso");
         }else{
-            throw new BadRequestException("Tipo de trasfega invalida");
+            throw new BadRequest("Tipo de trasfega invalida");
         }
     }
 }
