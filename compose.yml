@@ -10,6 +10,11 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: scanAiDev
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   app:
     container_name: springboot_app
@@ -27,6 +32,7 @@ services:
       - DB_PASSWORD=root
       - SECRET=250c089a-5651-4e1c-82cd-7fe00a6190ee
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
 volumes:
   mysql_data:
