@@ -15,22 +15,26 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 
+//TODO modificar para um useCase futuramente
+
 @Service
 public class VinculoDepositoPeDeCubaService implements VinculoDepositoPeDeCubaServiceInterface {
-    @Autowired
-    private DepositoPeDeCubaServiceInterface _depositoPedecubaService;
 
     @Autowired
-    private PeDeCubaServiceInterface _pedecubaService;
+    private DepositoPeDeCubaServiceInterface depositoPeDeCubaService;
+
+    @Autowired
+    private PeDeCubaServiceInterface peDeCubaService;
 
     @Transactional
     public DadosDetalhamentoVinculoDepositoPedecuba vincularDepositoPedecuba(DadosCadastroVinculoDepositoPedecuba dados) {
-        Pedecuba pedecuba = _pedecubaService.register(new DadosCadastroPeDeCuba(dados.funcionarioId(), dados.fkpedecuba(), LocalDate.now(), dados.volume(), dados.produtos()));
-        Depositopedecuba depositopedecuba = _depositoPedecubaService.register(new DadosCadastroDepositoPeDeCuba(pedecuba.getId(), dados.depositoId(), LocalDate.now(), dados.funcionarioId()));
+        Pedecuba pedecuba = peDeCubaService.register(new DadosCadastroPeDeCuba(dados.funcionarioId(), dados.fkpedecuba(), LocalDate.now(), dados.volume(), dados.produtos()));
+        Depositopedecuba depositopedecuba = depositoPeDeCubaService.register(new DadosCadastroDepositoPeDeCuba(pedecuba.getId(), dados.depositoId(), LocalDate.now(), dados.funcionarioId()));
         return new DadosDetalhamentoVinculoDepositoPedecuba(
                 depositopedecuba.getFkdeposito(),
                 depositopedecuba.getFkpedecuba(),
                 depositopedecuba.getFkfuncionario(),
+                //TODO verificar o motico dessa message só existir nesse DTO
                 "Pe de Cuba criado e vinculado ao deposito com sucesso");
     }
 }

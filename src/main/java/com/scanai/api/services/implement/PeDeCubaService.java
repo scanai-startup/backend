@@ -16,35 +16,35 @@ import java.util.List;
 public class PeDeCubaService implements PeDeCubaServiceInterface {
 
     @Autowired
-    PedecubaRepository repository;
+    PedecubaRepository peDeCubaRepository;
 
     @Autowired
-    ProdutoAdicionadoPeDeCubaService produtoAdicionadopedecubaService;
+    ProdutoAdicionadoPeDeCubaService produtoAdicionadoPeDeCubaService;
 
     public Pedecuba register(DadosCadastroPeDeCuba dados) {
         Pedecuba newPedecuba = new Pedecuba(dados);
-        repository.save(newPedecuba);
+        peDeCubaRepository.save(newPedecuba);
         if(dados.produtos() != null){
-            produtoAdicionadopedecubaService.register(new DadosCadastroProdutoAdicionadoPeDeCuba(newPedecuba.getId(), dados.produtos()));
+            produtoAdicionadoPeDeCubaService.register(new DadosCadastroProdutoAdicionadoPeDeCuba(newPedecuba.getId(), dados.produtos()));
         }
         return newPedecuba;
     }
 
     public void softDelete(Long id) {
-        Pedecuba peDeCuba = repository.getReferenceById(id);
+        Pedecuba peDeCuba = peDeCubaRepository.getReferenceById(id);
         peDeCuba.setValid(false);
     }
 
     public void activate(Long id) {
-        Pedecuba peDeCuba = repository.getReferenceById(id);
+        Pedecuba peDeCuba = peDeCubaRepository.getReferenceById(id);
         peDeCuba.setValid(true);
     }
 
     public Pedecuba getElement(Long id) {
-        return repository.getReferenceById(id);
+        return peDeCubaRepository.getReferenceById(id);
     }
 
     public List<DadosDetalhamentoPeDeCuba> getAll(){
-        return repository.findAllByValidTrue();
+        return peDeCubaRepository.findAllByValidTrue();
     }
 }

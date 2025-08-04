@@ -15,33 +15,33 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 
+//TODO transformar em um useCase futuramente
+
 @Service
 public class VinculoDepositoRemessasService implements VinculoDepositoRemessasServiceInterface {
 
     @Autowired
-    private UvaServiceInterface _uvaService;
+    private UvaServiceInterface uvaService;
 
     @Autowired
-    private MostroServiceInterface _mostroService;
+    private MostroServiceInterface mostroService;
 
     @Autowired
-    private DepositoMostroServiceInterface _depositoMostroService;
+    private DepositoMostroServiceInterface depositoMostroService;
 
+    //TODO verificar mensagem tambem
     public DadosDetalhamentoVinculoDepositoRemessas vincularDepositoRemessa(DadosCadastroVinculoDepositoRemessas data) {
         Mostro mostro;
         String message;
 
-        mostro = _mostroService.register(new DadosCadastroMostro(data.funcionarioId(), data.volume(), null, null));
-        // vincular o mostro às remessas
+        mostro = mostroService.register(new DadosCadastroMostro(data.funcionarioId(), data.volume(), null, null));
         for (Long remessaUvaId : data.remessaUvaIdList()) {
-            _uvaService.addFkMostro(remessaUvaId, mostro.getId());
-            _uvaService.softDelete(remessaUvaId);
+            uvaService.addFkMostro(remessaUvaId, mostro.getId());
+            uvaService.softDelete(remessaUvaId);
         }
-        // vincular mostro ao deposito
-        DepositoMostro depositoMostro = _depositoMostroService.register(new DadosCadastroDepositoMostro(mostro.getId(), data.depositoId(), LocalDate.now(), data.funcionarioId()));
+        DepositoMostro depositoMostro = depositoMostroService.register(new DadosCadastroDepositoMostro(mostro.getId(), data.depositoId(), LocalDate.now(), data.funcionarioId()));
 
         message = "Mostro criado e vinculado às remessas e ao depósito";
-
 
         return new DadosDetalhamentoVinculoDepositoRemessas(data.depositoId(), mostro.getId(), mostro.getVolume() ,data.funcionarioId(), data.remessaUvaIdList(), message);
     }

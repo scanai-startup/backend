@@ -17,32 +17,36 @@ import java.util.List;
 public class RotuloService implements RotuloServiceInterface {
 
     @Autowired
-    RotuloRepository repository;
+    RotuloRepository rotuloRepository;
 
     @Transactional
     public Rotulo register(DadosCadastroRotulo dados){
-        return repository.save(new Rotulo(dados));
+        return rotuloRepository.save(new Rotulo(dados));
     }
 
     public List<DadosListagemRotulo> listAll(){
-        return repository.findAllByValidTrue().stream().map(DadosListagemRotulo::new).toList();
+        return rotuloRepository.findAllByValidTrue().stream().map(DadosListagemRotulo::new).toList();
     }
 
     public Rotulo getElement(Long id){
-        return repository.getReferenceById(id);
+        return rotuloRepository.getReferenceById(id);
 
     }
 
     @Transactional
     public void hardDelete(Long id){
-        repository.deleteById(id);
+        rotuloRepository.deleteById(id);
 
     }
 
     @Transactional
     public DadosDetalhamentoRotulo update(DadosAtualizarRotulo dados) {
-        var rotulo = getElement(dados.id());
-        rotulo.update(dados);
+        Rotulo rotulo = getElement(dados.id());
+
+        rotulo.setNome(dados.nome());
+        rotulo.setTipo(dados.tipo());
+        rotuloRepository.save(rotulo);
+
         return new DadosDetalhamentoRotulo(rotulo);
     }
 }

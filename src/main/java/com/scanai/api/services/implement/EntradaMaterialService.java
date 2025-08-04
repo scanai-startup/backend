@@ -15,16 +15,16 @@ import java.util.List;
 public class EntradaMaterialService implements EntradaMaterialServiceInterface {
 
     @Autowired
-    private EntradaMaterialRepository repository;
+    private EntradaMaterialRepository entradaMaterialRepository;
 
     @Transactional
     public EntradaMaterial register(DadosCadastroEntradaMaterial data){
         EntradaMaterial newEntradaMaterial = new EntradaMaterial(data);
-        repository.save(newEntradaMaterial);
+        entradaMaterialRepository.save(newEntradaMaterial);
         return newEntradaMaterial;
     }
     public List<DadosListagemEntradaMaterial> getAll(){
-        List<EntradaMaterial> entradaMaterialList = repository.findAll();
+        List<EntradaMaterial> entradaMaterialList = entradaMaterialRepository.findAll();
         return entradaMaterialList.stream().map(DadosListagemEntradaMaterial::new).toList();
     }
 }

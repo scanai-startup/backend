@@ -17,29 +17,30 @@ import java.util.Optional;
 public class ProdutoAdicionadoVinhoService implements ProdutoAdicionadoVinhoServiceInterface {
 
     @Autowired
-    ProdutoAdicionadovinhoRepository repository;
+    ProdutoAdicionadovinhoRepository produtoAdicionadoVinhoRepository;
 
     public ProdutoAdicionadovinho register(DadosCadastroProdutoAdicionadoVinho dados) {
         ProdutoAdicionadovinho newProdutoadcvinho = new ProdutoAdicionadovinho(dados);
-        repository.save(newProdutoadcvinho);
+        produtoAdicionadoVinhoRepository.save(newProdutoadcvinho);
         return newProdutoadcvinho;
     }
 
     public List<DadosDetalhamentoProdutoAdicionadoVinho> getAllByVinhoId(Long fkVinho) {
-        List<DadosDetalhamentoProdutoAdicionadoVinho> lista = repository.findAllByFkvinho(fkVinho);
-        return lista;
+        return produtoAdicionadoVinhoRepository.findAllByFkvinho(fkVinho);
     }
 
     public DadosDetalhamentoProdutoAdicionadoVinho update(DadosAtualizarProdutoAdicionadoVinho dados) {
-        Optional<ProdutoAdicionadovinho> produtoAdicionadoVinho = repository.findById(dados.id());
+        Optional<ProdutoAdicionadovinho> produtoAdicionadoVinho = produtoAdicionadoVinhoRepository.findById(dados.id());
+
         if(produtoAdicionadoVinho.isEmpty()){
-            throw new EntityNotFoundException("No produto adicionado with this id");
+            throw new EntityNotFoundException("No \"produto adicionado\" with this id");
         }
+
         produtoAdicionadoVinho.get().atualizar(dados);
         return new DadosDetalhamentoProdutoAdicionadoVinho(produtoAdicionadoVinho.get());
     }
 
     public void hardDelete(Long id) {
-        repository.deleteById(id);
+        produtoAdicionadoVinhoRepository.deleteById(id);
     }
 }

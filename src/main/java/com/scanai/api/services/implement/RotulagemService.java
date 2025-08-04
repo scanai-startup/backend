@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
 public class RotulagemService implements RotulagemServiceInterface {
 
     @Autowired
-    RotulagemRepository repository;
+    RotulagemRepository rotulagemRepository;
 
     @Transactional
     public Rotulagem register(DadosCadastroRotulagem dados){
         Rotulagem newRotulagem = new Rotulagem(dados);
-        repository.save(newRotulagem);
+        rotulagemRepository.save(newRotulagem);
         return newRotulagem;
     }
 

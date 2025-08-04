@@ -38,10 +38,13 @@ public class AnaliseDiariaMostroService implements AnaliseDiariaMostroServiceInt
     }
 
     @Transactional
-    //todo talvez retirar esse metodo atualizar e colocar diramente aqui e retirar esses construtores
     public DadosDetalhamentoAnaliseDiariaMostro update(DadosAtualizarAnaliseDiariaMostro dados) {
-        var AnaliseDiariamostro = getElement(dados.id());
-        AnaliseDiariamostro.atualizar(dados);
-        return new DadosDetalhamentoAnaliseDiariaMostro(AnaliseDiariamostro);
+        AnaliseDiariaMostro analiseDiariamostro = getElement(dados.id());
+        analiseDiariamostro.setData(dados.data());
+        analiseDiariamostro.setDensidade(dados.densidade());
+        analiseDiariamostro.setFkfuncionario(dados.fkfuncionario());
+        analiseDiariamostro.setFkmostro(dados.fkmostro());
+        analiseDiariamostro.setTemperatura(dados.temperatura());
+        return new DadosDetalhamentoAnaliseDiariaMostro(analiseDiariamostro);
     }
 }

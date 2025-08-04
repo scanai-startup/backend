@@ -8,6 +8,7 @@ import com.scanai.api.domain.mostro.dto.DadosCadastroMostro;
 import com.scanai.api.repositories.DepositoMostroRepository;
 import com.scanai.api.repositories.DepositoRepository;
 import com.scanai.api.services.DepositoMostroServiceInterface;
+import com.scanai.api.services.MostroServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class DepositoMostroService implements DepositoMostroServiceInterface {
     DepositoRepository depositoRepository;
 
     @Autowired
-    MostroService mostroService;
+    MostroServiceInterface mostroService;
 
     public DepositoMostro register(DadosCadastroDepositoMostro data) {
         var newDepositomostro = new DepositoMostro(data);
@@ -32,6 +33,7 @@ public class DepositoMostroService implements DepositoMostroServiceInterface {
         return newDepositomostro;
     }
 
+    //TODO refatorar este metodo para seguir os principios do single responsibility
     public DepositoMostro trasfegaMostro(DadosTrasfegaDepositoMostro data) {
         DepositoMostro depositoMostroExistente = depositoRepository.existsMostroAtivo(data.fkdeposito());
         Mostro mostroOrigem = mostroService.getElement(data.fkmostro());
@@ -46,7 +48,7 @@ public class DepositoMostroService implements DepositoMostroServiceInterface {
                 DepositoMostro depositoOrigem = depositoMostroRepository.findByFkmostroAndDatafimIsNull(data.fkmostro());
                 depositoOrigem.setDatafim(LocalDate.now());
 
-                DepositoMostro depositoMisturaMostro = mixMostros(data.fkdeposito(), data.fkfuncionario(), mostroOrigem, mostroDestino,
+                DepositoMostro depositoMisturaMostro = this.mixMostros(data.fkdeposito(), data.fkfuncionario(), mostroOrigem, mostroDestino,
                         depositoMostroExistente, data.volumetrasfega(), data.volumechegada());
 
                 depositoMostroRepository.save(depositoMisturaMostro);
@@ -58,7 +60,7 @@ public class DepositoMostroService implements DepositoMostroServiceInterface {
 
                 Mostro mostroFilho = mostroService.createMostroFilho(data.fkmostro(), volumeMostroFilho, data.volumetrasfega(), data.fkfuncionario());
 
-                DepositoMostro depositoMisturaMostro = mixMostros(data.fkdeposito(), data.fkfuncionario(), mostroFilho, mostroDestino, depositoMostroExistente,
+                DepositoMostro depositoMisturaMostro = this.mixMostros(data.fkdeposito(), data.fkfuncionario(), mostroFilho, mostroDestino, depositoMostroExistente,
                         data.volumetrasfega(), data.volumechegada());
                 depositoMostroRepository.save(depositoMisturaMostro);
 
@@ -108,7 +110,8 @@ public class DepositoMostroService implements DepositoMostroServiceInterface {
         depositoMostroRepository.save(depositoMostro);
     }
 
-    public DepositoMostro mixMostros(Long idDepositoDestino, Long idFuncionario, Mostro mostroOrigem, Mostro mostroDestino, DepositoMostro depositoMostroExistente, float volumeTrasfega, float volumeChegada){
+    //TODO revisar metodo e verificar funcionamento com e sem o atributo volumeTrasfega
+    private DepositoMostro mixMostros(Long idDepositoDestino, Long idFuncionario, Mostro mostroOrigem, Mostro mostroDestino, DepositoMostro depositoMostroExistente, float volumeTrasfega, float volumeChegada){
         LocalDate now = LocalDate.now();
         mostroOrigem.setFimfermentacao(now);
         mostroDestino.setFimfermentacao(now);

@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 public class HigieneDepositoService implements HigieneDepositoServiceInterface {
 
     @Autowired
-    HigienedepositoRepository repository;
+    HigienedepositoRepository higieneDepositoRepository;
 
     public Higienedeposito register(DadosCadastroHigieneDeposito data){
         Higienedeposito newHigienedeposito = new Higienedeposito(data);
-        repository.save(newHigienedeposito);
+        higieneDepositoRepository.save(newHigienedeposito);
         return newHigienedeposito;
     }
 }

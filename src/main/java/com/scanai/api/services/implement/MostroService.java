@@ -14,37 +14,38 @@ import java.util.List;
 public class MostroService implements MostroServiceInterface {
 
     @Autowired
-    MostroRepository repository;
+    MostroRepository mostroRepository;
 
     public Mostro register(DadosCadastroMostro data) {
         var newMostro = new Mostro(data);
-        repository.save(newMostro);
+        mostroRepository.save(newMostro);
         return newMostro;
     }
 
     public void softDelete(Long id) {
-        Mostro mostro = repository.getReferenceById(id);
+        Mostro mostro = mostroRepository.getReferenceById(id);
         mostro.setValid(false);
     }
 
     public void activate(Long id) {
-        Mostro mostro = repository.getReferenceById(id);
+        Mostro mostro = mostroRepository.getReferenceById(id);
         mostro.setValid(true);
     }
 
     public Mostro getElement(Long id) {
-        return repository.getReferenceById(id);
+        return mostroRepository.getReferenceById(id);
     }
 
     public List<DadosListagemMostro> getAll() {
-        return repository.findAllByValidTrue().stream().map(DadosListagemMostro::new).toList();
+        return mostroRepository.findAllByValidTrue().stream().map(DadosListagemMostro::new).toList();
     }
 
+    //TODO verificar como encapsular melhor este metodo, talvez colocar direto na entidade nao sei
     public Mostro createMostroFilho(Long idMostroOrigem, float volumeMostroFilho, float volumeRetiradoMostroOrigem, Long idFuncionario) {
-        Mostro mostroOrigem = repository.getReferenceById(idMostroOrigem);
+        Mostro mostroOrigem = mostroRepository.getReferenceById(idMostroOrigem);
         mostroOrigem.setVolume(mostroOrigem.getVolume() - volumeRetiradoMostroOrigem);
         Mostro mostroFilho = new Mostro(new DadosCadastroMostro(idFuncionario, volumeMostroFilho, mostroOrigem.getId(), null));
-        repository.save(mostroFilho);
+        mostroRepository.save(mostroFilho);
         return mostroFilho;
     }
 }

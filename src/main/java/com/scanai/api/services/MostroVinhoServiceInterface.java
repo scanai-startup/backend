@@ -19,6 +19,4 @@ public interface MostroVinhoServiceInterface {
     void hardDelete(Long id);
 
     DadosDetalhamentoMostroVinho update(DadosAtualizarMostroVinho dados);
-
-    void softDelete(Long id);
 }

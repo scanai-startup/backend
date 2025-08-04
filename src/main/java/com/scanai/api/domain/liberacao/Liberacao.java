@@ -14,7 +14,6 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-
 public class Liberacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,9 +31,4 @@ public class Liberacao {
     public Liberacao(DadosCadastroLiberacao dados) {
 
     }
-
-    public void atualizar(DadosAtualizarLiberacao dados){
-
-    }
-
 }

@@ -18,37 +18,36 @@ import java.util.Optional;
 public class ProdutoAdicionadoPeDeCubaService implements ProdutoAdicionadoPeDeCubaServiceInterface {
 
     @Autowired
-    ProdutoAdicionadopedecubaRepository repository;
+    ProdutoAdicionadopedecubaRepository produtoAdicionadoPeDeCubaRepository;
 
     public List<ProdutoAdicionadopedecuba> register(DadosCadastroProdutoAdicionadoPeDeCuba dados) {
-        List<ProdutoAdicionadopedecuba> produtosSalvos = dados.produtos().stream()
+        return dados.produtos().stream()
                 .map(produtoDTO -> new ProdutoAdicionadopedecuba(
                         dados.fkpedecuba(),
                         produtoDTO.nome(),
                         produtoDTO.quantidade(),
                         produtoDTO.unidadeDeMedida()
                 ))
-                .peek(repository::save)
+                .peek(produtoAdicionadoPeDeCubaRepository::save)
                 .toList();
-
-        return produtosSalvos;
     }
 
     public List<DadosDetalhamentoProdutoAdicionadoPeDeCuba> getAllByPeDeCubaId(Long fkPeDeCuba) {
-        List<DadosDetalhamentoProdutoAdicionadoPeDeCuba> lista = repository.findAllByFkpedecuba(fkPeDeCuba);
-        return lista;
+        return produtoAdicionadoPeDeCubaRepository.findAllByFkpedecuba(fkPeDeCuba);
     }
 
     public DadosDetalhamentoProdutoAdicionadoPeDeCuba update(DadosAtualizarProdutoAdicionadoPeDeCuba dados) {
-        Optional<ProdutoAdicionadopedecuba> produtoAdicionadoPeDeCuba = repository.findById(dados.id());
+        Optional<ProdutoAdicionadopedecuba> produtoAdicionadoPeDeCuba = produtoAdicionadoPeDeCubaRepository.findById(dados.id());
+
         if(produtoAdicionadoPeDeCuba.isEmpty()){
             throw new EntityNotFoundException("No produto adicionado with this id");
         }
+
         produtoAdicionadoPeDeCuba.get().atualizar(dados);
         return new DadosDetalhamentoProdutoAdicionadoPeDeCuba(produtoAdicionadoPeDeCuba.get());
     }
 
     public void hardDelete(Long id) {
-        repository.deleteById(id);
+        produtoAdicionadoPeDeCubaRepository.deleteById(id);
     }
 }

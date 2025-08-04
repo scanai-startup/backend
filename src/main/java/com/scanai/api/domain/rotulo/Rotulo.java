@@ -28,10 +28,4 @@ public class Rotulo {
         this.tipo = dados.tipo();
     }
 
-    public void update(DadosAtualizarRotulo dados){
-        this.nome = dados.nome();
-        this.tipo = dados.tipo();
-    }
-
-
 }

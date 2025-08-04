@@ -16,49 +16,52 @@ import java.util.List;
 public class UvaService implements UvaServiceInterface {
 
     @Autowired
-    UvaRepository repository;
+    UvaRepository uvaRepository;
 
     @Transactional
-    public Uva register(DadosCadastroUva dados){
-        return repository.save(new Uva(dados));
+    public DadosDetalhamentoUva register(DadosCadastroUva dados){
+        return new DadosDetalhamentoUva(uvaRepository.save(new Uva(dados)));
     }
 
-    public Uva getElement(Long id) {
-        return repository.getReferenceById(id);
+    public DadosDetalhamentoUva getElement(Long id) {
+        return new DadosDetalhamentoUva(uvaRepository.getReferenceById(id));
     }
 
     public List<DadosListagemUva> listAllByValidTrue() {
-        return repository.findAllByValidTrue().stream().map(DadosListagemUva::new).toList();
+        return uvaRepository.findAllByValidTrue().stream().map(DadosListagemUva::new).toList();
     }
     public  List<DadosListagemUva> listAll(){
-        return repository.findAll().stream().map(DadosListagemUva::new).toList();
+        return uvaRepository.findAll().stream().map(DadosListagemUva::new).toList();
     }
 
     @Transactional
     public void hardDelete(Long id) {
-        repository.deleteById(id);
+        uvaRepository.deleteById(id);
     }
 
     @Transactional
     public DadosDetalhamentoUva update(DadosAtualizarUva dados) {
-        var uva = getElement(dados.id());
+        Uva uva = uvaRepository.getReferenceById(dados.id());
         uva.update(dados);
         return new DadosDetalhamentoUva(uva);
     }
 
     @Transactional
     public void softDelete(Long id) {
-        var uva = getElement(id);
+        Uva uva = uvaRepository.getReferenceById(id);
         uva.setValid(false);
     }
+
     @Transactional
     public void activate(Long id) {
-        var uva = getElement(id);
+        Uva uva = uvaRepository.getReferenceById(id);
         uva.setValid(true);
     }
+
+    //TODO verificar motivo disso aqui
     @Transactional
     public void addFkMostro(Long uvaId, Long mostroId){
-        var uva = getElement(uvaId);
+        Uva uva = uvaRepository.getReferenceById(uvaId);
         uva.setFkmostro(mostroId);
     }
 }

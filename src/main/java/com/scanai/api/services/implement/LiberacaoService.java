@@ -17,30 +17,36 @@ import java.util.List;
 public class LiberacaoService implements LiberacaoServiceInterface {
 
     @Autowired
-    LiberacaoRepository repository;
+    LiberacaoRepository liberacaoRepository;
 
     @Transactional
     public Liberacao register(DadosCadastroLiberacao dados){
-        return repository.save(new Liberacao(dados));
+        return liberacaoRepository.save(new Liberacao(dados));
     }
 
     public List<DadosListagemLiberacao> getAll() {
-        return repository.findAll().stream().map(DadosListagemLiberacao::new).toList();
+        return liberacaoRepository.findAll().stream().map(DadosListagemLiberacao::new).toList();
     }
 
     public Liberacao getElement(Long id) {
-        return repository.getReferenceById(id);
+        return liberacaoRepository.getReferenceById(id);
     }
 
     @Transactional
     public void hardDelete(Long id) {
-        repository.deleteById(id);
+        liberacaoRepository.deleteById(id);
     }
 
     @Transactional
     public DadosDetalhamentoLiberacao update(DadosAtualizarLiberacao dados) {
-        var liberacao = getElement(dados.id());
-        liberacao.atualizar(dados);
+        Liberacao liberacao = getElement(dados.id());
+
+        liberacao.setDataFim(dados.datafim());
+        liberacao.setFkfuncionario(dados.fkfuncionario());
+        liberacao.setGfs(dados.gfs());
+        liberacao.setFkrotulagem(dados.fkrotulagem());
+        liberacao.setDataInicio(dados.datainicio());
+
         return new DadosDetalhamentoLiberacao(liberacao);
     }
 }

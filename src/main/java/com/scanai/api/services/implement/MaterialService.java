@@ -20,29 +20,30 @@ import java.util.List;
 public class MaterialService implements MaterialServiceInterface {
 
     @Autowired
-    MaterialRepository repository;
+    MaterialRepository MaterialRepository;
 
     @Autowired
     EntradaMaterialRepository entradaMaterialRepository;
 
     @Autowired
-    LotematerialRepository lotematerialRepository;
+    LotematerialRepository loteMaterialRepository;
 
     @Transactional
     public Material register(DadosCadastroMaterial dados) {
         Material newMaterial = new Material(dados);
-        repository.save(newMaterial);
+        MaterialRepository.save(newMaterial);
         return newMaterial;
     }
 
     public List<DadosListagemMaterial> getAll() {
         List<DadosListagemMaterial> listagemMaterial = new ArrayList<>();
-        List<Material> materialList = repository.findAll();
+        List<Material> materialList = MaterialRepository.findAll();
 
         for(Material material : materialList){
             int quantidadeTotal = 0;
 
-            List<Lotematerial> loteMaterialList = lotematerialRepository.findAllByFkmaterial(material.getId());
+            //TODO será que da pra simplificar e utilizar uma funcao sql direto para fazer essa querry?
+            List<Lotematerial> loteMaterialList = loteMaterialRepository.findAllByFkmaterial(material.getId());
             for (Lotematerial lotematerial : loteMaterialList) {
                 List<EntradaMaterial> entradaMaterialList = entradaMaterialRepository.findAllByFklotematerial(lotematerial.getId());
                 for(EntradaMaterial entradaMaterial : entradaMaterialList){

@@ -1,6 +1,5 @@
 package com.scanai.api.services;
 
-import com.scanai.api.domain.uva.Uva;
 import com.scanai.api.domain.uva.dto.DadosAtualizarUva;
 import com.scanai.api.domain.uva.dto.DadosCadastroUva;
 import com.scanai.api.domain.uva.dto.DadosDetalhamentoUva;
@@ -10,9 +9,9 @@ import java.util.List;
 
 public interface UvaServiceInterface {
 
-    Uva register(DadosCadastroUva dados);
+    DadosDetalhamentoUva register(DadosCadastroUva dados);
 
-    Uva getElement(Long id);
+    DadosDetalhamentoUva getElement(Long id);
 
     List<DadosListagemUva> listAllByValidTrue();
 

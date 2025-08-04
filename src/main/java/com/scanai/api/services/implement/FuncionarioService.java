@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class FuncionarioService implements FuncionarioServiceInterface {
 
     @Autowired
-    private FuncionarioRepository repository;
+    private FuncionarioRepository funcionarioRepository;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -23,9 +23,11 @@ public class FuncionarioService implements FuncionarioServiceInterface {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.matricula(), data.senhaAtual());
         var auth = authenticationManager.authenticate(usernamePassword);
 
-        var funcionario = (Funcionario)auth.getPrincipal();
+        Funcionario funcionario = (Funcionario)auth.getPrincipal();
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.senhaNova());
 
         funcionario.setSenha(encryptedPassword);
+
+        funcionarioRepository.save(funcionario);
     }
 }

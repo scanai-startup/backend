@@ -39,6 +39,7 @@ public class DepositoVinhoService implements DepositoVinhoServiceInterface {
         if(depositoRepository.existsVinhoAtivo(data.fkdeposito()) != null || depositoRepository.existsPeDeCubaAtivo(data.fkdeposito()) != null || depositoRepository.existsMostroAtivo(data.fkdeposito()) != null){
             throw new DataIntegrityViolationException("Impossível inserir, o deposito já contém outro produto ativo");
         }
+
         //case unico, volume total por enquanto
         Depositovinho depositoVinhoOrigem = depositoVinhoRepository.findByFkvinhoAndDatafimIsNull(data.fkvinho());
         Vinho vinhoOrigem = vinhoRepository.getReferenceById(data.fkvinho());
@@ -50,7 +51,6 @@ public class DepositoVinhoService implements DepositoVinhoServiceInterface {
     }
 
     public void setDataFim(Long fkvinho){
-        // implementando o softDelete
         Depositovinho depositovinho = depositoVinhoRepository.findByFkvinhoAndDatafimIsNull(fkvinho);
         depositovinho.setDatafim(LocalDate.now());
         depositoVinhoRepository.save(depositovinho);

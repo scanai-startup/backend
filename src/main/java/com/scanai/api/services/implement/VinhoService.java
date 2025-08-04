@@ -17,24 +17,24 @@ import java.util.List;
 public class VinhoService implements VinhoServiceInterface {
 
     @Autowired
-    VinhoRepository repository;
+    VinhoRepository vinhoRepository;
 
     @Transactional
     public Vinho register(DadosCadastroVinho dados){
-        return repository.save(new Vinho(dados));
+        return vinhoRepository.save(new Vinho(dados));
     }
 
     public List<DadosListagemVinho> getAll() {
-        return repository.findAllByValidTrue().stream().map(DadosListagemVinho::new).toList();
+        return vinhoRepository.findAllByValidTrue().stream().map(DadosListagemVinho::new).toList();
     }
 
     public Vinho getElement(Long id) {
-        return repository.getReferenceById(id);
+        return vinhoRepository.getReferenceById(id);
     }
 
     @Transactional
     public void hardDelete(Long id) {
-        repository.deleteById(id);
+        vinhoRepository.deleteById(id);
     }
 
     @Transactional
@@ -50,8 +50,16 @@ public class VinhoService implements VinhoServiceInterface {
 
     @Transactional
     public DadosDetalhamentoVinho update(DadosAtualizarVinho dados) {
-        var vinho = getElement(dados.id());
-        vinho.atualizar(dados);
+        Vinho vinho = getElement(dados.id());
+
+        vinho.setDatafimfermentacao(dados.datafimfermentacao());
+        vinho.setFkpedecuba(dados.fkpedecuba());
+        vinho.setFkmostro(dados.fkmostro());
+        vinho.setVolume(dados.volume());
+        vinho.setFkpedecuba(dados.fkpedecuba());
+
+        vinhoRepository.save(vinho);
+
         return new DadosDetalhamentoVinho(vinho);
     }
 }

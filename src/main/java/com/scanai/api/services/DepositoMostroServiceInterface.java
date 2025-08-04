@@ -16,8 +16,4 @@ public interface DepositoMostroServiceInterface {
     void softDelete(Long fkdeposito, Long fkmostro);
 
     void setDataFim(Long fkmostro);
-
-    DepositoMostro mixMostros(Long idDepositoDestino, Long idFuncionario, Mostro mostroOrigem,
-                              Mostro mostroDestino, DepositoMostro depositoMostroExistente,
-                              float volumeTrasfega, float volumeChegada);
 }

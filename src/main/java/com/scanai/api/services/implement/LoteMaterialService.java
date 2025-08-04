@@ -15,16 +15,16 @@ import java.util.List;
 public class LoteMaterialService implements LoteMaterialServiceInterface {
 
     @Autowired
-    LotematerialRepository repository;
+    LotematerialRepository loteMaterialRepository;
 
     @Transactional
     public Lotematerial register(DadosCadastroLoteMaterial dados){
         Lotematerial newLotematerial = new Lotematerial(dados);
-        repository.save(newLotematerial);
+        loteMaterialRepository.save(newLotematerial);
         return newLotematerial;
     }
 
     public List<Lotematerial> getAll(){
-        return repository.findAll();
+        return loteMaterialRepository.findAll();
     }
 }

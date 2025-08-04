@@ -20,7 +20,7 @@ import java.util.List;
 public class EnchimentoService implements EnchimentoServiceInterface {
 
     @Autowired
-    EnchimentoRepository repository;
+    EnchimentoRepository enchimentoRepository;
 
     @Autowired
     VinhoService vinhoService;
@@ -32,26 +32,54 @@ public class EnchimentoService implements EnchimentoServiceInterface {
         vinho.setDatafimfermentacao(LocalDate.now());
         vinhoService.update(new DadosAtualizarVinho(vinho));
 
-        return repository.save(new Enchimento(dados));
+        return enchimentoRepository.save(new Enchimento(dados));
     }
 
     public List<DadosListagemEnchimento> getAll() {
-        return repository.findAll().stream().map(DadosListagemEnchimento::new).toList();
+        return enchimentoRepository.findAll().stream().map(DadosListagemEnchimento::new).toList();
     }
 
     public Enchimento getElement(Long id) {
-        return repository.getReferenceById(id);
+        return enchimentoRepository.getReferenceById(id);
     }
 
     @Transactional
     public void hardDelete(Long id) {
-        repository.deleteById(id);
+        enchimentoRepository.deleteById(id);
     }
 
     @Transactional
     public DadosDetalhamentoEnchimento update(DadosAtualizarEnchimento dados) {
-        var enchimento = getElement(dados.id());
-        enchimento.atualizar(dados);
+        Enchimento enchimento = getElement(dados.id());
+
+        enchimento.setVolume(dados.volumeTrasfega() - dados.volumeChegada());
+        enchimento.setDatainiciodespaletizacao(dados.datainiciodespaletizacao());
+        enchimento.setDatafimdespaletizacao(dados.datafimdespaletizacao());
+        enchimento.setConformeosdespaletizacao(dados.conformeosdespaletizacao());
+        enchimento.setAusenciapoeiradespaletizacao(dados.ausenciapoeiradespaletizacao());
+        enchimento.setQuantidadegarrafasdespaletizacao(dados.quantidadegarrafasdespaletizacao());
+        enchimento.setCoracordodespaletizacao(dados.coracordodespaletizacao());
+        enchimento.setDatainicioenxaguadora(dados.datainicioenxaguadora());
+        enchimento.setDatafimenxaguadora(dados.datafimenxaguadora());
+        enchimento.setFuncionamentoenxaguadora(dados.funcionamentoenxaguadora());
+        enchimento.setPressaoentradaenxaguadora(dados.pressaoentradaenxaguadora());
+        enchimento.setPressaosaidaenxaguadora(dados.pressaosaidaenxaguadora());
+        enchimento.setJatopercorreenxaguadora(dados.jatopercorreenxaguadora());
+        enchimento.setBicosfuncionandoenxaguadora(dados.bicosfuncionandoenxaguadora());
+        enchimento.setAusenciaaguaenxaguadora(dados.ausenciaaguaenxaguadora());
+        enchimento.setDatainicioenchedora(dados.datainicioenchedora());
+        enchimento.setDatafimenchedora(dados.datafimenchedora());
+        enchimento.setTemperaturaenchedora(dados.temperaturaenchedora());
+        enchimento.setNivelmodeloenchedora(dados.nivelmodeloenchedora());
+        enchimento.setPressaoenchedora(dados.pressaoenchedora());
+        enchimento.setRolhaenchedora(dados.rolhaenchedora());
+        enchimento.setQualidaderolhaenchedora(dados.qualidaderolhaenchedora());
+        enchimento.setCorposestranhos(dados.corposestranhos());
+        enchimento.setFkvinho(dados.fkvinho());
+        enchimento.setFkrespproducao(dados.fkrespproducao());
+        enchimento.setFkrespdespaletizacao(dados.fkrespdespaletizacao());
+        enchimento.setFkrespenchimento(dados.fkrespenchimento());
+
         return new DadosDetalhamentoEnchimento(enchimento);
     }
 }

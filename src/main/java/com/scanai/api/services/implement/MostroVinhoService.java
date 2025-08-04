@@ -1,5 +1,6 @@
 package com.scanai.api.services.implement;
 
+import com.scanai.api.domain.mostro.Mostro;
 import com.scanai.api.domain.mostrovinho.MostroVinho;
 import com.scanai.api.domain.mostrovinho.dto.DadosAtualizarMostroVinho;
 import com.scanai.api.domain.mostrovinho.dto.DadosCadastroMostroVinho;
@@ -17,33 +18,34 @@ import java.util.List;
 public class MostroVinhoService implements MostroVinhoServiceInterface {
 
     @Autowired
-    MostroVinhoRepository repository;
+    MostroVinhoRepository mostroVinhoRepository;
 
     @Transactional
     public MostroVinho register(DadosCadastroMostroVinho dados){
-        return repository.save(new MostroVinho(dados));
+        return mostroVinhoRepository.save(new MostroVinho(dados));
     }
     public MostroVinho getElement(Long id) {
 
-        return repository.getReferenceById(id);
+        return mostroVinhoRepository.getReferenceById(id);
     }
 
     public List<DadosListagemMostroVinho> getAll() {
-        return repository.findAll().stream().map(DadosListagemMostroVinho::new).toList();
+        return mostroVinhoRepository.findAll().stream().map(DadosListagemMostroVinho::new).toList();
     }
 
     @Transactional
     public void hardDelete(Long id) {
-        repository.deleteById(id);
+        mostroVinhoRepository.deleteById(id);
     }
 
     @Transactional
     public DadosDetalhamentoMostroVinho update(DadosAtualizarMostroVinho dados) {
-        var mostroVinho = getElement(dados.id());
-        mostroVinho.atualizar(dados);
-        return new DadosDetalhamentoMostroVinho(mostroVinho);
-    }
+        MostroVinho mostroVinho = getElement(dados.id());
 
-    public void softDelete(Long id) {
+        mostroVinho.setFkmostro(dados.fkmostro());
+        mostroVinho.setFkvinho(dados.fkvinho());
+        mostroVinhoRepository.save(mostroVinho);
+
+        return new DadosDetalhamentoMostroVinho(mostroVinho);
     }
 }

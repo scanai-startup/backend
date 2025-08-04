@@ -45,6 +45,7 @@ public class DepositoPeDeCubaService implements DepositoPeDeCubaServiceInterface
 
     }
 
+    //TODO refatorar este metodo para seguir os principios do single responsibility
     public Depositopedecuba trasfegaPedecuba(DadosTrasfegaDepositoPeDeCuba data) {
         Depositopedecuba depositoPedecubaDestino = depositoRepository.existsPeDeCubaAtivo(data.fkdeposito());
         Depositopedecuba depositopedecubaOrigem = depositoPedecubaRepository.findByFkpedecubaAndDatafimIsNull(data.fkpedecuba());

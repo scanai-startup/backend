@@ -11,6 +11,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -39,8 +40,15 @@ public class AnaliseDiariaVinhoService implements AnaliseDiariaVinhoServiceInter
 
     @Transactional
     public DadosDetalhamentoAnaliseDiariaVinho update(DadosAtualizarAnaliseDiariaVinho dados) {
-        var  AnaliseDiariavinho = getElement(dados.id());
-        AnaliseDiariavinho.atualizar(dados);
-        return new DadosDetalhamentoAnaliseDiariaVinho(AnaliseDiariavinho);
+        AnaliseDiariaVinho analiseDiariavinho = getElement(dados.id());
+
+        analiseDiariavinho.setFkvinho(dados.fkvinho());
+        analiseDiariavinho.setFkfuncionario(dados.fkfuncionario());
+        analiseDiariavinho.setDensidade(dados.densidade());
+        analiseDiariavinho.setData(LocalDateTime.now());
+        analiseDiariavinho.setTemperatura(dados.temperatura());
+        analiseDiariavinho.setPressao(dados.pressao());
+
+        return new DadosDetalhamentoAnaliseDiariaVinho(analiseDiariavinho);
     }
 }

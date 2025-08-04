@@ -37,7 +37,7 @@ public class DepositoService implements DepositoServiceInterface {
     private DepositoVinhoServiceInterface depositoVinhoService;
 
     @Autowired
-    private DepositoPeDeCubaServiceInterface depositoPedecubaService;
+    private DepositoPeDeCubaServiceInterface depositoPeDeCubaService;
 
     public Deposito register(DadosCadastroDeposito data){
         Deposito newDeposito = new Deposito(data);
@@ -92,7 +92,7 @@ public class DepositoService implements DepositoServiceInterface {
                 return new DadosDetalhamentoTrasfegaDeposito("Vinho", trasfega.getFkvinho(), data.idDepositoDestino(), data.fkfuncionario(), "Trasfega de Vinho realizada com sucesso");
             }
             case "PeDeCuba" -> {
-                Depositopedecuba trasfega = depositoPedecubaService.trasfegaPedecuba(new DadosTrasfegaDepositoPeDeCuba(data.idLiquidoOrigem(), data.idDepositoDestino(), LocalDate.now(), data.fkfuncionario(), data.volumetrasfega(), data.volumechegada()));
+                Depositopedecuba trasfega = depositoPeDeCubaService.trasfegaPedecuba(new DadosTrasfegaDepositoPeDeCuba(data.idLiquidoOrigem(), data.idDepositoDestino(), LocalDate.now(), data.fkfuncionario(), data.volumetrasfega(), data.volumechegada()));
                 return new DadosDetalhamentoTrasfegaDeposito("PeDeCuba", trasfega.getFkpedecuba(), data.idDepositoDestino(), data.fkfuncionario(), "Trasfega de PeDeCuba realizada com sucesso");
             }
             case null, default -> throw new BadRequest("Tipo de trasfega invalida");
