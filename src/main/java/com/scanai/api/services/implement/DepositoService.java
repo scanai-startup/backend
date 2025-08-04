@@ -27,7 +27,7 @@ import java.util.Objects;
 public class DepositoService implements DepositoServiceInterface {
 
     @Autowired
-    private DepositoRepository repository;
+    private DepositoRepository depositoRepository;
 
     @Autowired
     private DepositoMostroServiceInterface depositoMostroService;
@@ -40,16 +40,19 @@ public class DepositoService implements DepositoServiceInterface {
 
     public Deposito register(DadosCadastroDeposito data){
         Deposito newDeposito = new Deposito(data);
-        repository.save(newDeposito);
+        depositoRepository.save(newDeposito);
         return newDeposito;
     }
 
     public Deposito update(DadosAtualizarDeposito data){
-        Deposito deposito = repository.findByNumerodeposito(data.numeroAtual());
+        Deposito deposito = depositoRepository.findByNumerodeposito(data.numeroAtual());
+
         if(deposito == null){
             throw new EntityNotFoundException("Deposito: " + data.numeroAtual() + " Não Encontrado");
         }
+
         deposito.setNumerodeposito(data.numeroNovo());
+
         return deposito;
     }
 
@@ -62,33 +65,36 @@ public class DepositoService implements DepositoServiceInterface {
     }
 
     public List<Deposito> getAll(){
-        return repository.findAllByValidTrue();
+        return depositoRepository.findAllByValidTrue();
     }
 
     public Deposito getElement(Long id){
-        return repository.findDepositoById(id);
+        return depositoRepository.findDepositoById(id);
     }
 
     public List<DadosInformacoesDepositos> getAllDepositosWithInformations(){
-        return repository.getAllDepositosWithInformations();
+        return depositoRepository.getAllDepositosWithInformations();
     }
 
     public DadosInformacoesDepositos getDepositoWithIdWithInformations(Long id) {
-        return repository.getDepositoWithIdWithInformations(id);
+        return depositoRepository.getDepositoWithIdWithInformations(id);
     }
 
-    public DadosDetalhamentoTrasfegaDeposito realizarTrasfega(DadosTrasfegaDeposito data) throws BadRequestException {
-        if(Objects.equals(data.tipo(), "Mostro")){
-            DepositoMostro trasfega = depositoMostroService.trasfegaMostro(new DadosTrasfegaDepositoMostro(data.idLiquidoOrigem(), data.idDepositoDestino(), LocalDate.now(), data.fkfuncionario(), data.volumetrasfega(), data.volumechegada()));
-            return new DadosDetalhamentoTrasfegaDeposito("Mostro", trasfega.getFkmostro(), data.idDepositoDestino(), data.fkfuncionario(), "Trasfega de Mostro realizada com sucesso");
-        }else if(Objects.equals(data.tipo(), "Vinho")){
-            Depositovinho trasfega = depositoVinhoService.trasfegaVinho(new DadosTrasfegaDepositoVinho(data.idLiquidoOrigem(), data.idDepositoDestino(), LocalDate.now(), data.fkfuncionario(), data.volumetrasfega(), data.volumechegada()));
-            return new DadosDetalhamentoTrasfegaDeposito("Vinho", trasfega.getFkvinho(), data.idDepositoDestino(), data.fkfuncionario(), "Trasfega de Vinho realizada com sucesso");
-        } else if (Objects.equals(data.tipo(), "PeDeCuba")) {
-            Depositopedecuba trasfega = depositoPedecubaService.trasfegaPedecuba(new DadosTrasfegaDepositoPeDeCuba(data.idLiquidoOrigem(), data.idDepositoDestino(), LocalDate.now(), data.fkfuncionario(), data.volumetrasfega(), data.volumechegada()));
-            return new DadosDetalhamentoTrasfegaDeposito("PeDeCuba", trasfega.getFkpedecuba(), data.idDepositoDestino(), data.fkfuncionario(), "Trasfega de PeDeCuba realizada com sucesso");
-        }else{
-            throw new BadRequestException("Tipo de trasfega invalida");
+    public DadosDetalhamentoTrasfegaDeposito realizarTrasfega(DadosTrasfegaDeposito data) {
+        switch (data.tipo()) {
+            case "Mostro" -> {
+                DepositoMostro trasfega = depositoMostroService.trasfegaMostro(new DadosTrasfegaDepositoMostro(data.idLiquidoOrigem(), data.idDepositoDestino(), LocalDate.now(), data.fkfuncionario(), data.volumetrasfega(), data.volumechegada()));
+                return new DadosDetalhamentoTrasfegaDeposito("Mostro", trasfega.getFkmostro(), data.idDepositoDestino(), data.fkfuncionario(), "Trasfega de Mostro realizada com sucesso");
+            }
+            case "Vinho" -> {
+                Depositovinho trasfega = depositoVinhoService.trasfegaVinho(new DadosTrasfegaDepositoVinho(data.idLiquidoOrigem(), data.idDepositoDestino(), LocalDate.now(), data.fkfuncionario(), data.volumetrasfega(), data.volumechegada()));
+                return new DadosDetalhamentoTrasfegaDeposito("Vinho", trasfega.getFkvinho(), data.idDepositoDestino(), data.fkfuncionario(), "Trasfega de Vinho realizada com sucesso");
+            }
+            case "PeDeCuba" -> {
+                Depositopedecuba trasfega = depositoPedecubaService.trasfegaPedecuba(new DadosTrasfegaDepositoPeDeCuba(data.idLiquidoOrigem(), data.idDepositoDestino(), LocalDate.now(), data.fkfuncionario(), data.volumetrasfega(), data.volumechegada()));
+                return new DadosDetalhamentoTrasfegaDeposito("PeDeCuba", trasfega.getFkpedecuba(), data.idDepositoDestino(), data.fkfuncionario(), "Trasfega de PeDeCuba realizada com sucesso");
+            }
+            case null, default -> throw new BadRequest("Tipo de trasfega invalida");
         }
     }
 }

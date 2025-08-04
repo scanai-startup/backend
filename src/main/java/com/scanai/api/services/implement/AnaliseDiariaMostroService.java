@@ -17,29 +17,30 @@ import java.util.List;
 public class AnaliseDiariaMostroService implements AnaliseDiariaMostroServiceInterface {
 
     @Autowired
-    AnaliseDiariaMostroRepository repository;
+    AnaliseDiariaMostroRepository analiseMostroRepository;
 
     @Transactional
     public AnaliseDiariaMostro register(DadosCadastroAnaliseDiariaMostro dados){
-        return repository.save(new AnaliseDiariaMostro(dados));
+        return analiseMostroRepository.save(new AnaliseDiariaMostro(dados));
     }
 
     public List<DadosListagemAnaliseDiariaMostro> getAll() {
-        return repository.findAll().stream().map(DadosListagemAnaliseDiariaMostro::new).toList();
+        return analiseMostroRepository.findAll().stream().map(DadosListagemAnaliseDiariaMostro::new).toList();
     }
 
     public  AnaliseDiariaMostro getElement(Long id) {
-        return repository.getReferenceById(id);
+        return analiseMostroRepository.getReferenceById(id);
     }
 
     @Transactional
     public void hardDelete(Long id) {
-        repository.deleteById(id);
+        analiseMostroRepository.deleteById(id);
     }
 
     @Transactional
+    //todo talvez retirar esse metodo atualizar e colocar diramente aqui e retirar esses construtores
     public DadosDetalhamentoAnaliseDiariaMostro update(DadosAtualizarAnaliseDiariaMostro dados) {
-        var  AnaliseDiariamostro = getElement(dados.id());
+        var AnaliseDiariamostro = getElement(dados.id());
         AnaliseDiariamostro.atualizar(dados);
         return new DadosDetalhamentoAnaliseDiariaMostro(AnaliseDiariamostro);
     }

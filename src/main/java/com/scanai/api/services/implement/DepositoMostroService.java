@@ -26,7 +26,6 @@ public class DepositoMostroService implements DepositoMostroServiceInterface {
     @Autowired
     MostroService mostroService;
 
-
     public DepositoMostro register(DadosCadastroDepositoMostro data) {
         var newDepositomostro = new DepositoMostro(data);
         depositoMostroRepository.save(newDepositomostro);
@@ -36,41 +35,59 @@ public class DepositoMostroService implements DepositoMostroServiceInterface {
     public DepositoMostro trasfegaMostro(DadosTrasfegaDepositoMostro data) {
         DepositoMostro depositoMostroExistente = depositoRepository.existsMostroAtivo(data.fkdeposito());
         Mostro mostroOrigem = mostroService.getElement(data.fkmostro());
+
         if(depositoRepository.existsVinhoAtivo(data.fkdeposito()) != null || depositoRepository.existsPeDeCubaAtivo(data.fkdeposito()) != null){
             throw new DataIntegrityViolationException("Impossível inserir, o deposito já contém outro produto ativo");
+
         }else if(depositoMostroExistente != null){ // cases de mistura
             Mostro mostroDestino = mostroService.getElement(depositoMostroExistente.getFkmostro());
+
             if(data.volumetrasfega() == mostroOrigem.getVolume()){//case volume total
                 DepositoMostro depositoOrigem = depositoMostroRepository.findByFkmostroAndDatafimIsNull(data.fkmostro());
                 depositoOrigem.setDatafim(LocalDate.now());
+
                 DepositoMostro depositoMisturaMostro = mixMostros(data.fkdeposito(), data.fkfuncionario(), mostroOrigem, mostroDestino,
                         depositoMostroExistente, data.volumetrasfega(), data.volumechegada());
+
                 depositoMostroRepository.save(depositoMisturaMostro);
+
                 return depositoMisturaMostro;
+
             }else if(data.volumetrasfega() < mostroOrigem.getVolume()){//case volume parcial
                 float volumeMostroFilho = data.volumechegada() - mostroDestino.getVolume();
+
                 Mostro mostroFilho = mostroService.createMostroFilho(data.fkmostro(), volumeMostroFilho, data.volumetrasfega(), data.fkfuncionario());
+
                 DepositoMostro depositoMisturaMostro = mixMostros(data.fkdeposito(), data.fkfuncionario(), mostroFilho, mostroDestino, depositoMostroExistente,
                         data.volumetrasfega(), data.volumechegada());
                 depositoMostroRepository.save(depositoMisturaMostro);
+
                 return depositoMisturaMostro;
+
             }else {
                 throw new DataIntegrityViolationException("Impossível realizar trasfega com volume maior que o existente");
+
             }
         }else if(data.volumetrasfega() != mostroOrigem.getVolume()){ // case deposito vazio volume parcial
             float volumeMostroFilho = data.volumechegada();
+
             Mostro mostroFilho = mostroService.createMostroFilho(data.fkmostro(), volumeMostroFilho, data.volumetrasfega(), data.fkfuncionario());
             var newDepositomostro = new DepositoMostro(new DadosCadastroDepositoMostro(mostroFilho.getId(), data.fkdeposito(), LocalDate.now(), data.fkfuncionario()));
             depositoMostroRepository.save(newDepositomostro);
+
             return newDepositomostro;
+
         } else{ // case deposito vazio volume total
             DepositoMostro depositoOrigem = depositoMostroRepository.findByFkmostroAndDatafimIsNull(data.fkmostro());
+
             if(depositoOrigem != null){
                 depositoOrigem.setDatafim(LocalDate.now());
             }
+
             mostroOrigem.setVolume(data.volumechegada());
             var newDepositomostro = new DepositoMostro(new DadosCadastroDepositoMostro(data.fkmostro(), data.fkdeposito(), LocalDate.now(), data.fkfuncionario()));
             depositoMostroRepository.save(newDepositomostro);
+
             return newDepositomostro;
         }
     }
@@ -78,14 +95,14 @@ public class DepositoMostroService implements DepositoMostroServiceInterface {
     public DepositoMostro findDepositoMostroByFkdepositoFkmostro(Long fkdeposito, Long fkmostro){
         return depositoMostroRepository.findByFkdepositoAndFkmostro(fkdeposito, fkmostro);
     }
+
     public void softDelete(Long fkdeposito, Long fkmostro){
-        // implementando o softDelete
         DepositoMostro depositoMostro = depositoMostroRepository.findByFkdepositoAndFkmostro(fkdeposito, fkmostro);
         depositoMostro.setDatafim(LocalDate.now());
         depositoMostroRepository.save(depositoMostro);
     }
+
     public void setDataFim(Long fkmostro){
-        // implementando o softDelete
         DepositoMostro depositoMostro = depositoMostroRepository.findByFkmostroAndDatafimIsNull(fkmostro);
         depositoMostro.setDatafim(LocalDate.now());
         depositoMostroRepository.save(depositoMostro);
@@ -97,9 +114,9 @@ public class DepositoMostroService implements DepositoMostroServiceInterface {
         mostroDestino.setFimfermentacao(now);
         mostroOrigem.setValid(false);
         mostroDestino.setValid(false);
-        float totalVolume = volumeChegada; //Volume que ficou no tanque de destino após mistura
-        Mostro newMostro = mostroService.register(new DadosCadastroMostro(idFuncionario, totalVolume, mostroOrigem.getId(), mostroDestino.getId()));
+        Mostro newMostro = mostroService.register(new DadosCadastroMostro(idFuncionario, volumeChegada, mostroOrigem.getId(), mostroDestino.getId()));
         depositoMostroExistente.setDatafim(now);
         return new DepositoMostro(new DadosCadastroDepositoMostro(newMostro.getId(), idDepositoDestino, now, idFuncionario));
     }
+
 }

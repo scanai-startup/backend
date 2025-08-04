@@ -17,24 +17,24 @@ import java.util.List;
 public class AnaliseDiariaVinhoService implements AnaliseDiariaVinhoServiceInterface {
 
     @Autowired
-    AnaliseDiariaVinhoRepository repository;
+    AnaliseDiariaVinhoRepository analiseDiariaVinhoRepository;
 
     @Transactional
     public AnaliseDiariaVinho register(DadosCadastroAnaliseDiariaVinho dados){
-        return repository.save(new AnaliseDiariaVinho(dados));
+        return analiseDiariaVinhoRepository.save(new AnaliseDiariaVinho(dados));
     }
 
     public List<DadosListagemAnaliseDiariaVinho> getAll() {
-        return repository.findAll().stream().map(DadosListagemAnaliseDiariaVinho::new).toList();
+        return analiseDiariaVinhoRepository.findAll().stream().map(DadosListagemAnaliseDiariaVinho::new).toList();
     }
 
     public  AnaliseDiariaVinho getElement(Long id) {
-        return repository.getReferenceById(id);
+        return analiseDiariaVinhoRepository.getReferenceById(id);
     }
 
     @Transactional
     public void hardDelete(Long id) {
-        repository.deleteById(id);
+        analiseDiariaVinhoRepository.deleteById(id);
     }
 
     @Transactional

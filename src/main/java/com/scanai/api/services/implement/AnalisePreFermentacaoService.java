@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 public class AnalisePreFermentacaoService implements AnalisePreFermentacaoServiceInterface {
 
     @Autowired
-    AnaliseprefermentacaoRepository repository;
+    AnaliseprefermentacaoRepository analisePreFermentacaoRepository;
 
     public Analiseprefermentacao register(DadosCadastroAnalisePreFermetacao data) {
         var newAnaliseprefermentacao = new Analiseprefermentacao(data);
-        repository.save(newAnaliseprefermentacao);
+        analisePreFermentacaoRepository.save(newAnaliseprefermentacao);
         return newAnaliseprefermentacao;
     }
 }

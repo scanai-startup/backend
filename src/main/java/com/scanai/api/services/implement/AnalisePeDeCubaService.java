@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 public class AnalisePeDeCubaService implements AnalisePeDeCubaServiceInterface {
 
     @Autowired
-    AnalisepedecubaRepository repository;
+    AnalisepedecubaRepository analisePeDeCubaRepository;
 
     public Analisepedecuba register(DadosCadastroAnalisePeDeCuba data) {
         var newAnalisepedecuba = new Analisepedecuba(data);
-        repository.save(newAnalisepedecuba);
+        analisePeDeCubaRepository.save(newAnalisepedecuba);
         return newAnalisepedecuba;
     }
 }
