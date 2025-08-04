@@ -4,10 +4,10 @@ import com.scanai.api.domain.enchimento.dto.DadosAtualizarEnchimento;
 import com.scanai.api.domain.enchimento.dto.DadosCadastroEnchimento;
 import com.scanai.api.domain.enchimento.dto.DadosDetalhamentoEnchimento;
 import com.scanai.api.domain.enchimento.dto.DadosListagemEnchimento;
-import com.scanai.api.services.EnchimentoServiceInterface;
 import com.scanai.api.services.implement.EnchimentoService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -18,44 +18,38 @@ import java.util.List;
 @RequestMapping("/enchimento")
 public class EnchimentoController {
 
-    private final EnchimentoServiceInterface enchimentoService;
-
-    public EnchimentoController(EnchimentoService enchimentoService) {
-        this.enchimentoService = enchimentoService;
-    }
+    @Autowired
+    private EnchimentoService enchimentoService;
 
     @Transactional
     @PostMapping("/register")
-    public ResponseEntity<DadosDetalhamentoEnchimento> register(@RequestBody @Valid DadosCadastroEnchimento dados, UriComponentsBuilder builder) {
+    public DadosDetalhamentoEnchimento register(@RequestBody @Valid DadosCadastroEnchimento dados) {
         var enchimento = enchimentoService.register(dados);
-        var uri = builder.path("/enchimento/{id}").buildAndExpand(enchimento.getId()).toUri();
-        return ResponseEntity.created(uri).body(new DadosDetalhamentoEnchimento(enchimento));
+        return new DadosDetalhamentoEnchimento(enchimento);
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<DadosListagemEnchimento>> getAll() {
-        var lista = enchimentoService.getAll();
-        return ResponseEntity.ok(lista);
+    public List<DadosListagemEnchimento> getAll() {
+        return enchimentoService.getAll();
     }
 
     @GetMapping("/getElement/{id}")
-    public ResponseEntity<DadosDetalhamentoEnchimento> getElement(@PathVariable Long id) {
+    public DadosDetalhamentoEnchimento getElement(@PathVariable Long id) {
         var enchimento = enchimentoService.getElement(id);
-        return ResponseEntity.ok(new DadosDetalhamentoEnchimento(enchimento));
+        return new DadosDetalhamentoEnchimento(enchimento);
     }
 
     @PutMapping("/update")
     @Transactional
-    public ResponseEntity<DadosDetalhamentoEnchimento> update(@RequestBody @Valid DadosAtualizarEnchimento dados) {
-        var enchimento = enchimentoService.update(dados);
-        return ResponseEntity.ok(enchimento);
+    public DadosDetalhamentoEnchimento update(@RequestBody @Valid DadosAtualizarEnchimento dados) {
+        return enchimentoService.update(dados);
     }
 
     @DeleteMapping("/hardDelete/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
-    public ResponseEntity<?> hardDelete(@PathVariable Long id) {
+    public void hardDelete(@PathVariable Long id) {
         enchimentoService.hardDelete(id);
-        return ResponseEntity.noContent().build();
     }
 
 }

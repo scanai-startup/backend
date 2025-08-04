@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
-@RequestMapping("/depositopedecuba")
-public class DepositoPedecubaController {
+@RequestMapping("/depositoPeDeCuba")
+public class DepositoPeDeCubaController {
 
     @Autowired
     private DepositoPeDeCubaServiceInterface service;
@@ -28,9 +28,8 @@ public class DepositoPedecubaController {
 
     @PostMapping("/register")
     @Transactional
-    public ResponseEntity<DadosDetalhamentoDepositoPeDeCuba> register(@RequestBody @Valid DadosCadastroDepositoPeDeCuba data, UriComponentsBuilder uriBuilder){
+    public DadosDetalhamentoDepositoPeDeCuba register(@RequestBody @Valid DadosCadastroDepositoPeDeCuba data){
         Depositopedecuba newDepositopedecuba = service.register(data);
-        var uri = uriBuilder.path("depositopedecuba/register/{id}").buildAndExpand(newDepositopedecuba.getId()).toUri();
-        return ResponseEntity.created(uri).body(new DadosDetalhamentoDepositoPeDeCuba(newDepositopedecuba));
+        return new DadosDetalhamentoDepositoPeDeCuba(newDepositopedecuba);
     }
 }

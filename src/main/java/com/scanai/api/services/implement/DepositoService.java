@@ -8,6 +8,7 @@ import com.scanai.api.domain.depositopedecuba.Depositopedecuba;
 import com.scanai.api.domain.depositopedecuba.dto.DadosTrasfegaDepositoPeDeCuba;
 import com.scanai.api.domain.depositovinho.Depositovinho;
 import com.scanai.api.domain.depositovinho.dto.DadosTrasfegaDepositoVinho;
+import com.scanai.api.infra.exceptions.customExceptions.BadRequest;
 import com.scanai.api.repositories.DepositoRepository;
 import com.scanai.api.services.DepositoMostroServiceInterface;
 import com.scanai.api.services.DepositoPeDeCubaServiceInterface;

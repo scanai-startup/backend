@@ -34,25 +34,18 @@ public class AuthenticationController {
     private TokenService tokenService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody @Valid AuthenticationDTO data){
-
+    public LoginResponseDTO login(@RequestBody @Valid AuthenticationDTO data){
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.matricula(), data.senha());
         var auth = authenticationManager.authenticate(usernamePassword);
-
         var token = tokenService.generateToken((Funcionario) auth.getPrincipal());
-
-        return ResponseEntity.ok(new LoginResponseDTO(token));
+        return new LoginResponseDTO(token);
     }
 
-
     @PostMapping("/register")
-    public ResponseEntity<DadosDetalhamentoFuncionario> register(@RequestBody @Valid RegisterDTO data, UriComponentsBuilder uriBuilder){
+    public DadosDetalhamentoFuncionario register(@RequestBody @Valid RegisterDTO data){
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.senha());
         Funcionario newFuncionario = new Funcionario(data.matricula(), encryptedPassword, data.role(), data.nome(), data.email());
-        var uri = uriBuilder.path("auth/register/{id}").buildAndExpand(newFuncionario.getId()).toUri();
-
         this.repository.save(newFuncionario);
-
-        return ResponseEntity.created(uri).body(new DadosDetalhamentoFuncionario(newFuncionario));
+        return new DadosDetalhamentoFuncionario(newFuncionario);
     }
 }

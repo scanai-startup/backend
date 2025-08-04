@@ -13,15 +13,15 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
-@RequestMapping("/vinculodepositovinho")
+@RequestMapping("/vinculoDepositoVinho")
 public class VinculoDepositoVinhoController {
+
     @Autowired
     private VinculoDepositoVinhoService service;
 
     @Transactional
-    @PostMapping
-    public ResponseEntity<DadosDetalhamentoVinculoDepositoVinho> register(@RequestBody DadosCadastroVinculoDepositoVinho data, UriComponentsBuilder uriBuilder){
-        DadosDetalhamentoVinculoDepositoVinho detalhamento = service.vincularDepositoVinho(data);
-        return ResponseEntity.ok().body(detalhamento);
+    @PostMapping("/register")
+    public DadosDetalhamentoVinculoDepositoVinho register(@RequestBody DadosCadastroVinculoDepositoVinho data){
+        return service.vincularDepositoVinho(data);
     }
 }

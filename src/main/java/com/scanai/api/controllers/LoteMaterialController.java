@@ -16,8 +16,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 
 @RestController
-@RequestMapping("/lotematerial")
-public class LotematerialController {
+@RequestMapping("/loteMaterial")
+public class LoteMaterialController {
 
     @Autowired
     private LotematerialRepository repository;
@@ -26,15 +26,14 @@ public class LotematerialController {
     private LoteMaterialServiceInterface service;
 
     @PostMapping("/register")
-    public ResponseEntity<DadosDetalhamentoLoteMaterial> register(@RequestBody @Valid DadosCadastroLoteMaterial data, UriComponentsBuilder uriBuilder){
+    public DadosDetalhamentoLoteMaterial register(@RequestBody @Valid DadosCadastroLoteMaterial data){
         Lotematerial newLotematerial = service.register(data);
-        var uri = uriBuilder.path("lotematerial/register/{id}").buildAndExpand(newLotematerial.getId()).toUri();
-        return ResponseEntity.created(uri).body(new DadosDetalhamentoLoteMaterial(newLotematerial));
+        return new DadosDetalhamentoLoteMaterial(newLotematerial);
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<DadosListagemLoteMaterial>> getAll(){
+    public List<DadosListagemLoteMaterial> getAll(){
         List<Lotematerial> lotematerialList = service.getAll();
-        return ResponseEntity.ok().body(lotematerialList.stream().map(DadosListagemLoteMaterial::new).toList());
+        return lotematerialList.stream().map(DadosListagemLoteMaterial::new).toList();
     }
 }

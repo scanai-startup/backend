@@ -2,11 +2,15 @@ package com.scanai.api.services.implement;
 
 import com.scanai.api.domain.pedecuba.Pedecuba;
 import com.scanai.api.domain.pedecuba.dto.DadosCadastroPeDeCuba;
+import com.scanai.api.domain.pedecuba.dto.DadosDetalhamentoPeDeCuba;
 import com.scanai.api.domain.produtoadcpedecuba.dto.DadosCadastroProdutoAdicionadoPeDeCuba;
 import com.scanai.api.repositories.PedecubaRepository;
 import com.scanai.api.services.PeDeCubaServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class PeDeCubaService implements PeDeCubaServiceInterface {
@@ -26,15 +30,21 @@ public class PeDeCubaService implements PeDeCubaServiceInterface {
         return newPedecuba;
     }
 
-    public void softDelete(Pedecuba pedecuba) {
-        pedecuba.setValid(false);
+    public void softDelete(Long id) {
+        Pedecuba peDeCuba = repository.getReferenceById(id);
+        peDeCuba.setValid(false);
     }
 
-    public void activate(Pedecuba pedecuba) {
-        pedecuba.setValid(true);
+    public void activate(Long id) {
+        Pedecuba peDeCuba = repository.getReferenceById(id);
+        peDeCuba.setValid(true);
     }
 
     public Pedecuba getElement(Long id) {
         return repository.getReferenceById(id);
+    }
+
+    public List<DadosDetalhamentoPeDeCuba> getAll(){
+        return repository.findAllByValidTrue();
     }
 }

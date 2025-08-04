@@ -7,9 +7,9 @@ public interface MostroServiceInterface {
 
     Mostro register(DadosCadastroMostro data);
 
-    void softDelete(Mostro mostro);
+    void softDelete(Long id);
 
-    void activate(Mostro mostro);
+    void activate(Long id);
 
     Mostro getElement(Long id);
 

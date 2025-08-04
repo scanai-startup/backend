@@ -8,6 +8,7 @@ import com.scanai.api.services.AnaliseDiariaVinhoServiceInterface;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -23,38 +24,33 @@ public class AnaliseDiariaVinhoController {
 
     @Transactional
     @PostMapping("/register")
-    public ResponseEntity<DadosDetalhamentoAnaliseDiariaVinho> register(@RequestBody @Valid DadosCadastroAnaliseDiariaVinho dados, UriComponentsBuilder builder){
-
+    public DadosDetalhamentoAnaliseDiariaVinho register(@RequestBody @Valid DadosCadastroAnaliseDiariaVinho dados){
         var analiseDiariaVinho = analiseDiariaVinhoService.register(dados);
-        var uri = builder.path("/analisediariavinho/{id}").buildAndExpand(analiseDiariaVinho.getId()).toUri();
-
-        return  ResponseEntity.created(uri).body(new DadosDetalhamentoAnaliseDiariaVinho(analiseDiariaVinho));
+        return new DadosDetalhamentoAnaliseDiariaVinho(analiseDiariaVinho);
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<DadosListagemAnaliseDiariaVinho>> getAll(){
-        var lista = analiseDiariaVinhoService.getAll();
-        return ResponseEntity.ok(lista);
+    public List<DadosListagemAnaliseDiariaVinho> getAll(){
+        return analiseDiariaVinhoService.getAll();
     }
 
     @GetMapping("/getElement/{id}")
-    public ResponseEntity<DadosDetalhamentoAnaliseDiariaVinho> getElement(@PathVariable Long id){
+    public DadosDetalhamentoAnaliseDiariaVinho getElement(@PathVariable Long id){
         var analiseDiariaVinho = analiseDiariaVinhoService.getElement(id);
-        return ResponseEntity.ok(new DadosDetalhamentoAnaliseDiariaVinho(analiseDiariaVinho));
+        return new DadosDetalhamentoAnaliseDiariaVinho(analiseDiariaVinho);
     }
 
     @PutMapping("/update")
     @Transactional
-    public ResponseEntity<DadosDetalhamentoAnaliseDiariaVinho> update(@RequestBody DadosAtualizarAnaliseDiariaVinho dados){
-        var analiseDiariaVinho = analiseDiariaVinhoService.update(dados);
-        return ResponseEntity.ok(analiseDiariaVinho);
+    public DadosDetalhamentoAnaliseDiariaVinho update(@RequestBody DadosAtualizarAnaliseDiariaVinho dados){
+        return analiseDiariaVinhoService.update(dados);
     }
 
     @DeleteMapping("hardDelete/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
-    public ResponseEntity<?> hardDelete(@PathVariable Long id){
+    public void hardDelete(@PathVariable Long id){
         analiseDiariaVinhoService.hardDelete(id);
-        return ResponseEntity.noContent().build();
     }
 
 }

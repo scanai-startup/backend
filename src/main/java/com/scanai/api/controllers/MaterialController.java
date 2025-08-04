@@ -26,15 +26,14 @@ public class MaterialController {
     private MaterialServiceInterface service;
 
     @PostMapping("/register")
-    public ResponseEntity<DadosDetalhamentoMaterial> register(@RequestBody @Valid DadosCadastroMaterial data, UriComponentsBuilder uriBuilder){
+    public DadosDetalhamentoMaterial register(@RequestBody @Valid DadosCadastroMaterial data){
         Material newMaterial = service.register(data);
-        var uri = uriBuilder.path("material/register/{id}").buildAndExpand(newMaterial.getId()).toUri();
-        return ResponseEntity.created(uri).body(new DadosDetalhamentoMaterial(newMaterial));
+        return new DadosDetalhamentoMaterial(newMaterial);
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<DadosListagemMaterial>> list(){
-        return ResponseEntity.ok().body(service.getAll());
+    public List<DadosListagemMaterial> list(){
+        return service.getAll();
     }
 
 

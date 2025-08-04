@@ -7,9 +7,9 @@ public interface PeDeCubaServiceInterface {
 
     Pedecuba register(DadosCadastroPeDeCuba dados);
 
-    void softDelete(Pedecuba pedecuba);
+    void softDelete(Long id);
 
-    void activate(Pedecuba pedecuba);
+    void activate(Long id);
 
     Pedecuba getElement(Long id);
 }
