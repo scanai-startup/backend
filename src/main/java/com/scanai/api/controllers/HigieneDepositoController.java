@@ -5,7 +5,8 @@ import com.scanai.api.domain.higienedeposito.dto.DadosCadastroHigieneDeposito;
 import com.scanai.api.domain.higienedeposito.dto.DadosDetalhamentoHigieneDeposito;
 import com.scanai.api.domain.higienedeposito.dto.DadosListagemHigieneDeposito;
 import com.scanai.api.repositories.HigienedepositoRepository;
-import com.scanai.api.services.HigienedepositoService;
+import com.scanai.api.services.HigieneDepositoServiceInterface;
+import com.scanai.api.services.implement.HigieneDepositoService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ import java.util.List;
 public class HigieneDepositoController {
 
     @Autowired
-    private HigienedepositoService service;
+    private HigieneDepositoServiceInterface service;
 
     @Autowired
     private HigienedepositoRepository repository;

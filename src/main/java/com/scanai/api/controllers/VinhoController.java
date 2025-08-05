@@ -4,7 +4,7 @@ import com.scanai.api.domain.vinho.DTO.DadosAtualizarVinho;
 import com.scanai.api.domain.vinho.DTO.DadosCadastroVinho;
 import com.scanai.api.domain.vinho.DTO.DadosDetalhamentoVinho;
 import com.scanai.api.domain.vinho.DTO.DadosListagemVinho;
-import com.scanai.api.services.VinhoService;
+import com.scanai.api.services.implement.VinhoService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

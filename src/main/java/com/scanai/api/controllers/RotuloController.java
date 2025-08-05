@@ -4,7 +4,8 @@ import com.scanai.api.domain.rotulo.DTO.DadosCadastroRotulo;
 import com.scanai.api.domain.rotulo.DTO.DadosDetalhamentoRotulo;
 import com.scanai.api.domain.rotulo.DTO.DadosAtualizarRotulo;
 import com.scanai.api.domain.rotulo.DTO.DadosListagemRotulo;
-import com.scanai.api.services.RotuloService;
+import com.scanai.api.services.RotuloServiceInterface;
+import com.scanai.api.services.implement.RotuloService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ import java.util.List;
 
 public class RotuloController {
     @Autowired
-    private RotuloService rotuloService;
+    private RotuloServiceInterface rotuloService;
 
     @Transactional
     @PostMapping("/register")

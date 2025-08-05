@@ -4,7 +4,8 @@ import com.scanai.api.domain.depositopedecuba.Depositopedecuba;
 import com.scanai.api.domain.depositopedecuba.dto.DadosCadastroDepositoPeDeCuba;
 import com.scanai.api.domain.depositopedecuba.dto.DadosDetalhamentoDepositoPeDeCuba;
 import com.scanai.api.repositories.DepositoPedecubaRepository;
-import com.scanai.api.services.DepositoPedecubaService;
+import com.scanai.api.services.DepositoPeDeCubaServiceInterface;
+import com.scanai.api.services.implement.DepositoPeDeCubaService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class DepositoPeDeCubaController {
 
     @Autowired
-    private DepositoPedecubaService service;
+    private DepositoPeDeCubaServiceInterface service;
 
     @Autowired
     private DepositoPedecubaRepository repository;

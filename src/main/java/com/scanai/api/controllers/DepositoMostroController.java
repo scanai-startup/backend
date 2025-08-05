@@ -4,7 +4,7 @@ import com.scanai.api.domain.depositomostro.DepositoMostro;
 import com.scanai.api.domain.depositomostro.dto.DadosCadastroDepositoMostro;
 import com.scanai.api.domain.depositomostro.dto.DadosDetalhamentoDepositoMostro;
 import com.scanai.api.repositories.DepositoMostroRepository;
-import com.scanai.api.services.DepositoMostroService;
+import com.scanai.api.services.DepositoMostroServiceInterface;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class DepositoMostroController {
 
     @Autowired
-    private DepositoMostroService service;
+    private DepositoMostroServiceInterface service;
 
     @Autowired
     private DepositoMostroRepository depositoMostroRepository;

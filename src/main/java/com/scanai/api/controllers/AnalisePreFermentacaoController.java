@@ -4,7 +4,8 @@ import com.scanai.api.domain.analiseprefermentacao.Analiseprefermentacao;
 import com.scanai.api.domain.analiseprefermentacao.dto.DadosCadastroAnalisePreFermetacao;
 import com.scanai.api.domain.analiseprefermentacao.dto.DadosDetalhamentoAnalisePreFermentacao;
 import com.scanai.api.repositories.AnaliseprefermentacaoRepository;
-import com.scanai.api.services.AnaliseprefermentacaoService;
+import com.scanai.api.services.AnalisePreFermentacaoServiceInterface;
+import com.scanai.api.services.implement.AnalisePreFermentacaoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class AnalisePreFermentacaoController {
     private AnaliseprefermentacaoRepository repository;
 
     @Autowired
-    private AnaliseprefermentacaoService service;
+    private AnalisePreFermentacaoServiceInterface service;
 
     @PostMapping("/register")
     public DadosDetalhamentoAnalisePreFermentacao register(@RequestBody @Valid DadosCadastroAnalisePreFermetacao data){

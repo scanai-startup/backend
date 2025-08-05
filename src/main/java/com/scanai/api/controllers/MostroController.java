@@ -5,7 +5,7 @@ import com.scanai.api.domain.mostro.dto.DadosCadastroMostro;
 import com.scanai.api.domain.mostro.dto.DadosDetalhamentoMostro;
 import com.scanai.api.domain.mostro.dto.DadosListagemMostro;
 import com.scanai.api.repositories.MostroRepository;
-import com.scanai.api.services.MostroService;
+import com.scanai.api.services.MostroServiceInterface;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import java.util.List;
 public class MostroController {
 
     @Autowired
-    private MostroService service;
+    private MostroServiceInterface service;
 
     @PostMapping("/register")
     public DadosDetalhamentoMostro register(@RequestBody @Valid DadosCadastroMostro data){

@@ -2,7 +2,8 @@ package com.scanai.api.controllers;
 
 import com.scanai.api.domain.rotulagem.dto.DadosCadastroRotulagem;
 import com.scanai.api.domain.rotulagem.dto.DadosDetalhamentoRotulagem;
-import com.scanai.api.services.RotulagemService;
+import com.scanai.api.services.RotulagemServiceInterface;
+import com.scanai.api.services.implement.RotulagemService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class RotulagemController {
 
     @Autowired
-    private RotulagemService service;
+    private RotulagemServiceInterface service;
 
     @Transactional
     @PostMapping("/register")
