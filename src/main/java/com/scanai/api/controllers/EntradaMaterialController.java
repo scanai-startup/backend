@@ -4,7 +4,8 @@ import com.scanai.api.domain.entradamaterial.EntradaMaterial;
 import com.scanai.api.domain.entradamaterial.dto.DadosCadastroEntradaMaterial;
 import com.scanai.api.domain.entradamaterial.dto.DadosDetalhamentoEntradaMaterial;
 import com.scanai.api.domain.entradamaterial.dto.DadosListagemEntradaMaterial;
-import com.scanai.api.services.EntradaMaterialService;
+import com.scanai.api.services.EntradaMaterialServiceInterface;
+import com.scanai.api.services.implement.EntradaMaterialService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,22 +16,21 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 
 @RestController
-@RequestMapping("/entradamaterial")
+@RequestMapping("/entradaMaterial")
 public class EntradaMaterialController {
 
     @Autowired
-    private EntradaMaterialService service;
+    private EntradaMaterialServiceInterface service;
 
     @PostMapping("/register")
     @Transactional
-    public ResponseEntity<DadosDetalhamentoEntradaMaterial> register(@RequestBody @Valid DadosCadastroEntradaMaterial data, UriComponentsBuilder uriBuilder){
+    public DadosDetalhamentoEntradaMaterial register(@RequestBody @Valid DadosCadastroEntradaMaterial data){
         EntradaMaterial newEntradaMaterial = service.register(data);
-        var uri = uriBuilder.path("entradamaterial/register/{id}").buildAndExpand(newEntradaMaterial.getId()).toUri();
-        return ResponseEntity.created(uri).body(new DadosDetalhamentoEntradaMaterial(newEntradaMaterial));
+        return new DadosDetalhamentoEntradaMaterial(newEntradaMaterial);
     }
+
     @GetMapping("/getAll")
-    public ResponseEntity<List<DadosListagemEntradaMaterial>> getAll(){
-        List<DadosListagemEntradaMaterial> dados = service.getAll();
-        return ResponseEntity.ok().body(dados);
+    public List<DadosListagemEntradaMaterial> getAll(){
+        return service.getAll();
     }
 }

@@ -3,11 +3,12 @@ package com.scanai.api.controllers;
 import com.scanai.api.domain.deposito.Deposito;
 import com.scanai.api.domain.deposito.dto.*;
 import com.scanai.api.repositories.DepositoRepository;
-import com.scanai.api.services.DepositoService;
+import com.scanai.api.services.implement.DepositoService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -25,57 +26,57 @@ public class DepositoController {
     private DepositoService depositoService;
 
     @PostMapping("/register")
-    public ResponseEntity<DadosDetalhamentoDeposito> register(@RequestBody @Valid DadosCadastroDeposito data, UriComponentsBuilder uriBuilder){
+    public DadosDetalhamentoDeposito register(@RequestBody @Valid DadosCadastroDeposito data){
         Deposito newDeposito = depositoService.register(data);
-        var uri = uriBuilder.path("deposito/register/{id}").buildAndExpand(newDeposito.getId()).toUri();
-        return ResponseEntity.created(uri).body(new DadosDetalhamentoDeposito(newDeposito));
+        return new DadosDetalhamentoDeposito(newDeposito);
     }
 
     @PutMapping("/update")
     @Transactional
-    public ResponseEntity<DadosDetalhamentoDeposito> update(@RequestBody @Valid DadosAtualizarDeposito data){
+    public DadosDetalhamentoDeposito update(@RequestBody @Valid DadosAtualizarDeposito data){
         Deposito deposito = depositoService.update(data);
-        return ResponseEntity.ok().body(new DadosDetalhamentoDeposito(deposito));
+        return new DadosDetalhamentoDeposito(deposito);
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<DadosListagemDeposito>> getAll(){
-        return ResponseEntity.ok().body(depositoRepository.findAllByValidTrue().stream().map(DadosListagemDeposito::new).toList());
+    public List<DadosListagemDeposito> getAll(){
+        return depositoRepository.findAllByValidTrue().stream().map(DadosListagemDeposito::new).toList();
     }
 
     @PutMapping("/softDelete/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
-    public ResponseEntity<?> softDelete(@PathVariable Long id){
+    public void softDelete(@PathVariable Long id){
         depositoService.softDelete(depositoRepository.getReferenceById(id));
-        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/activate/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
-    public ResponseEntity<?>activate(@PathVariable Long id){
+    public void activate(@PathVariable Long id){
         depositoService.activate(depositoRepository.getReferenceById(id));
-        return ResponseEntity.ok().build();
     }
+
     @GetMapping("/getElement/{id}")
-    public ResponseEntity<DadosDetalhamentoDeposito> getElement(@PathVariable Long id){
+    public DadosDetalhamentoDeposito getElement(@PathVariable Long id){
         Deposito deposito = depositoService.getElement(id);
-        return ResponseEntity.ok().body(new DadosDetalhamentoDeposito(deposito));
+        return new DadosDetalhamentoDeposito(deposito);
     }
 
     @GetMapping("/getDepositoWithIdWithInformations/{id}")
-    public ResponseEntity<DadosInformacoesDepositos> getDepositoWithIdWithInformations(@PathVariable Long id){
-        return ResponseEntity.ok().body(depositoService.getDepositoWithIdWithInformations(id));
+    public DadosInformacoesDepositos getDepositoWithIdWithInformations(@PathVariable Long id){
+        return depositoService.getDepositoWithIdWithInformations(id);
 
     }
 
     @GetMapping("/getAllDepositosWithInformations")
-    public ResponseEntity<List<DadosInformacoesDepositos>> getAllDepositosWithInformations(){
-        return ResponseEntity.ok().body(depositoService.getAllDepositosWithInformations());
+    public List<DadosInformacoesDepositos> getAllDepositosWithInformations(){
+        return depositoService.getAllDepositosWithInformations();
     }
 
     @PostMapping("/realizarTrasfega")
-    public ResponseEntity<DadosDetalhamentoTrasfegaDeposito> realizarTrasfega(@RequestBody @Valid DadosTrasfegaDeposito data) throws BadRequestException {
-        return ResponseEntity.ok().body(depositoService.realizarTrasfega(data));
+    public DadosDetalhamentoTrasfegaDeposito realizarTrasfega(@RequestBody @Valid DadosTrasfegaDeposito data) {
+        return depositoService.realizarTrasfega(data);
     }
 
 }

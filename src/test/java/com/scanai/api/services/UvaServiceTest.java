@@ -3,8 +3,10 @@ package com.scanai.api.services;
 import com.scanai.api.domain.uva.Uva;
 import com.scanai.api.domain.uva.dto.DadosAtualizarUva;
 import com.scanai.api.domain.uva.dto.DadosCadastroUva;
+import com.scanai.api.domain.uva.dto.DadosDetalhamentoUva;
 import com.scanai.api.domain.uva.dto.DadosListagemUva;
 import com.scanai.api.repositories.UvaRepository;
+import com.scanai.api.services.implement.UvaService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -40,12 +42,12 @@ class UvaServiceTest {
         when(repository.save(any(Uva.class))).thenReturn(uvaSalva);
 
         // Act (Agir)
-        Uva resultado = uvaService.register(dadosCadastro);
+        DadosDetalhamentoUva resultado = uvaService.register(dadosCadastro);
 
         // Assert (Verificar)
         assertNotNull(resultado);
-        assertEquals(uvaSalva.getId(), resultado.getId());
-        assertEquals("Cabernet", resultado.getCasta());
+        assertEquals(uvaSalva.getId(), resultado.id());
+        assertEquals("Cabernet", resultado.casta());
         verify(repository, times(1)).save(any(Uva.class)); // Verifica se o método save foi chamado uma vez
     }
 
@@ -75,7 +77,7 @@ class UvaServiceTest {
     void update_Cenario1() {
         // Arrange
         var idUva = 1L;
-        var dadosAtualizacao = new DadosAtualizarUva(idUva, new Date(), 124, 55, 98, 1100, "SO2-AJUSTADO", 202402, "Branco", "Chardonnay", 2L, null);
+        var dadosAtualizacao = new DadosAtualizarUva(idUva, new Date(), 124, 55, 98, 1100, "SO2-AJUSTADO", 202402, "Branco", "Chardonay", 2L, null);
         var uvaExistente = new Uva(new DadosCadastroUva(new Date(), 1, 1, 1, 1, "s", 1, "t", "c", 1L, null));
         uvaExistente.setId(idUva);
 
@@ -94,7 +96,7 @@ class UvaServiceTest {
 
     @Test
     @DisplayName("Deve desativar uma uva (soft delete)")
-    void softDelete_softDelete_Cenario1Cenario1() {
+    void softDelete_Cenario1() {
         // Arrange
         var idUva = 1L;
         var uvaAtiva = new Uva();
@@ -107,7 +109,8 @@ class UvaServiceTest {
         uvaService.softDelete(idUva);
 
         // Assert
-
+        // Captura o objeto 'Uva' que foi modificado para verificar seu estado
+        ArgumentCaptor<Uva> uvaCaptor = ArgumentCaptor.forClass(Uva.class);
         // O método save não é chamado, a modificação ocorre na instância em memória gerenciada pelo mock.
         // A asserção é feita diretamente no objeto retornado pelo mock.
         assertFalse(uvaAtiva.getValid());
@@ -136,7 +139,7 @@ class UvaServiceTest {
     @Test
     @DisplayName("Deve remover uma uva permanentemente (hard delete)")
     void hardDelete_Cenario1(){
-        // Arrange
+        // Arange
         var idUva = 1L;
 
         // Act

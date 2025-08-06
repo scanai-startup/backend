@@ -1,5 +1,6 @@
 package com.scanai.api.infra.exceptions;
 
+import com.scanai.api.infra.exceptions.customExceptions.BadRequest;
 import jakarta.persistence.EntityNotFoundException;
 import org.apache.coyote.BadRequestException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -89,9 +90,18 @@ public class RestExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
-
     @ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<ApiErrorResponse> BadRequestError(BadRequestException ex){
+    public ResponseEntity<ApiErrorResponse> BadRequestExceptionError(BadRequestException ex){
+        ApiErrorResponse response = new ApiErrorResponse(
+                ex.getMessage(),
+                "Invalid Request",
+                LocalDateTime.now()
+        );
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(BadRequest.class)
+    public ResponseEntity<ApiErrorResponse> BadRequestError(BadRequest ex){
         ApiErrorResponse response = new ApiErrorResponse(
                 ex.getMessage(),
                 "Invalid Request",

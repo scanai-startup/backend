@@ -4,60 +4,48 @@ import com.scanai.api.domain.mostrovinho.dto.DadosAtualizarMostroVinho;
 import com.scanai.api.domain.mostrovinho.dto.DadosCadastroMostroVinho;
 import com.scanai.api.domain.mostrovinho.dto.DadosDetalhamentoMostroVinho;
 import com.scanai.api.domain.mostrovinho.dto.DadosListagemMostroVinho;
-import com.scanai.api.services.MostroVinhoService;
+import com.scanai.api.services.MostroVinhoServiceInterface;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/mostrovinho")
+@RequestMapping("/mostroVinho")
 public class MostroVinhoController {
+
     @Autowired
-    MostroVinhoService mostroVinhoService;
-    public ResponseEntity<DadosDetalhamentoMostroVinho> register(@RequestBody @Valid DadosCadastroMostroVinho dados, UriComponentsBuilder builder){ //DadosCadastroRemedio é um DTO construido nu
+    MostroVinhoServiceInterface mostroVinhoService;
 
-        var mostroVinho = mostroVinhoService.register(dados);// função do proprio jpa
-        // o DTO passado como argumento é lido no construtor, que retorna os atributos
-        var uri = builder.path("/mostroVinho/{id}").buildAndExpand(mostroVinho.getId()).toUri();
-
-        return  ResponseEntity.created(uri).body(new DadosDetalhamentoMostroVinho(mostroVinho));
+    public DadosDetalhamentoMostroVinho register(@RequestBody @Valid DadosCadastroMostroVinho dados){
+        var mostroVinho = mostroVinhoService.register(dados);
+        return new DadosDetalhamentoMostroVinho(mostroVinho);
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<DadosListagemMostroVinho>> getAll(){
-        var lista = mostroVinhoService.getAll();
-        return ResponseEntity.ok(lista);
+    public List<DadosListagemMostroVinho> getAll(){
+        return mostroVinhoService.getAll();
     }
 
     @GetMapping("/getElement/{id}")
-    public ResponseEntity<DadosDetalhamentoMostroVinho> getElement(@PathVariable Long id){
+    public DadosDetalhamentoMostroVinho getElement(@PathVariable Long id){
         var mostroVinho = mostroVinhoService.getElement(id);
-        return ResponseEntity.ok(new DadosDetalhamentoMostroVinho(mostroVinho));
+        return new DadosDetalhamentoMostroVinho(mostroVinho);
     }
 
     @PutMapping("/update")
     @Transactional
-    public ResponseEntity<DadosDetalhamentoMostroVinho> update(@RequestBody DadosAtualizarMostroVinho dados){
-        var mostroVinho = mostroVinhoService.update(dados);
-        return ResponseEntity.ok(mostroVinho);
+    public DadosDetalhamentoMostroVinho update(@RequestBody DadosAtualizarMostroVinho dados){
+        return mostroVinhoService.update(dados);
     }
 
     @DeleteMapping("hardDelete/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
-    public ResponseEntity<?> hardDelete(@PathVariable Long id){
+    public void hardDelete(@PathVariable Long id){
         mostroVinhoService.hardDelete(id);
-        return ResponseEntity.noContent().build();
-    }
-
-    @DeleteMapping("/softDelete/{id}")
-    @Transactional
-    public ResponseEntity<?> softDelete(@PathVariable Long id){
-        mostroVinhoService.softDelete(id);
-        return ResponseEntity.noContent().build();
     }
 }

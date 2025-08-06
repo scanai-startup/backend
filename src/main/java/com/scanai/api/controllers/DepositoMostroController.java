@@ -4,7 +4,7 @@ import com.scanai.api.domain.depositomostro.DepositoMostro;
 import com.scanai.api.domain.depositomostro.dto.DadosCadastroDepositoMostro;
 import com.scanai.api.domain.depositomostro.dto.DadosDetalhamentoDepositoMostro;
 import com.scanai.api.repositories.DepositoMostroRepository;
-import com.scanai.api.services.DepositoMostroService;
+import com.scanai.api.services.DepositoMostroServiceInterface;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,20 +16,19 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
-@RequestMapping("/depositomostro")
+@RequestMapping("/depositoMostro")
 public class DepositoMostroController {
 
     @Autowired
-    private DepositoMostroService service;
+    private DepositoMostroServiceInterface service;
 
     @Autowired
     private DepositoMostroRepository depositoMostroRepository;
 
     @PostMapping("/register")
     @Transactional
-    public ResponseEntity<DadosDetalhamentoDepositoMostro> register(@RequestBody @Valid DadosCadastroDepositoMostro data, UriComponentsBuilder uriBuilder){
+    public DadosDetalhamentoDepositoMostro register(@RequestBody @Valid DadosCadastroDepositoMostro data){
         DepositoMostro newDepositoMostro = service.register(data);
-        var uri = uriBuilder.path("depositomostro/register/{id}").buildAndExpand(newDepositoMostro.getId()).toUri();
-        return ResponseEntity.created(uri).body(new DadosDetalhamentoDepositoMostro(newDepositoMostro));
+        return new DadosDetalhamentoDepositoMostro(newDepositoMostro);
     }
 }

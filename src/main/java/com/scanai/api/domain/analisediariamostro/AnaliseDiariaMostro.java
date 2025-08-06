@@ -17,6 +17,7 @@ import java.util.Date;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class AnaliseDiariaMostro {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -34,12 +35,4 @@ public class AnaliseDiariaMostro {
         this.temperatura = dados.temperatura();
         this.data = LocalDateTime.now();
     }
-    public void atualizar(DadosAtualizarAnaliseDiariaMostro dados){
-        this.fkmostro = dados.fkmostro();
-        this.fkfuncionario = dados.fkfuncionario();
-        this.densidade = dados.densidade();
-        this.temperatura = dados.temperatura();
-        this.data = LocalDateTime.now();
-    }
-
 }

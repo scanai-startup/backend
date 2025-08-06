@@ -5,10 +5,11 @@ import com.scanai.api.domain.mostro.dto.DadosCadastroMostro;
 import com.scanai.api.domain.mostro.dto.DadosDetalhamentoMostro;
 import com.scanai.api.domain.mostro.dto.DadosListagemMostro;
 import com.scanai.api.repositories.MostroRepository;
-import com.scanai.api.services.MostroService;
+import com.scanai.api.services.MostroServiceInterface;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -20,35 +21,31 @@ import java.util.List;
 public class MostroController {
 
     @Autowired
-    private MostroRepository repository;
-
-    @Autowired
-    private MostroService service;
+    private MostroServiceInterface service;
 
     @PostMapping("/register")
-    public ResponseEntity<DadosDetalhamentoMostro> register(@RequestBody @Valid DadosCadastroMostro data, UriComponentsBuilder uriBuilder){
+    public DadosDetalhamentoMostro register(@RequestBody @Valid DadosCadastroMostro data){
         Mostro newMostro = service.register(data);
-        var uri = uriBuilder.path("mostro/register/{id}").buildAndExpand(newMostro.getId()).toUri();
-        return ResponseEntity.created(uri).body(new DadosDetalhamentoMostro(newMostro));
+        return new DadosDetalhamentoMostro(newMostro);
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<DadosListagemMostro>> getAll(){
-        return ResponseEntity.ok().body(repository.findAllByValidTrue().stream().map(DadosListagemMostro::new).toList());
+    public List<DadosListagemMostro> getAll(){
+        return service.getAll();
     }
 
     @PutMapping("/softDelete/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
-    public ResponseEntity<?> softDelete(@PathVariable Long id){
-        service.softDelete(repository.getReferenceById(id));
-        return ResponseEntity.ok().build();
+    public void softDelete(@PathVariable Long id){
+        service.softDelete(id);
     }
 
     @PutMapping("/activate/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
-    public ResponseEntity<?> activate(@PathVariable Long id){
-        service.softDelete(repository.getReferenceById(id));
-        return ResponseEntity.ok().build();
+    public void activate(@PathVariable Long id){
+        service.softDelete(id);
     }
 
 }

@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-
 public class Enchimento {
 
     @Id
@@ -44,10 +43,6 @@ public class Enchimento {
     private Boolean rolhaenchedora;
     private Boolean qualidaderolhaenchedora;
     private Boolean corposestranhos;
-
-
-
-    // chaves estrangeiras
     private Long fkvinho;
     private Long fkrespproducao;
     private Long fkrespdespaletizacao;
@@ -84,88 +79,33 @@ public class Enchimento {
     }
 
     public void atualizar(DadosAtualizarEnchimento dados){
-        if (dados.volumeTrasfega() - dados.volumeChegada() != 0) {
             this.volume = dados.volumeTrasfega() - dados.volumeChegada();
-        }
-        if (dados.datainiciodespaletizacao() != null) {
             this.datainiciodespaletizacao = dados.datainiciodespaletizacao();
-        }
-        if (dados.datafimdespaletizacao() != null) {
             this.datafimdespaletizacao = dados.datafimdespaletizacao();
-        }
-        if (dados.conformeosdespaletizacao() != null) {
             this.conformeosdespaletizacao = dados.conformeosdespaletizacao();
-        }
-        if (dados.ausenciapoeiradespaletizacao() != null) {
             this.ausenciapoeiradespaletizacao = dados.ausenciapoeiradespaletizacao();
-        }
-        if (dados.quantidadegarrafasdespaletizacao() != null) {
             this.quantidadegarrafasdespaletizacao = dados.quantidadegarrafasdespaletizacao();
-        }
-        if (dados.coracordodespaletizacao() != null) {
             this.coracordodespaletizacao = dados.coracordodespaletizacao();
-        }
-        if (dados.datainicioenxaguadora() != null) {
             this.datainicioenxaguadora = dados.datainicioenxaguadora();
-        }
-        if (dados.datafimenxaguadora() != null) {
             this.datafimenxaguadora = dados.datafimenxaguadora();
-        }
-        if (dados.funcionamentoenxaguadora() != null) {
             this.funcionamentoenxaguadora = dados.funcionamentoenxaguadora();
-        }
-        if (dados.pressaoentradaenxaguadora() != 0) {
             this.pressaoentradaenxaguadora = dados.pressaoentradaenxaguadora();
-        }
-        if (dados.pressaosaidaenxaguadora() != 0) {
             this.pressaosaidaenxaguadora = dados.pressaosaidaenxaguadora();
-        }
-        if (dados.jatopercorreenxaguadora() != null) {
             this.jatopercorreenxaguadora = dados.jatopercorreenxaguadora();
-        }
-        if (dados.bicosfuncionandoenxaguadora() != null) {
             this.bicosfuncionandoenxaguadora = dados.bicosfuncionandoenxaguadora();
-        }
-        if (dados.ausenciaaguaenxaguadora() != null) {
             this.ausenciaaguaenxaguadora = dados.ausenciaaguaenxaguadora();
-        }
-        if (dados.datainicioenchedora() != null) {
             this.datainicioenchedora = dados.datainicioenchedora();
-        }
-        if (dados.datafimenchedora() != null) {
             this.datafimenchedora = dados.datafimenchedora();
-        }
-        if (dados.temperaturaenchedora() != 0) {
             this.temperaturaenchedora = dados.temperaturaenchedora();
-        }
-        if (dados.nivelmodeloenchedora() != null) {
             this.nivelmodeloenchedora = dados.nivelmodeloenchedora();
-        }
-        if (dados.pressaoenchedora() != 0) {
             this.pressaoenchedora = dados.pressaoenchedora();
-        }
-        if (dados.rolhaenchedora() != null) {
             this.rolhaenchedora = dados.rolhaenchedora();
-        }
-        if (dados.qualidaderolhaenchedora() != null) {
             this.qualidaderolhaenchedora = dados.qualidaderolhaenchedora();
-        }
-        if (dados.corposestranhos() != null) {
             this.corposestranhos = dados.corposestranhos();
-        }
-        if (dados.fkvinho() != null) {
             this.fkvinho = dados.fkvinho();
-        }
-        if (dados.fkrespproducao() != null) {
             this.fkrespproducao = dados.fkrespproducao();
-        }
-        if (dados.fkrespdespaletizacao() != null) {
             this.fkrespdespaletizacao = dados.fkrespdespaletizacao();
-        }
-        if (dados.fkrespenchimento() != null) {
             this.fkrespenchimento = dados.fkrespenchimento();
-        }
-
     }
 
 

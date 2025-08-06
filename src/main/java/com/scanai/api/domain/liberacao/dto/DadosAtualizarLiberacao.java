@@ -8,6 +8,6 @@ public record DadosAtualizarLiberacao(
       Date datainicio,
       Date datafim,
       int gfs,
-      int fkrotulagem,
-      int fkfuncionario) {
+      Long fkrotulagem,
+      Long fkfuncionario) {
 }

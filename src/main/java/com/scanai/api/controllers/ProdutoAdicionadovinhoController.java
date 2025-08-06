@@ -1,13 +1,11 @@
 package com.scanai.api.controllers;
 
-import com.scanai.api.domain.produtoadcpedecuba.dto.DadosAtualizarProdutoAdicionadoPeDeCuba;
-import com.scanai.api.domain.produtoadcpedecuba.dto.DadosDetalhamentoProdutoAdicionadoPeDeCuba;
 import com.scanai.api.domain.produtoadcvinho.ProdutoAdicionadovinho;
 import com.scanai.api.domain.produtoadcvinho.dto.DadosAtualizarProdutoAdicionadoVinho;
 import com.scanai.api.domain.produtoadcvinho.dto.DadosCadastroProdutoAdicionadoVinho;
 import com.scanai.api.domain.produtoadcvinho.dto.DadosDetalhamentoProdutoAdicionadoVinho;
-import com.scanai.api.repositories.ProdutoAdicionadovinhoRepository;
-import com.scanai.api.services.ProdutoAdicionadovinhoService;
+import com.scanai.api.services.ProdutoAdicionadoVinhoServiceInterface;
+import com.scanai.api.services.implement.ProdutoAdicionadoVinhoService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +20,7 @@ import java.util.List;
 public class ProdutoAdicionadovinhoController {
 
     @Autowired
-    ProdutoAdicionadovinhoService service;
+    ProdutoAdicionadoVinhoServiceInterface service;
 
 
     @PostMapping("/register")

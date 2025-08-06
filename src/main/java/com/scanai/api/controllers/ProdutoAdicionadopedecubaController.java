@@ -1,22 +1,17 @@
 package com.scanai.api.controllers;
 
-import com.scanai.api.domain.deposito.Deposito;
-import com.scanai.api.domain.deposito.dto.DadosAtualizarDeposito;
-import com.scanai.api.domain.deposito.dto.DadosDetalhamentoDeposito;
 import com.scanai.api.domain.produtoadcpedecuba.ProdutoAdicionadopedecuba;
 import com.scanai.api.domain.produtoadcpedecuba.dto.DadosAtualizarProdutoAdicionadoPeDeCuba;
 import com.scanai.api.domain.produtoadcpedecuba.dto.DadosCadastroProdutoAdicionadoPeDeCuba;
 import com.scanai.api.domain.produtoadcpedecuba.dto.DadosDetalhamentoProdutoAdicionadoPeDeCuba;
-import com.scanai.api.domain.produtoadcvinho.dto.DadosAtualizarProdutoAdicionadoVinho;
-import com.scanai.api.domain.produtoadcvinho.dto.DadosDetalhamentoProdutoAdicionadoVinho;
 import com.scanai.api.repositories.ProdutoAdicionadopedecubaRepository;
-import com.scanai.api.services.ProdutoAdicionadopedecubaService;
+import com.scanai.api.services.ProdutoAdicionadoPeDeCubaServiceInterface;
+import com.scanai.api.services.implement.ProdutoAdicionadoPeDeCubaService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -25,7 +20,7 @@ import java.util.List;
 public class ProdutoAdicionadopedecubaController {
 
     @Autowired
-    ProdutoAdicionadopedecubaService service;
+    ProdutoAdicionadoPeDeCubaServiceInterface service;
 
     @Autowired
     ProdutoAdicionadopedecubaRepository repository;
