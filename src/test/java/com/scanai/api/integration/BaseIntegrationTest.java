@@ -30,9 +30,6 @@ public abstract class BaseIntegrationTest {
     @LocalServerPort
     protected int port;
 
-    protected String adminToken;
-    protected String funcionarioToken;
-
     @BeforeEach
     void setup() throws Exception {
         // Configurar MockMvc manualmente
@@ -41,6 +38,7 @@ public abstract class BaseIntegrationTest {
 
     protected String extractTokenFromResponse(MvcResult result) throws Exception {
         String responseBody = result.getResponse().getContentAsString();
+        System.out.println("Response Body: " + responseBody);
         return objectMapper.readTree(responseBody).get("token").asText();
     }
 

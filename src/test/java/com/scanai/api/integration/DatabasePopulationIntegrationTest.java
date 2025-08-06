@@ -20,6 +20,7 @@ import java.util.Arrays;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class DatabasePopulationIntegrationTest extends BaseIntegrationTest {
 
@@ -33,7 +34,7 @@ class DatabasePopulationIntegrationTest extends BaseIntegrationTest {
     private static Long rotuloId;
     private static Long[] materialIds = new Long[3]; // 2 materiais
     private static Long[] loteIds = new Long[3]; // 2 lotes
-
+    private static String funcionarioToken;
     @Test
     @Order(1)
     @DisplayName("1. Setup - Obter tokens de autenticação")
@@ -50,10 +51,10 @@ class DatabasePopulationIntegrationTest extends BaseIntegrationTest {
                 .andReturn();
         
         funcionarioToken = extractTokenFromResponse(result);
-        adminToken = funcionarioToken; // Se for o mesmo usuário
+        //adminToken = funcionarioToken; // Se for o mesmo usuário
         
         Assertions.assertNotNull(funcionarioToken);
-        Assertions.assertNotNull(adminToken);
+        //Assertions.assertNotNull(adminToken);
         
         System.out.println("Tokens obtidos com sucesso!");
     }
@@ -76,9 +77,10 @@ class DatabasePopulationIntegrationTest extends BaseIntegrationTest {
                 emails[i]
             );
             
-            MvcResult result = performPost("/auth/register", funcionario, adminToken);
+            MvcResult result = performPost("/auth/register", funcionario, funcionarioToken);
             String response = result.getResponse().getContentAsString();
-            funcionarioIds[i + 1] = extractIdFromResponse(response);
+            //System.out.println("Resposta criação funcionário: " + response);
+           // funcionarioIds[i + 1] = extractIdFromResponse(response);
         }
         
         System.out.println("Funcionários criados com sucesso!");
@@ -96,7 +98,7 @@ class DatabasePopulationIntegrationTest extends BaseIntegrationTest {
             var deposito = new DadosCadastroDeposito(
                 tipos[i], numeros[i], capacidades[i]
             );
-            
+            System.out.println("funcionarioToken: "+funcionarioToken);
             MvcResult result = performPost("/depositos", deposito, funcionarioToken);
             String response = result.getResponse().getContentAsString();
             depositoIds[i + 1] = extractIdFromResponse(response);
