@@ -3,7 +3,7 @@ package com.scanai.api.controllers;
 import com.scanai.api.domain.pedecuba.Pedecuba;
 import com.scanai.api.domain.pedecuba.dto.DadosCadastroPeDeCuba;
 import com.scanai.api.domain.pedecuba.dto.DadosDetalhamentoPeDeCuba;
-import com.scanai.api.services.PedecubaService;
+import com.scanai.api.services.PeDeCubaServiceInterface;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import java.util.List;
 public class PeDeCubaController {
 
     @Autowired
-    private PedecubaService service;
+    private PeDeCubaServiceInterface service;
 
     @PostMapping("/register")
     public DadosDetalhamentoPeDeCuba register(@RequestBody @Valid DadosCadastroPeDeCuba data){
