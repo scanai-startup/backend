@@ -48,11 +48,4 @@ public class MostroVinhoController {
     public void hardDelete(@PathVariable Long id){
         mostroVinhoService.hardDelete(id);
     }
-
-    @DeleteMapping("/softDelete/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @Transactional
-    public void softDelete(@PathVariable Long id){
-        mostroVinhoService.softDelete(id);
-    }
 }

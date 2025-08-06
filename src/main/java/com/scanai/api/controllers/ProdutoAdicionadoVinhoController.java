@@ -4,14 +4,12 @@ import com.scanai.api.domain.produtoadcvinho.ProdutoAdicionadovinho;
 import com.scanai.api.domain.produtoadcvinho.dto.DadosAtualizarProdutoAdicionadoVinho;
 import com.scanai.api.domain.produtoadcvinho.dto.DadosCadastroProdutoAdicionadoVinho;
 import com.scanai.api.domain.produtoadcvinho.dto.DadosDetalhamentoProdutoAdicionadoVinho;
-import com.scanai.api.services.ProdutoAdicionadovinhoService;
+import com.scanai.api.services.ProdutoAdicionadoVinhoServiceInterface;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -20,7 +18,7 @@ import java.util.List;
 public class ProdutoAdicionadoVinhoController {
 
     @Autowired
-    ProdutoAdicionadovinhoService service;
+    ProdutoAdicionadoVinhoServiceInterface service;
 
     @PostMapping("/register")
     public DadosDetalhamentoProdutoAdicionadoVinho register(@RequestBody @Valid DadosCadastroProdutoAdicionadoVinho data){

@@ -2,6 +2,9 @@ package com.scanai.api.services;
 
 import com.scanai.api.domain.mostro.Mostro;
 import com.scanai.api.domain.mostro.dto.DadosCadastroMostro;
+import com.scanai.api.domain.mostro.dto.DadosListagemMostro;
+
+import java.util.List;
 
 public interface MostroServiceInterface {
 
@@ -14,4 +17,6 @@ public interface MostroServiceInterface {
     Mostro getElement(Long id);
 
     Mostro createMostroFilho(Long idMostroOrigem, float volumeMostroFilho, float volumeRetiradoMostroOrigem, Long idFuncionario);
+
+    List<DadosListagemMostro> getAll();
 }
