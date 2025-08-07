@@ -3,12 +3,13 @@ package com.scanai.api.domain.liberacao.dto;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public record DadosCadastroLiberacao(@NotNull int qttproduzida,
-                                     @PastOrPresent Date datainicio,
-                                     @PastOrPresent Date datafim,
+                                     @PastOrPresent LocalDate datainicio,
+                                     @PastOrPresent LocalDate datafim,
                                      @NotNull int gfs,
-                                     @NotNull int fkrotulagem,
-                                     @NotNull int fkfuncionario) {
+                                     @NotNull Long fkrotulagem,
+                                     @NotNull Long fkfuncionario) {
 }

@@ -2,12 +2,12 @@ package com.scanai.api.domain.liberacao.dto;
 
 import com.scanai.api.domain.liberacao.Liberacao;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public record DadosDetalhamentoLiberacao (Long id,
                                           int qttproduzida,
-                                          Date datainicio,
-                                          Date datafim,
+                                          LocalDate datainicio,
+                                          LocalDate datafim,
                                           int gfs,
                                           Long fkrotulagem,
                                           Long fkfuncionario){
@@ -15,9 +15,9 @@ public record DadosDetalhamentoLiberacao (Long id,
     public DadosDetalhamentoLiberacao(Liberacao liberacao){
         this(
                 liberacao.getId(),
-                liberacao.getQttProduzida(),
-                liberacao.getDataInicio(),
-                liberacao.getDataFim(),
+                liberacao.getQttproduzida(),
+                liberacao.getDatainicio(),
+                liberacao.getDatafim(),
                 liberacao.getGfs(),
                 liberacao.getFkrotulagem(),
                 liberacao.getFkfuncionario()

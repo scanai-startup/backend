@@ -20,63 +20,85 @@ public class Rotulagem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long fkEnchimento;
-    private Long fkRespRotulagem;
-    private Long fkRespEmbalamento;
-    private Long fkRespProducao;
+    private Long fkenchimento;
+    
+    private Long fkresprotulagem;
+    
+    private Long fkrespembalamento;
+    
+    private Long fkrespproducao;
 
-    private LocalDate dataInicioRotulagem;
-    private LocalDate dataFimRotulagem;
+    private LocalDate datainiciorotulagem;
+    
+    private LocalDate datafimrotulagem;
 
-    private Boolean funcionamentoLavadoraRotulagem;
-    private Boolean funcionamentoSecadoraRotulagem;
-    private Boolean equipamentosOkRotulagem;
-    private Boolean capsulaAcordoCapsuladora;
+    private Boolean funcionamentolavadorarotulagem;
+    
+    private Boolean funcionamentosecadorarotulagem;
+    
+    private Boolean equipamentosokrotulagem;
+    
+    private Boolean capsulaacordocapsuladora;
+    
     private Boolean capsulagem;
-    private Boolean defeitosCapsuladora;
-    private Boolean materiaisRotuladora;
-    private Boolean defeitosVisuaisRotuladora;
-    private Boolean descricaoRotuladora;
-    private Boolean marcacaoRotuladora;
-    private Boolean imagemRotuladora;
-    private Boolean caixaAcordoEmbaladora;
-    private Boolean separadoresEmbaladora;
-    private Boolean colocacaoSeparadoresEmbaladora;
-    private Boolean selagemEmbaladora;
-    private Boolean marcacaoEmbaladora;
-    private Boolean humidadePaletizadora;
-    private Boolean dossierPaletizadora;
-    private Boolean identificacaoPaletizadora;
+    
+    private Boolean defeitoscapsuladora;
+    
+    private Boolean materiaisrotuladora;
+    
+    private Boolean defeitosvisuaisrotuladora;
+    
+    private Boolean descricaorotuladora;
+    
+    private Boolean marcacaorotuladora;
+    
+    private Boolean imagemrotuladora;
+    
+    private Boolean caixaacordoembaladora;
+    
+    private Boolean separadoresembaladora;
+    
+    private Boolean colocacaoseparadoresembaladora;
+    
+    private Boolean selagemembaladora;
+    
+    private Boolean marcacaoembaladora;
+    
+    private Boolean humidadepaletizadora;
+    
+    private Boolean dossierpaletizadora;
+    
+    private Boolean identificacaopaletizadora;
 
-    private int qttCaixasPaletizadora;
+    private int qttcaixaspaletizadora;
 
     public Rotulagem(DadosCadastroRotulagem data) {
-        this.fkEnchimento = data.fkEnchimento();
-        this.fkRespRotulagem = data.fkRespRotulagem();
-        this.fkRespEmbalamento = data.fkRespEmbalamento();
-        this.fkRespProducao = data.fkRespProducao();
-        this.dataInicioRotulagem = data.dataInicioRotulagem();
-        this.dataFimRotulagem = data.dataFimRotulagem();
-        this.funcionamentoLavadoraRotulagem = data.funcionamentoLavadoraRotulagem();
-        this.funcionamentoSecadoraRotulagem = data.funcionamentoSecadoraRotulagem();
-        this.equipamentosOkRotulagem = data.equipamentosOkRotulagem();
-        this.capsulaAcordoCapsuladora = data.capsulaAcordoCapsuladora();
+        this.fkenchimento = data.fkEnchimento();
+        this.fkresprotulagem = data.fkRespRotulagem();
+        this.fkrespembalamento = data.fkRespEmbalamento();
+        this.fkrespproducao = data.fkRespProducao();
+        this.datainiciorotulagem = data.dataInicioRotulagem();
+        this.datafimrotulagem = data.dataFimRotulagem();
+        this.funcionamentolavadorarotulagem = data.funcionamentoLavadoraRotulagem();
+        this.funcionamentosecadorarotulagem = data.funcionamentoSecadoraRotulagem();
+        this.equipamentosokrotulagem = data.equipamentosOkRotulagem();
+        this.capsulaacordocapsuladora = data.capsulaAcordoCapsuladora();
         this.capsulagem = data.capsulagem();
-        this.defeitosCapsuladora = data.defeitosCapsuladora();
-        this.materiaisRotuladora = data.materiaisRotuladora();
-        this.defeitosVisuaisRotuladora = data.defeitosVisuaisRotuladora();
-        this.descricaoRotuladora = data.descricaoRotuladora();
-        this.marcacaoRotuladora = data.marcacaoRotuladora();
-        this.imagemRotuladora = data.imagemRotuladora();
-        this.caixaAcordoEmbaladora = data.caixaAcordoEmbaladora();
-        this.separadoresEmbaladora = data.separadoresEmbaladora();
-        this.colocacaoSeparadoresEmbaladora = data.colocacaoSeparadoresEmbaladora();
-        this.selagemEmbaladora = data.selagemEmbaladora();
-        this.marcacaoEmbaladora = data.marcacaoEmbaladora();
-        this.humidadePaletizadora = data.humidadePaletizadora();
-        this.dossierPaletizadora = data.dossierPaletizadora();
-        this.qttCaixasPaletizadora = data.qttCaixasPaletizadora();
-        this.identificacaoPaletizadora = data.identificacaoPaletizadora();
+        this.defeitoscapsuladora = data.defeitosCapsuladora();
+        this.materiaisrotuladora = data.materiaisRotuladora();
+        this.defeitosvisuaisrotuladora = data.defeitosVisuaisRotuladora();
+        this.descricaorotuladora = data.descricaoRotuladora();
+        this.marcacaorotuladora = data.marcacaoRotuladora();
+        this.imagemrotuladora = data.imagemRotuladora();
+        this.caixaacordoembaladora = data.caixaAcordoEmbaladora();
+        this.separadoresembaladora = data.separadoresEmbaladora();
+        this.colocacaoseparadoresembaladora = data.colocacaoSeparadoresEmbaladora();
+        this.selagemembaladora = data.selagemEmbaladora();
+        this.marcacaoembaladora = data.marcacaoEmbaladora();
+        this.humidadepaletizadora = data.humidadePaletizadora();
+        this.dossierpaletizadora = data.dossierPaletizadora();
+        this.qttcaixaspaletizadora = data.qttCaixasPaletizadora();
+        this.identificacaopaletizadora = data.identificacaoPaletizadora();
     }
 
 }

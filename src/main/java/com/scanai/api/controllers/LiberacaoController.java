@@ -8,6 +8,7 @@ import com.scanai.api.services.LiberacaoServiceInterface;
 import com.scanai.api.services.implement.LiberacaoService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,7 @@ import java.util.List;
 @RequestMapping("/liberacao")
 
 public class LiberacaoController {
+    @Autowired
     LiberacaoServiceInterface liberacaoService;
 
     @Transactional
