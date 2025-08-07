@@ -10,6 +10,7 @@ import com.scanai.api.services.implement.ProdutoAdicionadoPeDeCubaService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +26,9 @@ public class ProdutoAdicionadopedecubaController {
     @Autowired
     ProdutoAdicionadopedecubaRepository repository;
 
+    @Transactional
     @PostMapping("/register")
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<List<ProdutoAdicionadopedecuba>> register(@RequestBody DadosCadastroProdutoAdicionadoPeDeCuba dados) {
         List<ProdutoAdicionadopedecuba> produtos = service.register(dados);
         return ResponseEntity.ok(produtos);
@@ -44,6 +47,7 @@ public class ProdutoAdicionadopedecubaController {
     }
 
     @DeleteMapping("/hardDelete/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<?> hardDelete(@PathVariable Long id){
         service.hardDelete(id);
         return ResponseEntity.ok().build();

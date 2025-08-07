@@ -9,6 +9,7 @@ import com.scanai.api.services.implement.EntradaMaterialService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -23,6 +24,7 @@ public class EntradaMaterialController {
     private EntradaMaterialServiceInterface service;
 
     @PostMapping("/register")
+    @ResponseStatus(HttpStatus.CREATED)
     @Transactional
     public DadosDetalhamentoEntradaMaterial register(@RequestBody @Valid DadosCadastroEntradaMaterial data){
         EntradaMaterial newEntradaMaterial = service.register(data);

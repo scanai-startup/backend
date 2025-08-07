@@ -23,6 +23,7 @@ public class LiberacaoController {
 
     @Transactional
     @PostMapping("/register")
+    @ResponseStatus(HttpStatus.CREATED)
     public DadosDetalhamentoLiberacao register(@RequestBody @Valid DadosCadastroLiberacao dados){
         var liberacao = liberacaoService.register(dados);
         return new DadosDetalhamentoLiberacao(liberacao);

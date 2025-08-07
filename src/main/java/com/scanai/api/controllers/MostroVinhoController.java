@@ -20,6 +20,9 @@ public class MostroVinhoController {
     @Autowired
     MostroVinhoServiceInterface mostroVinhoService;
 
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/register")
+    @Transactional
     public DadosDetalhamentoMostroVinho register(@RequestBody @Valid DadosCadastroMostroVinho dados){
         var mostroVinho = mostroVinhoService.register(dados);
         return new DadosDetalhamentoMostroVinho(mostroVinho);

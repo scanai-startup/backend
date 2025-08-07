@@ -24,6 +24,8 @@ public class MostroController {
     private MostroServiceInterface service;
 
     @PostMapping("/register")
+    @ResponseStatus(HttpStatus.CREATED)
+    @Transactional
     public DadosDetalhamentoMostro register(@RequestBody @Valid DadosCadastroMostro data){
         Mostro newMostro = service.register(data);
         return new DadosDetalhamentoMostro(newMostro);

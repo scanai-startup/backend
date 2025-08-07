@@ -24,6 +24,7 @@ public class EnchimentoController {
 
     @Transactional
     @PostMapping("/register")
+    @ResponseStatus(HttpStatus.CREATED)
     public DadosDetalhamentoEnchimento register(@RequestBody @Valid DadosCadastroEnchimento dados) {
         var enchimento = enchimentoService.register(dados);
         return new DadosDetalhamentoEnchimento(enchimento);

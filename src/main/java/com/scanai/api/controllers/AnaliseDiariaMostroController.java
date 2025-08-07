@@ -23,6 +23,7 @@ public class AnaliseDiariaMostroController {
     AnaliseDiariaMostroServiceInterface analiseDiariaMostroService;
 
     @Transactional
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/register")
     public DadosDetalhamentoAnaliseDiariaMostro register(@RequestBody @Valid DadosCadastroAnaliseDiariaMostro dados){
         var analiseDiariaMostro = analiseDiariaMostroService.register(dados);

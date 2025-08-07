@@ -5,10 +5,8 @@ import com.scanai.api.domain.vinculodepositopedecuba.dto.DadosDetalhamentoVincul
 import com.scanai.api.services.VinculoDepositoPeDeCubaServiceInterface;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/vinculoDepositoPeDeCuba")
@@ -18,6 +16,7 @@ public class VinculoDepositoPeDeCubaController {
 
     @Transactional
     @PostMapping("/register")
+    @ResponseStatus(HttpStatus.CREATED)
     public DadosDetalhamentoVinculoDepositoPedecuba register(@RequestBody DadosCadastroVinculoDepositoPedecuba data){
         return service.vincularDepositoPedecuba(data);
     }

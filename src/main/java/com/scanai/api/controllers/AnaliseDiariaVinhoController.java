@@ -24,6 +24,7 @@ public class AnaliseDiariaVinhoController {
 
     @Transactional
     @PostMapping("/register")
+    @ResponseStatus(HttpStatus.CREATED)
     public DadosDetalhamentoAnaliseDiariaVinho register(@RequestBody @Valid DadosCadastroAnaliseDiariaVinho dados){
         var analiseDiariaVinho = analiseDiariaVinhoService.register(dados);
         return new DadosDetalhamentoAnaliseDiariaVinho(analiseDiariaVinho);

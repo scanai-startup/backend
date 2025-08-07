@@ -9,6 +9,7 @@ import com.scanai.api.services.implement.ProdutoAdicionadoVinhoService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -22,8 +23,9 @@ public class ProdutoAdicionadovinhoController {
     @Autowired
     ProdutoAdicionadoVinhoServiceInterface service;
 
-
+    @Transactional
     @PostMapping("/register")
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<DadosDetalhamentoProdutoAdicionadoVinho> register(@RequestBody @Valid DadosCadastroProdutoAdicionadoVinho data, UriComponentsBuilder uriBuilder){
         ProdutoAdicionadovinho newProdutoadcvinho = service.register(data);
         var uri = uriBuilder.path("produtoadcvinho/register/{id}").buildAndExpand(newProdutoadcvinho.getId()).toUri();
@@ -43,6 +45,7 @@ public class ProdutoAdicionadovinhoController {
     }
 
     @DeleteMapping("/hardDelete/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<?> hardDelete(@PathVariable Long id){
         service.hardDelete(id);
         return ResponseEntity.ok().build();

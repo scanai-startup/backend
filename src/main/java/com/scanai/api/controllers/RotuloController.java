@@ -25,6 +25,7 @@ public class RotuloController {
 
     @Transactional
     @PostMapping("/register")
+    @ResponseStatus(HttpStatus.CREATED)
     public DadosDetalhamentoRotulo register(@RequestBody @Valid DadosCadastroRotulo dados){
         var rotulo = rotuloService.register(dados);
         return new DadosDetalhamentoRotulo(rotulo);

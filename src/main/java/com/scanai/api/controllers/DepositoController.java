@@ -27,6 +27,7 @@ public class DepositoController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/register")
+    @Transactional
     public DadosDetalhamentoDeposito register(@RequestBody @Valid DadosCadastroDeposito data){
         Deposito newDeposito = depositoService.register(data);
         return new DadosDetalhamentoDeposito(newDeposito);

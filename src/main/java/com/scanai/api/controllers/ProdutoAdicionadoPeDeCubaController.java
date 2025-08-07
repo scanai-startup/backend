@@ -24,7 +24,9 @@ public class ProdutoAdicionadoPeDeCubaController {
     @Autowired
     ProdutoAdicionadopedecubaRepository repository;
 
+    @Transactional
     @PostMapping("/register")
+    @ResponseStatus(HttpStatus.CREATED)
     public List<ProdutoAdicionadopedecuba> register(@RequestBody DadosCadastroProdutoAdicionadoPeDeCuba dados) {
         return service.register(dados);
     }
