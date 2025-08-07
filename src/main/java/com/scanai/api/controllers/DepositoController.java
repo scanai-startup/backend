@@ -25,6 +25,7 @@ public class DepositoController {
     @Autowired
     private DepositoService depositoService;
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/register")
     public DadosDetalhamentoDeposito register(@RequestBody @Valid DadosCadastroDeposito data){
         Deposito newDeposito = depositoService.register(data);

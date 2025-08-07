@@ -99,12 +99,12 @@ class DatabasePopulationIntegrationTest extends BaseIntegrationTest {
                 tipos[i], numeros[i], capacidades[i]
             );
             System.out.println("funcionarioToken: "+funcionarioToken);
-            MvcResult result = performPost("/depositos", deposito, funcionarioToken);
+            MvcResult result = performPost("/deposito/register", deposito, funcionarioToken);
             String response = result.getResponse().getContentAsString();
             depositoIds[i + 1] = extractIdFromResponse(response);
             
             // Verificar se foi criado corretamente
-            performGet("/depositos/" + depositoIds[i + 1], funcionarioToken);
+            performGet("/deposito/getElement/" + depositoIds[i + 1], funcionarioToken);
         }
         
         System.out.println("Depósitos criados e verificados com sucesso!");
@@ -133,12 +133,12 @@ class DatabasePopulationIntegrationTest extends BaseIntegrationTest {
                 null                          // fkmostro (será vinculado depois)
             );
             
-            MvcResult result = performPost("/uvas", uva, funcionarioToken);
+            MvcResult result = performPost("/uva/register", uva, funcionarioToken);
             String response = result.getResponse().getContentAsString();
             remessaIds[i + 1] = extractIdFromResponse(response);
             
             // Verificar se foi criado corretamente
-            performGet("/uvas/" + remessaIds[i + 1], funcionarioToken);
+            performGet("/uva/getElement/" + remessaIds[i + 1], funcionarioToken);
         }
         
         System.out.println("Remessas criadas e verificadas com sucesso!");
@@ -155,7 +155,7 @@ class DatabasePopulationIntegrationTest extends BaseIntegrationTest {
             depositoIds[1],
             1L
         );
-        MvcResult result1 = performPost("/vinculos/deposito-remessas", vinculo1, funcionarioToken);
+        MvcResult result1 = performPost("/vinculoDepositoVinho/register", vinculo1, funcionarioToken);
         mostroIds[1] = extractMostroIdFromVinculoResponse(result1.getResponse().getContentAsString());
         
         // Mostro 2: remessa 3 - volume 900 - depósito 2 - funcionário 2
@@ -165,7 +165,7 @@ class DatabasePopulationIntegrationTest extends BaseIntegrationTest {
             depositoIds[2],
             2L
         );
-        MvcResult result2 = performPost("/vinculos/deposito-remessas", vinculo2, funcionarioToken);
+        MvcResult result2 = performPost("/vinculoDepositoVinho/register", vinculo2, funcionarioToken);
         mostroIds[2] = extractMostroIdFromVinculoResponse(result2.getResponse().getContentAsString());
         
         // Mostro 3: remessa 4 - volume 812 - depósito 3 - funcionário 2
@@ -175,7 +175,7 @@ class DatabasePopulationIntegrationTest extends BaseIntegrationTest {
             depositoIds[3],
             2L
         );
-        MvcResult result3 = performPost("/vinculos/deposito-remessas", vinculo3, funcionarioToken);
+        MvcResult result3 = performPost("/vinculoDepositoVinho/register", vinculo3, funcionarioToken);
         mostroIds[3] = extractMostroIdFromVinculoResponse(result3.getResponse().getContentAsString());
         
         // Mostro 4: remessas 5,8 - volume 759 - depósito 5 - funcionário 1
@@ -207,12 +207,12 @@ class DatabasePopulationIntegrationTest extends BaseIntegrationTest {
                 18.5f                     // temperatura
             );
             
-            MvcResult result = performPost("/analises-diarias-mostro", analise, funcionarioToken);
+            MvcResult result = performPost("/analiseDiariaMostro/register", analise, funcionarioToken);
             
             // Verificar se foi criado
             String response = result.getResponse().getContentAsString();
             Long analiseId = extractIdFromResponse(response);
-            performGet("/analises-diarias-mostro/" + analiseId, funcionarioToken);
+            performGet("/analiseDiariaMostro/getElement/" + analiseId, funcionarioToken);
         }
         
         System.out.println("Análises diárias de mostros criadas com sucesso!");
@@ -228,7 +228,7 @@ class DatabasePopulationIntegrationTest extends BaseIntegrationTest {
         for (int i = 0; i < nomesMateriais.length; i++) {
             var material = new DadosCadastroMaterial(nomesMateriais[i]);
             
-            MvcResult result = performPost("/materiais", material, funcionarioToken);
+            MvcResult result = performPost("/material/register", material, funcionarioToken);
             String response = result.getResponse().getContentAsString();
             materialIds[i + 1] = extractIdFromResponse(response);
         }
@@ -251,7 +251,7 @@ class DatabasePopulationIntegrationTest extends BaseIntegrationTest {
                 numerosLote[i]          // numerolote
             );
             
-            MvcResult result = performPost("/lotes", lote, funcionarioToken);
+            MvcResult result = performPost("/loteMaterial/register", lote, funcionarioToken);
             String response = result.getResponse().getContentAsString();
             loteIds[i + 1] = extractIdFromResponse(response);
         }
