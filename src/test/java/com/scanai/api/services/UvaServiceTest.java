@@ -3,6 +3,7 @@ package com.scanai.api.services;
 import com.scanai.api.domain.uva.Uva;
 import com.scanai.api.domain.uva.dto.DadosAtualizarUva;
 import com.scanai.api.domain.uva.dto.DadosCadastroUva;
+import com.scanai.api.domain.uva.dto.DadosDetalhamentoUva;
 import com.scanai.api.domain.uva.dto.DadosListagemUva;
 import com.scanai.api.repositories.UvaRepository;
 import com.scanai.api.services.implement.UvaService;
@@ -41,12 +42,12 @@ class UvaServiceTest {
         when(repository.save(any(Uva.class))).thenReturn(uvaSalva);
 
         // Act (Agir)
-        Uva resultado = uvaService.register(dadosCadastro);
+        DadosDetalhamentoUva resultado = uvaService.register(dadosCadastro);
 
         // Assert (Verificar)
         assertNotNull(resultado);
-        assertEquals(uvaSalva.getId(), resultado.getId());
-        assertEquals("Cabernet", resultado.getCasta());
+        assertEquals(uvaSalva.getId(), resultado.id());
+        assertEquals("Cabernet", resultado.casta());
         verify(repository, times(1)).save(any(Uva.class)); // Verifica se o método save foi chamado uma vez
     }
 
