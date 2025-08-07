@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ProdutoAdicionadoPeDeCubaServiceInterface {
 
-    List<ProdutoAdicionadopedecuba> register(DadosCadastroProdutoAdicionadoPeDeCuba dados);
+    List<DadosDetalhamentoProdutoAdicionadoPeDeCuba> register(DadosCadastroProdutoAdicionadoPeDeCuba dados);
 
     List<DadosDetalhamentoProdutoAdicionadoPeDeCuba> getAllByPeDeCubaId(Long fkPeDeCuba);
 

@@ -4,7 +4,7 @@ import com.scanai.api.domain.produtoadcpedecuba.ProdutoAdicionadopedecuba;
 import com.scanai.api.domain.produtoadcpedecuba.dto.DadosAtualizarProdutoAdicionadoPeDeCuba;
 import com.scanai.api.domain.produtoadcpedecuba.dto.DadosCadastroProdutoAdicionadoPeDeCuba;
 import com.scanai.api.domain.produtoadcpedecuba.dto.DadosDetalhamentoProdutoAdicionadoPeDeCuba;
-import com.scanai.api.repositories.ProdutoAdicionadopedecubaRepository;
+import com.scanai.api.repositories.ProdutoAdicionadoPeDeCubaRepository;
 import com.scanai.api.services.ProdutoAdicionadoPeDeCubaServiceInterface;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -22,10 +22,10 @@ public class ProdutoAdicionadoPeDeCubaController {
     ProdutoAdicionadoPeDeCubaServiceInterface service;
 
     @Autowired
-    ProdutoAdicionadopedecubaRepository repository;
+    ProdutoAdicionadoPeDeCubaRepository repository;
 
     @PostMapping("/register")
-    public List<ProdutoAdicionadopedecuba> register(@RequestBody DadosCadastroProdutoAdicionadoPeDeCuba dados) {
+    public List<DadosDetalhamentoProdutoAdicionadoPeDeCuba> register(@RequestBody DadosCadastroProdutoAdicionadoPeDeCuba dados) {
         return service.register(dados);
     }
 

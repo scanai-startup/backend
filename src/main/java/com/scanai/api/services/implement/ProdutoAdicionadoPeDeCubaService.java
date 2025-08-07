@@ -5,7 +5,7 @@ import com.scanai.api.domain.produtoadcpedecuba.ProdutoAdicionadopedecuba;
 import com.scanai.api.domain.produtoadcpedecuba.dto.DadosAtualizarProdutoAdicionadoPeDeCuba;
 import com.scanai.api.domain.produtoadcpedecuba.dto.DadosCadastroProdutoAdicionadoPeDeCuba;
 import com.scanai.api.domain.produtoadcpedecuba.dto.DadosDetalhamentoProdutoAdicionadoPeDeCuba;
-import com.scanai.api.repositories.ProdutoAdicionadopedecubaRepository;
+import com.scanai.api.repositories.ProdutoAdicionadoPeDeCubaRepository;
 import com.scanai.api.services.ProdutoAdicionadoPeDeCubaServiceInterface;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +18,20 @@ import java.util.Optional;
 public class ProdutoAdicionadoPeDeCubaService implements ProdutoAdicionadoPeDeCubaServiceInterface {
 
     @Autowired
-    ProdutoAdicionadopedecubaRepository produtoAdicionadoPeDeCubaRepository;
+    ProdutoAdicionadoPeDeCubaRepository produtoAdicionadoPeDeCubaRepository;
 
-    public List<ProdutoAdicionadopedecuba> register(DadosCadastroProdutoAdicionadoPeDeCuba dados) {
+    public List<DadosDetalhamentoProdutoAdicionadoPeDeCuba> register(DadosCadastroProdutoAdicionadoPeDeCuba dados) {
         return dados.produtos().stream()
-                .map(produtoDTO -> new ProdutoAdicionadopedecuba(
-                        dados.fkpedecuba(),
-                        produtoDTO.nome(),
-                        produtoDTO.quantidade(),
-                        produtoDTO.unidadeDeMedida()
-                ))
-                .peek(produtoAdicionadoPeDeCubaRepository::save)
+                .map(produtoDTO -> {
+                    ProdutoAdicionadopedecuba entity = new ProdutoAdicionadopedecuba(
+                            dados.fkpedecuba(),
+                            produtoDTO.nome(),
+                            produtoDTO.quantidade(),
+                            produtoDTO.unidadeDeMedida()
+                    );
+                    produtoAdicionadoPeDeCubaRepository.save(entity);
+                    return new DadosDetalhamentoProdutoAdicionadoPeDeCuba(entity);
+                })
                 .toList();
     }
 

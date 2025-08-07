@@ -25,8 +25,7 @@ public class EntradaMaterialController {
     @PostMapping("/register")
     @Transactional
     public DadosDetalhamentoEntradaMaterial register(@RequestBody @Valid DadosCadastroEntradaMaterial data){
-        EntradaMaterial newEntradaMaterial = service.register(data);
-        return new DadosDetalhamentoEntradaMaterial(newEntradaMaterial);
+        return service.register(data);
     }
 
     @GetMapping("/getAll")

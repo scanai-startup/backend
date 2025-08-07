@@ -21,8 +21,7 @@ public class PeDeCubaController {
 
     @PostMapping("/register")
     public DadosDetalhamentoPeDeCuba register(@RequestBody @Valid DadosCadastroPeDeCuba data){
-        Pedecuba newPedecuba = service.register(data);
-        return new DadosDetalhamentoPeDeCuba(newPedecuba);
+        return service.register(data);
     }
 
     @GetMapping("/getALl")

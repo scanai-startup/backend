@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface AnalisepedecubaRepository extends JpaRepository<Analisepedecuba, Long> {
+public interface AnalisePeDeCubaRepository extends JpaRepository<Analisepedecuba, Long> {
     public List<Analisepedecuba> findAllByFkpedecuba(Long fkpedecuba);
 }

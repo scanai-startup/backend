@@ -18,17 +18,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/material")
 public class MaterialController {
-
-    @Autowired
-    private MaterialRepository repository;
-
     @Autowired
     private MaterialServiceInterface service;
 
     @PostMapping("/register")
     public DadosDetalhamentoMaterial register(@RequestBody @Valid DadosCadastroMaterial data){
-        Material newMaterial = service.register(data);
-        return new DadosDetalhamentoMaterial(newMaterial);
+        return service.register(data);
     }
 
     @GetMapping("/getAll")

@@ -27,15 +27,13 @@ public class DepositoController {
 
     @PostMapping("/register")
     public DadosDetalhamentoDeposito register(@RequestBody @Valid DadosCadastroDeposito data){
-        Deposito newDeposito = depositoService.register(data);
-        return new DadosDetalhamentoDeposito(newDeposito);
+        return depositoService.register(data);
     }
 
     @PutMapping("/update")
     @Transactional
     public DadosDetalhamentoDeposito update(@RequestBody @Valid DadosAtualizarDeposito data){
-        Deposito deposito = depositoService.update(data);
-        return new DadosDetalhamentoDeposito(deposito);
+        return depositoService.update(data);
     }
 
     @GetMapping("/getAll")
@@ -59,8 +57,7 @@ public class DepositoController {
 
     @GetMapping("/getElement/{id}")
     public DadosDetalhamentoDeposito getElement(@PathVariable Long id){
-        Deposito deposito = depositoService.getElement(id);
-        return new DadosDetalhamentoDeposito(deposito);
+        return depositoService.getElement(id);
     }
 
     @GetMapping("/getDepositoWithIdWithInformations/{id}")

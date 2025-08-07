@@ -8,13 +8,13 @@ import java.util.List;
 
 public interface PeDeCubaServiceInterface {
 
-    Pedecuba register(DadosCadastroPeDeCuba dados);
+    DadosDetalhamentoPeDeCuba register(DadosCadastroPeDeCuba dados);
 
     void softDelete(Long id);
 
     void activate(Long id);
 
-    Pedecuba getElement(Long id);
+    DadosDetalhamentoPeDeCuba getElement(Long id);
 
     List<DadosDetalhamentoPeDeCuba> getAll();
 }

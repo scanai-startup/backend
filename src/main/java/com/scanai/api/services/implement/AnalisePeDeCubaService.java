@@ -2,7 +2,8 @@ package com.scanai.api.services.implement;
 
 import com.scanai.api.domain.analisepedecuba.Analisepedecuba;
 import com.scanai.api.domain.analisepedecuba.dto.DadosCadastroAnalisePeDeCuba;
-import com.scanai.api.repositories.AnalisepedecubaRepository;
+import com.scanai.api.domain.analisepedecuba.dto.DadosDetalhamentoAnalisePeDeCuba;
+import com.scanai.api.repositories.AnalisePeDeCubaRepository;
 import com.scanai.api.services.AnalisePeDeCubaServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,11 +12,9 @@ import org.springframework.stereotype.Service;
 public class AnalisePeDeCubaService implements AnalisePeDeCubaServiceInterface {
 
     @Autowired
-    AnalisepedecubaRepository analisePeDeCubaRepository;
+    AnalisePeDeCubaRepository analisePeDeCubaRepository;
 
-    public Analisepedecuba register(DadosCadastroAnalisePeDeCuba data) {
-        var newAnalisepedecuba = new Analisepedecuba(data);
-        analisePeDeCubaRepository.save(newAnalisepedecuba);
-        return newAnalisepedecuba;
+    public DadosDetalhamentoAnalisePeDeCuba register(DadosCadastroAnalisePeDeCuba data) {
+        return new DadosDetalhamentoAnalisePeDeCuba(analisePeDeCubaRepository.save(new Analisepedecuba(data)));
     }
 }

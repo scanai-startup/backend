@@ -25,8 +25,7 @@ public class AnaliseDiariaMostroController {
     @Transactional
     @PostMapping("/register")
     public DadosDetalhamentoAnaliseDiariaMostro register(@RequestBody @Valid DadosCadastroAnaliseDiariaMostro dados){
-        var analiseDiariaMostro = analiseDiariaMostroService.register(dados);
-        return new DadosDetalhamentoAnaliseDiariaMostro(analiseDiariaMostro);
+        return analiseDiariaMostroService.register(dados);
     }
 
     @GetMapping("/getAll")
@@ -36,8 +35,7 @@ public class AnaliseDiariaMostroController {
 
     @GetMapping("/getElement/{id}")
     public DadosDetalhamentoAnaliseDiariaMostro getElement(@PathVariable Long id){
-        var analiseDiariaMostro = analiseDiariaMostroService.getElement(id);
-        return new DadosDetalhamentoAnaliseDiariaMostro(analiseDiariaMostro);
+        return analiseDiariaMostroService.getElement(id);
     }
 
     @PutMapping("/update")

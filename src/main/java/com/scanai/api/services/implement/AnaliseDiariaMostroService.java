@@ -20,16 +20,16 @@ public class AnaliseDiariaMostroService implements AnaliseDiariaMostroServiceInt
     AnaliseDiariaMostroRepository analiseMostroRepository;
 
     @Transactional
-    public AnaliseDiariaMostro register(DadosCadastroAnaliseDiariaMostro dados){
-        return analiseMostroRepository.save(new AnaliseDiariaMostro(dados));
+    public DadosDetalhamentoAnaliseDiariaMostro register(DadosCadastroAnaliseDiariaMostro dados){
+        return new DadosDetalhamentoAnaliseDiariaMostro(analiseMostroRepository.save(new AnaliseDiariaMostro(dados)));
     }
 
     public List<DadosListagemAnaliseDiariaMostro> getAll() {
         return analiseMostroRepository.findAll().stream().map(DadosListagemAnaliseDiariaMostro::new).toList();
     }
 
-    public  AnaliseDiariaMostro getElement(Long id) {
-        return analiseMostroRepository.getReferenceById(id);
+    public DadosDetalhamentoAnaliseDiariaMostro getElement(Long id) {
+        return new DadosDetalhamentoAnaliseDiariaMostro(analiseMostroRepository.getReferenceById(id));
     }
 
     @Transactional
@@ -39,7 +39,7 @@ public class AnaliseDiariaMostroService implements AnaliseDiariaMostroServiceInt
 
     @Transactional
     public DadosDetalhamentoAnaliseDiariaMostro update(DadosAtualizarAnaliseDiariaMostro dados) {
-        AnaliseDiariaMostro analiseDiariamostro = getElement(dados.id());
+        AnaliseDiariaMostro analiseDiariamostro = analiseMostroRepository.getReferenceById(dados.id());
         analiseDiariamostro.setData(dados.data());
         analiseDiariamostro.setDensidade(dados.densidade());
         analiseDiariamostro.setFkfuncionario(dados.fkfuncionario());
