@@ -155,7 +155,7 @@ class DatabasePopulationIntegrationTest extends BaseIntegrationTest {
             depositoIds[1],
             1L
         );
-        MvcResult result1 = performPost("/vinculoDepositoVinho/register", vinculo1, funcionarioToken);
+        MvcResult result1 = performPost("/vinculoDepositoRemessas/register", vinculo1, funcionarioToken);
         mostroIds[1] = extractMostroIdFromVinculoResponse(result1.getResponse().getContentAsString());
         
         // Mostro 2: remessa 3 - volume 900 - depósito 2 - funcionário 2
@@ -165,7 +165,7 @@ class DatabasePopulationIntegrationTest extends BaseIntegrationTest {
             depositoIds[2],
             2L
         );
-        MvcResult result2 = performPost("/vinculoDepositoVinho/register", vinculo2, funcionarioToken);
+        MvcResult result2 = performPost("/vinculoDepositoRemessas/register", vinculo2, funcionarioToken);
         mostroIds[2] = extractMostroIdFromVinculoResponse(result2.getResponse().getContentAsString());
         
         // Mostro 3: remessa 4 - volume 812 - depósito 3 - funcionário 2
@@ -175,7 +175,7 @@ class DatabasePopulationIntegrationTest extends BaseIntegrationTest {
             depositoIds[3],
             2L
         );
-        MvcResult result3 = performPost("/vinculoDepositoVinho/register", vinculo3, funcionarioToken);
+        MvcResult result3 = performPost("/vinculoDepositoRemessas/register", vinculo3, funcionarioToken);
         mostroIds[3] = extractMostroIdFromVinculoResponse(result3.getResponse().getContentAsString());
         
         // Mostro 4: remessas 5,8 - volume 759 - depósito 5 - funcionário 1
@@ -185,7 +185,7 @@ class DatabasePopulationIntegrationTest extends BaseIntegrationTest {
             depositoIds[5],
             1L
         );
-        MvcResult result4 = performPost("/vinculos/deposito-remessas", vinculo4, funcionarioToken);
+        MvcResult result4 = performPost("/vinculoDepositoRemessas/register", vinculo4, funcionarioToken);
         mostroIds[4] = extractMostroIdFromVinculoResponse(result4.getResponse().getContentAsString());
         
         System.out.println("Remessas vinculadas aos mostros com sucesso!");
