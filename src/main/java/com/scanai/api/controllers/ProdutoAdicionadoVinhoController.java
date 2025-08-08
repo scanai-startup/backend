@@ -22,8 +22,7 @@ public class ProdutoAdicionadoVinhoController {
 
     @PostMapping("/register")
     public DadosDetalhamentoProdutoAdicionadoVinho register(@RequestBody @Valid DadosCadastroProdutoAdicionadoVinho data){
-        ProdutoAdicionadovinho newProdutoadcvinho = service.register(data);
-        return new DadosDetalhamentoProdutoAdicionadoVinho(newProdutoadcvinho);
+        return service.register(data);
     }
 
     @GetMapping("/getAllByVinhoId/{fkVinho}")

@@ -1,5 +1,6 @@
 package com.scanai.api.domain.deposito.dto;
 
+
 public interface DadosInformacoesDepositos {
     String getConteudo();
     Double getTemperatura();

@@ -28,7 +28,6 @@ public class DepositoMostroController {
     @PostMapping("/register")
     @Transactional
     public DadosDetalhamentoDepositoMostro register(@RequestBody @Valid DadosCadastroDepositoMostro data){
-        DepositoMostro newDepositoMostro = service.register(data);
-        return new DadosDetalhamentoDepositoMostro(newDepositoMostro);
+        return service.register(data);
     }
 }

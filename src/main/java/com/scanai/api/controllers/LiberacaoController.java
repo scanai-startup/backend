@@ -24,8 +24,7 @@ public class LiberacaoController {
     @Transactional
     @PostMapping("/register")
     public DadosDetalhamentoLiberacao register(@RequestBody @Valid DadosCadastroLiberacao dados){
-        var liberacao = liberacaoService.register(dados);
-        return new DadosDetalhamentoLiberacao(liberacao);
+        return liberacaoService.register(dados);
     }
 
     @GetMapping("/getAll")
@@ -35,8 +34,7 @@ public class LiberacaoController {
 
     @GetMapping("/getElement/{id}")
     public DadosDetalhamentoLiberacao getElement(@PathVariable Long id){
-        var liberacao = liberacaoService.getElement(id);
-        return new DadosDetalhamentoLiberacao(liberacao);
+        return liberacaoService.getElement(id);
     }
 
     @PutMapping("/update")

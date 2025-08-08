@@ -4,7 +4,7 @@ import com.scanai.api.domain.produtoadcvinho.ProdutoAdicionadovinho;
 import com.scanai.api.domain.produtoadcvinho.dto.DadosAtualizarProdutoAdicionadoVinho;
 import com.scanai.api.domain.produtoadcvinho.dto.DadosCadastroProdutoAdicionadoVinho;
 import com.scanai.api.domain.produtoadcvinho.dto.DadosDetalhamentoProdutoAdicionadoVinho;
-import com.scanai.api.repositories.ProdutoAdicionadovinhoRepository;
+import com.scanai.api.repositories.ProdutoAdicionadoVinhoRepository;
 import com.scanai.api.services.ProdutoAdicionadoVinhoServiceInterface;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +17,12 @@ import java.util.Optional;
 public class ProdutoAdicionadoVinhoService implements ProdutoAdicionadoVinhoServiceInterface {
 
     @Autowired
-    ProdutoAdicionadovinhoRepository produtoAdicionadoVinhoRepository;
+    ProdutoAdicionadoVinhoRepository produtoAdicionadoVinhoRepository;
 
-    public ProdutoAdicionadovinho register(DadosCadastroProdutoAdicionadoVinho dados) {
+    public DadosDetalhamentoProdutoAdicionadoVinho register(DadosCadastroProdutoAdicionadoVinho dados) {
         ProdutoAdicionadovinho newProdutoadcvinho = new ProdutoAdicionadovinho(dados);
         produtoAdicionadoVinhoRepository.save(newProdutoadcvinho);
-        return newProdutoadcvinho;
+        return new DadosDetalhamentoProdutoAdicionadoVinho(newProdutoadcvinho);
     }
 
     public List<DadosDetalhamentoProdutoAdicionadoVinho> getAllByVinhoId(Long fkVinho) {

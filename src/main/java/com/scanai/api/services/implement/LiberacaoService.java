@@ -20,16 +20,16 @@ public class LiberacaoService implements LiberacaoServiceInterface {
     LiberacaoRepository liberacaoRepository;
 
     @Transactional
-    public Liberacao register(DadosCadastroLiberacao dados){
-        return liberacaoRepository.save(new Liberacao(dados));
+    public DadosDetalhamentoLiberacao register(DadosCadastroLiberacao dados){
+        return new DadosDetalhamentoLiberacao(liberacaoRepository.save(new Liberacao(dados)));
     }
 
     public List<DadosListagemLiberacao> getAll() {
         return liberacaoRepository.findAll().stream().map(DadosListagemLiberacao::new).toList();
     }
 
-    public Liberacao getElement(Long id) {
-        return liberacaoRepository.getReferenceById(id);
+    public DadosDetalhamentoLiberacao getElement(Long id) {
+        return new DadosDetalhamentoLiberacao(liberacaoRepository.getReferenceById(id));
     }
 
     @Transactional
@@ -39,7 +39,7 @@ public class LiberacaoService implements LiberacaoServiceInterface {
 
     @Transactional
     public DadosDetalhamentoLiberacao update(DadosAtualizarLiberacao dados) {
-        Liberacao liberacao = getElement(dados.id());
+        Liberacao liberacao = liberacaoRepository.getReferenceById(dados.id());
 
         liberacao.setDataFim(dados.datafim());
         liberacao.setFkfuncionario(dados.fkfuncionario());

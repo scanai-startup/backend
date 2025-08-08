@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface PedecubaRepository extends JpaRepository<Pedecuba, Long> {
-    public List<DadosDetalhamentoPeDeCuba> findAllByValidTrue();
+public interface PeDeCubaRepository extends JpaRepository<Pedecuba, Long> {
+    List<DadosDetalhamentoPeDeCuba> findAllByValidTrue();
 }

@@ -25,8 +25,7 @@ public class EnchimentoController {
     @Transactional
     @PostMapping("/register")
     public DadosDetalhamentoEnchimento register(@RequestBody @Valid DadosCadastroEnchimento dados) {
-        var enchimento = enchimentoService.register(dados);
-        return new DadosDetalhamentoEnchimento(enchimento);
+        return enchimentoService.register(dados);
     }
 
     @GetMapping("/getAll")
@@ -36,8 +35,7 @@ public class EnchimentoController {
 
     @GetMapping("/getElement/{id}")
     public DadosDetalhamentoEnchimento getElement(@PathVariable Long id) {
-        var enchimento = enchimentoService.getElement(id);
-        return new DadosDetalhamentoEnchimento(enchimento);
+        return enchimentoService.getElement(id);
     }
 
     @PutMapping("/update")

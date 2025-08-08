@@ -4,14 +4,11 @@ import com.scanai.api.domain.lotematerial.Lotematerial;
 import com.scanai.api.domain.lotematerial.dto.DadosDetalhamentoLoteMaterial;
 import com.scanai.api.domain.lotematerial.dto.DadosListagemLoteMaterial;
 import com.scanai.api.domain.lotematerial.dto.DadosCadastroLoteMaterial;
-import com.scanai.api.repositories.LotematerialRepository;
+import com.scanai.api.repositories.LoteMaterialRepository;
 import com.scanai.api.services.LoteMaterialServiceInterface;
-import com.scanai.api.services.implement.LoteMaterialService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -20,20 +17,18 @@ import java.util.List;
 public class LoteMaterialController {
 
     @Autowired
-    private LotematerialRepository repository;
+    private LoteMaterialRepository repository;
 
     @Autowired
     private LoteMaterialServiceInterface service;
 
     @PostMapping("/register")
     public DadosDetalhamentoLoteMaterial register(@RequestBody @Valid DadosCadastroLoteMaterial data){
-        Lotematerial newLotematerial = service.register(data);
-        return new DadosDetalhamentoLoteMaterial(newLotematerial);
+        return service.register(data);
     }
 
     @GetMapping("/getAll")
-    public List<DadosListagemLoteMaterial> getAll(){
-        List<Lotematerial> lotematerialList = service.getAll();
-        return lotematerialList.stream().map(DadosListagemLoteMaterial::new).toList();
+    public List<DadosDetalhamentoLoteMaterial> getAll(){
+        return service.getAll();
     }
 }

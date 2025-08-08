@@ -25,8 +25,7 @@ public class MostroController {
 
     @PostMapping("/register")
     public DadosDetalhamentoMostro register(@RequestBody @Valid DadosCadastroMostro data){
-        Mostro newMostro = service.register(data);
-        return new DadosDetalhamentoMostro(newMostro);
+        return service.register(data);
     }
 
     @GetMapping("/getAll")

@@ -24,7 +24,6 @@ public class RotulagemController {
     @Transactional
     @PostMapping("/register")
     public DadosDetalhamentoRotulagem register(@RequestBody @Valid DadosCadastroRotulagem dados){
-        var newRotulagem = service.register(dados);
-        return new DadosDetalhamentoRotulagem(newRotulagem);
+        return service.register(dados);
     }
 }

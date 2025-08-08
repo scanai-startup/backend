@@ -11,13 +11,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface DepositoRepository extends JpaRepository<Deposito, Long> {
-    public Deposito findDepositoById(Long id);
+    Optional<Deposito> findByNumerodeposito(String numerodeposito);
 
-    public Deposito findByNumerodeposito(String numerodeposito);
-
-    public List<Deposito> findAllByValidTrue();
+    List<Deposito> findAllByValidTrue();
 
     @Query(value = """
 
@@ -114,25 +113,25 @@ public interface DepositoRepository extends JpaRepository<Deposito, Long> {
           AND dv.fkdeposito IS NULL
         ORDER BY deposito;
     """, nativeQuery = true)
-    public List<DadosInformacoesDepositos> getAllDepositosWithInformations();
+    List<DadosInformacoesDepositos> getAllDepositosWithInformations();
 
     @Query("""
             SELECT dm
             FROM tb_deposito_mostro as dm WHERE dm.fkdeposito = :depositoId AND dm.datafim IS NULL
             """)
-    DepositoMostro existsMostroAtivo(@Param("depositoId") Long depositoId);
+    Optional<DepositoMostro> existsMostroAtivo(@Param("depositoId") Long depositoId);
 
     @Query("""
             SELECT dp
             FROM tb_deposito_pedecuba as dp WHERE dp.fkdeposito = :depositoId AND dp.datafim IS NULL
             """)
-    Depositopedecuba existsPeDeCubaAtivo(@Param("depositoId") Long depositoId);
+    Optional<Depositopedecuba> existsPeDeCubaAtivo(@Param("depositoId") Long depositoId);
 
     @Query("""
             SELECT dv
             FROM tb_deposito_vinho as dv WHERE dv.fkdeposito = :depositoId AND dv.datafim IS NULL
             """)
-    Depositovinho existsVinhoAtivo(@Param("depositoId") Long depositoId);
+    Optional<Depositovinho> existsVinhoAtivo(@Param("depositoId") Long depositoId);
 
     @Query(value = """
         SELECT d.numerodeposito AS deposito,
@@ -186,5 +185,5 @@ public interface DepositoRepository extends JpaRepository<Deposito, Long> {
             LEFT JOIN tb_analise_diaria_vinho AS adv ON adv.fkvinho = v.id
         WHERE d.id = :depositoId
     """, nativeQuery = true)
-    public DadosInformacoesDepositos getDepositoWithIdWithInformations(@Param("depositoId") Long depositoId);
+    Optional<DadosInformacoesDepositos> getDepositoWithIdWithInformations(@Param("depositoId") Long depositoId);
 }

@@ -2,6 +2,7 @@ package com.scanai.api.services.implement;
 
 import com.scanai.api.domain.rotulagem.Rotulagem;
 import com.scanai.api.domain.rotulagem.dto.DadosCadastroRotulagem;
+import com.scanai.api.domain.rotulagem.dto.DadosDetalhamentoRotulagem;
 import com.scanai.api.repositories.RotulagemRepository;
 import com.scanai.api.services.RotulagemServiceInterface;
 import jakarta.transaction.Transactional;
@@ -15,10 +16,8 @@ public class RotulagemService implements RotulagemServiceInterface {
     RotulagemRepository rotulagemRepository;
 
     @Transactional
-    public Rotulagem register(DadosCadastroRotulagem dados){
-        Rotulagem newRotulagem = new Rotulagem(dados);
-        rotulagemRepository.save(newRotulagem);
-        return newRotulagem;
+    public DadosDetalhamentoRotulagem register(DadosCadastroRotulagem dados){
+        return new DadosDetalhamentoRotulagem(rotulagemRepository.save(new Rotulagem(dados)));
     }
 
 }

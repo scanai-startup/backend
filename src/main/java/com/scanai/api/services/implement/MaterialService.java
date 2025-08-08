@@ -3,10 +3,11 @@ package com.scanai.api.services.implement;
 import com.scanai.api.domain.entradamaterial.EntradaMaterial;
 import com.scanai.api.domain.lotematerial.Lotematerial;
 import com.scanai.api.domain.material.Material;
+import com.scanai.api.domain.material.dto.DadosDetalhamentoMaterial;
 import com.scanai.api.domain.material.dto.DadosListagemMaterial;
 import com.scanai.api.domain.material.dto.DadosCadastroMaterial;
 import com.scanai.api.repositories.EntradaMaterialRepository;
-import com.scanai.api.repositories.LotematerialRepository;
+import com.scanai.api.repositories.LoteMaterialRepository;
 import com.scanai.api.repositories.MaterialRepository;
 import com.scanai.api.services.MaterialServiceInterface;
 import jakarta.transaction.Transactional;
@@ -26,13 +27,13 @@ public class MaterialService implements MaterialServiceInterface {
     EntradaMaterialRepository entradaMaterialRepository;
 
     @Autowired
-    LotematerialRepository loteMaterialRepository;
+    LoteMaterialRepository loteMaterialRepository;
 
     @Transactional
-    public Material register(DadosCadastroMaterial dados) {
+    public DadosDetalhamentoMaterial register(DadosCadastroMaterial dados) {
         Material newMaterial = new Material(dados);
         MaterialRepository.save(newMaterial);
-        return newMaterial;
+        return new DadosDetalhamentoMaterial(newMaterial);
     }
 
     public List<DadosListagemMaterial> getAll() {
