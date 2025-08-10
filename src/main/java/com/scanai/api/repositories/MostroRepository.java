@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface MostroRepository extends JpaRepository<Mostro, Long> {
-    public List<Mostro> findAllByValidTrue();
+    List<Mostro> findAllByValidTrue();
 }

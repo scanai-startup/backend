@@ -5,6 +5,7 @@ import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.scanai.api.domain.funcionario.Funcionario;
 import com.scanai.api.repositories.FuncionarioRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
@@ -36,9 +38,13 @@ public class SecurityFilter extends OncePerRequestFilter {
             var token = this.recoveryToken(request);
             if (token != null) {
                 var matricula = tokenService.validateToken(token);  // Pode lançar exceção
-                UserDetails funcionario = repository.findByMatricula(matricula);
+                Optional<UserDetails> funcionario = repository.findByMatricula(matricula);
 
-                var authentication = new UsernamePasswordAuthenticationToken(funcionario, null, funcionario.getAuthorities());
+                if(funcionario.isEmpty()){
+                    throw new EntityNotFoundException("User not found");
+                }
+
+                var authentication = new UsernamePasswordAuthenticationToken(funcionario, null, funcionario.get().getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
             filterChain.doFilter(request, response);

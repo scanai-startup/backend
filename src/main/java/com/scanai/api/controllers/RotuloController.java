@@ -27,8 +27,7 @@ public class RotuloController {
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public DadosDetalhamentoRotulo register(@RequestBody @Valid DadosCadastroRotulo dados){
-        var rotulo = rotuloService.register(dados);
-        return new DadosDetalhamentoRotulo(rotulo);
+        return rotuloService.register(dados);
     }
 
     @GetMapping("/getAll")
@@ -38,8 +37,7 @@ public class RotuloController {
 
     @GetMapping("/getElement/{id}")
     public DadosDetalhamentoRotulo getElement(@PathVariable Long id){
-        var rotulo = rotuloService.getElement(id);
-        return new DadosDetalhamentoRotulo(rotulo);
+        return rotuloService.getElement(id);
     }
 
     @PutMapping("/update")

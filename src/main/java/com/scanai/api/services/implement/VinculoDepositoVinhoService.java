@@ -1,17 +1,23 @@
 package com.scanai.api.services.implement;
 
 import com.scanai.api.domain.deposito.Deposito;
+import com.scanai.api.domain.deposito.dto.DadosDetalhamentoDeposito;
 import com.scanai.api.domain.deposito.dto.DadosInformacoesDepositos;
 import com.scanai.api.domain.depositovinho.dto.DadosCadastroDepositoVinho;
 import com.scanai.api.domain.mostro.Mostro;
 import com.scanai.api.domain.mostro.dto.DadosCadastroMostro;
+import com.scanai.api.domain.mostro.dto.DadosDetalhamentoMostro;
 import com.scanai.api.domain.pedecuba.Pedecuba;
+import com.scanai.api.domain.pedecuba.dto.DadosDetalhamentoPeDeCuba;
+import com.scanai.api.domain.rotulo.DTO.DadosDetalhamentoRotulo;
 import com.scanai.api.domain.rotulo.Rotulo;
 import com.scanai.api.domain.vinculodepositovinho.dto.DadosCadastroVinculoDepositoVinho;
 import com.scanai.api.domain.vinculodepositovinho.dto.DadosDetalhamentoVinculoDepositoVinho;
 import com.scanai.api.domain.vinho.DTO.DadosCadastroVinho;
 import com.scanai.api.domain.vinho.Vinho;
 import com.scanai.api.repositories.DepositoRepository;
+import com.scanai.api.repositories.MostroRepository;
+import com.scanai.api.repositories.PeDeCubaRepository;
 import com.scanai.api.services.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +25,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class VinculoDepositoVinhoService implements VinculoDepositoVinhoServiceInterface {
@@ -50,17 +57,20 @@ public class VinculoDepositoVinhoService implements VinculoDepositoVinhoServiceI
     @Autowired
     private DepositoRepository depositoRepository;
 
-    //TODO refatorar este metodo para seguir os principios do single responsibility
+    @Autowired
+    MostroRepository mostroRepository;
+
+    @Autowired
+    PeDeCubaRepository peDeCubaRepository;
+
+    //TODO refatorar este metodo para seguir os principios do single responsibility e Optional
     @Transactional
     public DadosDetalhamentoVinculoDepositoVinho vincularDepositoVinho(DadosCadastroVinculoDepositoVinho data) {
         // Verificar se o depósito existe e é válido
-        Deposito deposito = depositoService.getElement(data.depositoId());
-        DadosInformacoesDepositos dadosInformacoesDepositos = depositoRepository.getDepositoWithIdWithInformations(deposito.getId());
+        DadosDetalhamentoDeposito deposito = depositoService.getElement(data.depositoId());
+        Optional<DadosInformacoesDepositos> dadosInformacoesDepositos = depositoRepository.getDepositoWithIdWithInformations(deposito.id());
 
-        if (deposito == null) {
-            throw new IllegalArgumentException("Depósito não encontrado");
-        }
-        if(dadosInformacoesDepositos.getConteudo() != null && dadosInformacoesDepositos.getConteudo().equals("Vinho")){
+        if(dadosInformacoesDepositos.get().getConteudo() != null && dadosInformacoesDepositos.get().getConteudo().equals("Vinho")){
             throw new IllegalArgumentException("Depósito já contém um vinho ativo");
         }
         if(data.volumeChegadaPedecuba() > data.volumeTrasfegaPedecuba()){
@@ -71,7 +81,8 @@ public class VinculoDepositoVinhoService implements VinculoDepositoVinhoServiceI
         }
 
         // Verificar se o Pé de Cuba existe e é válido
-        Pedecuba pedecuba = peDeCubaService.getElement(data.pedecubaId());
+        //TODO ajeitar para chamar pelo service!!!
+        Pedecuba pedecuba = peDeCubaRepository.getReferenceById(data.pedecubaId());
         if (pedecuba == null) {
             throw new IllegalArgumentException("Pé de Cuba não encontrado");
         }
@@ -80,26 +91,28 @@ public class VinculoDepositoVinhoService implements VinculoDepositoVinhoServiceI
         }
         // se no deposito tiver o pe de cuba que foi enviado pra vinculação, então deve ver se o volume colocado
         // pra vinculação é referente a totalidade do pe de cuba
-        if(Objects.equals(dadosInformacoesDepositos.getIdConteudo(), pedecuba.getId())){
+        if(Objects.equals(dadosInformacoesDepositos.get().getIdConteudo(), pedecuba.getId())){
             if(pedecuba.getVolume() != data.volumeTrasfegaPedecuba()){
                 throw new IllegalArgumentException("Argumento inválido: Não é possivel criar um vinho num deposito que contém pe de cuba sem usar o volume total do pe de cuba");
             }
         }
 
         // Verificar se o rótulo existe e é válido
-        Rotulo rotulo = rotuloService.getElement(data.rotuloId());
+        //TODO ajeitar para chamar pelo service!!!
+        DadosDetalhamentoRotulo rotulo = rotuloService.getElement(data.rotuloId());
         if(rotulo == null){
             throw new IllegalArgumentException("Rótulo não encontrado");
         }
         // Verificar se o mostro existe e é valido
-        Mostro mostro = mostroService.getElement(data.mostroId());
+        //TODO ajeitar para chamar pelo service!!!
+        Mostro mostro = mostroRepository.getReferenceById(data.mostroId());
         if(mostro == null){
             throw new IllegalArgumentException("Mostro não encontrado");
         }
         if(data.volumeTrasfegaMostro() > mostro.getVolume()){
             throw new IllegalArgumentException("Volume de trasfega do mostro maior que o volume do mostro");
         }
-        if(Objects.equals(dadosInformacoesDepositos.getIdConteudo(), mostro.getId())){
+        if(Objects.equals(dadosInformacoesDepositos.get().getIdConteudo(), mostro.getId())){
             System.out.println(mostro.getVolume() +" "+data.volumeTrasfegaMostro());
             if(!Objects.equals(mostro.getVolume(), data.volumeTrasfegaMostro())){
                 throw new IllegalArgumentException("Argumento inválido: Não é possivel criar um vinho num deposito que contém mostro sem usar o volume total do mostro");
@@ -111,6 +124,7 @@ public class VinculoDepositoVinhoService implements VinculoDepositoVinhoServiceI
 
         // Aplicando softdelete no pé de cuba
         depositopeDeCubaService.setDataFim(data.pedecubaId());
+        //TODO ajeitar para chamar pelo service!!!
         pedecuba.setValid(false);
         pedecuba.setDatafimfermentacao(LocalDate.now());
 
@@ -139,29 +153,29 @@ public class VinculoDepositoVinhoService implements VinculoDepositoVinhoServiceI
             mostro.setVolume(mostro.getVolume()-data.volumeTrasfegaMostro());
 
             // Criando um novo mostro com o volume restante
-            Mostro novoMostro = mostroService.register(new DadosCadastroMostro(data.funcionarioId(), data.volumeChegadaMostro(), mostro.getId(), null));
+            DadosDetalhamentoMostro novoMostro = mostroService.register(new DadosCadastroMostro(data.funcionarioId(), data.volumeChegadaMostro(), mostro.getId(), null));
 
             // Criando registro de vinho e Vinculando ao mostro
             //System.out.println(data.rotuloId());
-            vinho = vinhoService.register(new DadosCadastroVinho(novoMostro.getId(), volumeVinho, data.rotuloId(), pedecuba.getId()));
+            vinho = vinhoService.register(new DadosCadastroVinho(novoMostro.id(), volumeVinho, data.rotuloId(), pedecuba.getId()));
             System.out.println(vinho.getFkmostro());
         }
 
         // Relacionando vinho com deposito
-        depositoVinhoService.register(new DadosCadastroDepositoVinho(vinho.getId(), deposito.getId(), LocalDate.now(), data.funcionarioId()));
+        depositoVinhoService.register(new DadosCadastroDepositoVinho(vinho.getId(), deposito.id(), LocalDate.now(), data.funcionarioId()));
 
-        String message = "Vinho " + rotulo.getNome()+" : "+rotulo.getTipo()+" criado e vinculado com sucesso.";
+        String message = "Vinho " + rotulo.nome()+" : "+rotulo.tipo()+" criado e vinculado com sucesso.";
 
-        if (dadosInformacoesDepositos.getConteudo() != null)
-            message += "Vinculado ao deposito que continha " + (Objects.equals(dadosInformacoesDepositos.getConteudo(), "Pé De Cuba") ? "Pé de cuba" : "Mostro");
+        if (dadosInformacoesDepositos.get().getConteudo() != null)
+            message += "Vinculado ao deposito que continha " + (Objects.equals(dadosInformacoesDepositos.get().getConteudo(), "Pé De Cuba") ? "Pé de cuba" : "Mostro");
 
         // Retornar os detalhes do vínculo criado
         return new DadosDetalhamentoVinculoDepositoVinho(
                 vinho.getId(),
                 vinho.getVolume(),
-                deposito.getId(),
+                deposito.id(),
                 pedecuba.getId(),
-                rotulo.getId(),
+                rotulo.id(),
                 mostro.getId(),
                 message
         );

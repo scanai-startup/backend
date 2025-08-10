@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ProdutoAdicionadoVinhoServiceInterface {
 
-    ProdutoAdicionadovinho register(DadosCadastroProdutoAdicionadoVinho dados);
+    DadosDetalhamentoProdutoAdicionadoVinho register(DadosCadastroProdutoAdicionadoVinho dados);
 
     List<DadosDetalhamentoProdutoAdicionadoVinho> getAllByVinhoId(Long fkVinho);
 

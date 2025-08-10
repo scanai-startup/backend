@@ -23,8 +23,7 @@ public class PeDeCubaController {
     @ResponseStatus(HttpStatus.CREATED)
     @Transactional
     public DadosDetalhamentoPeDeCuba register(@RequestBody @Valid DadosCadastroPeDeCuba data){
-        Pedecuba newPedecuba = service.register(data);
-        return new DadosDetalhamentoPeDeCuba(newPedecuba);
+        return service.register(data);
     }
 
     @GetMapping("/getALl")

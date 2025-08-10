@@ -10,11 +10,11 @@ import java.util.List;
 
 public interface AnaliseDiariaVinhoServiceInterface {
 
-    AnaliseDiariaVinho register(DadosCadastroAnaliseDiariaVinho dados);
+    DadosDetalhamentoAnaliseDiariaVinho register(DadosCadastroAnaliseDiariaVinho dados);
 
     List<DadosListagemAnaliseDiariaVinho> getAll();
 
-    AnaliseDiariaVinho getElement(Long id);
+    DadosDetalhamentoAnaliseDiariaVinho getElement(Long id);
 
     void hardDelete(Long id);
 

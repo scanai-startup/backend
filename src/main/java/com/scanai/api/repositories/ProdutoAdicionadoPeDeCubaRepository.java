@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ProdutoAdicionadopedecubaRepository extends JpaRepository<ProdutoAdicionadopedecuba, Long> {
+public interface ProdutoAdicionadoPeDeCubaRepository extends JpaRepository<ProdutoAdicionadopedecuba, Long> {
 
-    public List<DadosDetalhamentoProdutoAdicionadoPeDeCuba> findAllByFkpedecuba(Long Fkpedecuba);
+    List<DadosDetalhamentoProdutoAdicionadoPeDeCuba> findAllByFkpedecuba(Long Fkpedecuba);
 }

@@ -10,11 +10,11 @@ import java.util.List;
 
 public interface EnchimentoServiceInterface {
 
-    Enchimento register(DadosCadastroEnchimento dados);
+    DadosDetalhamentoEnchimento register(DadosCadastroEnchimento dados);
 
     List<DadosListagemEnchimento> getAll();
 
-    Enchimento getElement(Long id);
+    DadosDetalhamentoEnchimento getElement(Long id);
 
     void hardDelete(Long id);
 

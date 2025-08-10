@@ -20,12 +20,9 @@ public class MostroVinhoController {
     @Autowired
     MostroVinhoServiceInterface mostroVinhoService;
 
-    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/register")
-    @Transactional
     public DadosDetalhamentoMostroVinho register(@RequestBody @Valid DadosCadastroMostroVinho dados){
-        var mostroVinho = mostroVinhoService.register(dados);
-        return new DadosDetalhamentoMostroVinho(mostroVinho);
+        return mostroVinhoService.register(dados);
     }
 
     @GetMapping("/getAll")
@@ -35,8 +32,7 @@ public class MostroVinhoController {
 
     @GetMapping("/getElement/{id}")
     public DadosDetalhamentoMostroVinho getElement(@PathVariable Long id){
-        var mostroVinho = mostroVinhoService.getElement(id);
-        return new DadosDetalhamentoMostroVinho(mostroVinho);
+        return mostroVinhoService.getElement(id);
     }
 
     @PutMapping("/update")

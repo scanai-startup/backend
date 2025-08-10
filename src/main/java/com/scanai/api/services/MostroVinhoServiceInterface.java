@@ -10,9 +10,9 @@ import java.util.List;
 
 public interface MostroVinhoServiceInterface {
 
-    MostroVinho register(DadosCadastroMostroVinho dados);
+    DadosDetalhamentoMostroVinho register(DadosCadastroMostroVinho dados);
 
-    MostroVinho getElement(Long id);
+    DadosDetalhamentoMostroVinho getElement(Long id);
 
     List<DadosListagemMostroVinho> getAll();
 

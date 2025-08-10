@@ -27,7 +27,6 @@ public class RotulagemController {
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public DadosDetalhamentoRotulagem register(@RequestBody @Valid DadosCadastroRotulagem dados){
-        var newRotulagem = service.register(dados);
-        return new DadosDetalhamentoRotulagem(newRotulagem);
+        return service.register(dados);
     }
 }

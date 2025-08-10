@@ -26,21 +26,21 @@ public class EnchimentoService implements EnchimentoServiceInterface {
     VinhoService vinhoService;
 
     @Transactional
-    public Enchimento register(DadosCadastroEnchimento dados) {
+    public DadosDetalhamentoEnchimento register(DadosCadastroEnchimento dados) {
         Vinho vinho = vinhoService.getElement(dados.fkvinho());
         vinho.setVolume(vinho.getVolume() - dados.volumeTrasfega());
         vinho.setDatafimfermentacao(LocalDate.now());
         vinhoService.update(new DadosAtualizarVinho(vinho));
 
-        return enchimentoRepository.save(new Enchimento(dados));
+        return new DadosDetalhamentoEnchimento(enchimentoRepository.save(new Enchimento(dados)));
     }
 
     public List<DadosListagemEnchimento> getAll() {
         return enchimentoRepository.findAll().stream().map(DadosListagemEnchimento::new).toList();
     }
 
-    public Enchimento getElement(Long id) {
-        return enchimentoRepository.getReferenceById(id);
+    public DadosDetalhamentoEnchimento getElement(Long id) {
+        return new DadosDetalhamentoEnchimento(enchimentoRepository.getReferenceById(id));
     }
 
     @Transactional
@@ -50,7 +50,7 @@ public class EnchimentoService implements EnchimentoServiceInterface {
 
     @Transactional
     public DadosDetalhamentoEnchimento update(DadosAtualizarEnchimento dados) {
-        Enchimento enchimento = getElement(dados.id());
+        Enchimento enchimento = enchimentoRepository.getReferenceById(dados.id());
 
         enchimento.setVolume(dados.volumeTrasfega() - dados.volumeChegada());
         enchimento.setDatainiciodespaletizacao(dados.datainiciodespaletizacao());

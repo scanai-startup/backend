@@ -3,7 +3,7 @@ package com.scanai.api.controllers;
 import com.scanai.api.domain.analiseprefermentacao.Analiseprefermentacao;
 import com.scanai.api.domain.analiseprefermentacao.dto.DadosCadastroAnalisePreFermetacao;
 import com.scanai.api.domain.analiseprefermentacao.dto.DadosDetalhamentoAnalisePreFermentacao;
-import com.scanai.api.repositories.AnaliseprefermentacaoRepository;
+import com.scanai.api.repositories.AnalisePreFermentacaoRepository;
 import com.scanai.api.services.AnalisePreFermentacaoServiceInterface;
 import com.scanai.api.services.implement.AnalisePreFermentacaoService;
 import jakarta.transaction.Transactional;
@@ -19,7 +19,7 @@ import org.springframework.http.HttpStatus;
 public class AnalisePreFermentacaoController {
 
     @Autowired
-    private AnaliseprefermentacaoRepository repository;
+    private AnalisePreFermentacaoService repository;
 
     @Autowired
     private AnalisePreFermentacaoServiceInterface service;
@@ -28,7 +28,6 @@ public class AnalisePreFermentacaoController {
     @ResponseStatus(HttpStatus.CREATED)
     @Transactional
     public DadosDetalhamentoAnalisePreFermentacao register(@RequestBody @Valid DadosCadastroAnalisePreFermetacao data){
-        Analiseprefermentacao newAnaliseprefermentacao = service.register(data);
-        return new DadosDetalhamentoAnalisePreFermentacao(newAnaliseprefermentacao);
+        return service.register(data);
     }
 }
