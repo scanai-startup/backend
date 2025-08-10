@@ -2,8 +2,10 @@ package com.scanai.api.services.implement;
 
 import com.scanai.api.domain.depositopedecuba.Depositopedecuba;
 import com.scanai.api.domain.depositopedecuba.dto.DadosCadastroDepositoPeDeCuba;
+import com.scanai.api.domain.depositopedecuba.dto.DadosDetalhamentoDepositoPeDeCuba;
 import com.scanai.api.domain.pedecuba.Pedecuba;
 import com.scanai.api.domain.pedecuba.dto.DadosCadastroPeDeCuba;
+import com.scanai.api.domain.pedecuba.dto.DadosDetalhamentoPeDeCuba;
 import com.scanai.api.domain.vinculodepositopedecuba.dto.DadosCadastroVinculoDepositoPedecuba;
 import com.scanai.api.domain.vinculodepositopedecuba.dto.DadosDetalhamentoVinculoDepositoPedecuba;
 import com.scanai.api.services.DepositoPeDeCubaServiceInterface;
@@ -28,12 +30,12 @@ public class VinculoDepositoPeDeCubaService implements VinculoDepositoPeDeCubaSe
 
     @Transactional
     public DadosDetalhamentoVinculoDepositoPedecuba vincularDepositoPedecuba(DadosCadastroVinculoDepositoPedecuba dados) {
-        Pedecuba pedecuba = peDeCubaService.register(new DadosCadastroPeDeCuba(dados.funcionarioId(), dados.fkpedecuba(), LocalDate.now(), dados.volume(), dados.produtos()));
-        Depositopedecuba depositopedecuba = depositoPeDeCubaService.register(new DadosCadastroDepositoPeDeCuba(pedecuba.getId(), dados.depositoId(), LocalDate.now(), dados.funcionarioId()));
+        DadosDetalhamentoPeDeCuba pedecuba = peDeCubaService.register(new DadosCadastroPeDeCuba(dados.funcionarioId(), dados.fkpedecuba(), LocalDate.now(), dados.volume(), dados.produtos()));
+        DadosDetalhamentoDepositoPeDeCuba depositopedecuba = depositoPeDeCubaService.register(new DadosCadastroDepositoPeDeCuba(pedecuba.id(), dados.depositoId(), LocalDate.now(), dados.funcionarioId()));
         return new DadosDetalhamentoVinculoDepositoPedecuba(
-                depositopedecuba.getFkdeposito(),
-                depositopedecuba.getFkpedecuba(),
-                depositopedecuba.getFkfuncionario(),
+                depositopedecuba.fkdeposito(),
+                depositopedecuba.fkpedecuba(),
+                depositopedecuba.fkfuncionario(),
                 //TODO verificar o motico dessa message só existir nesse DTO
                 "Pe de Cuba criado e vinculado ao deposito com sucesso");
     }

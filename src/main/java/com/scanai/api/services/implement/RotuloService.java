@@ -20,16 +20,16 @@ public class RotuloService implements RotuloServiceInterface {
     RotuloRepository rotuloRepository;
 
     @Transactional
-    public Rotulo register(DadosCadastroRotulo dados){
-        return rotuloRepository.save(new Rotulo(dados));
+    public DadosDetalhamentoRotulo register(DadosCadastroRotulo dados){
+        return new DadosDetalhamentoRotulo(rotuloRepository.save(new Rotulo(dados)));
     }
 
     public List<DadosListagemRotulo> listAll(){
         return rotuloRepository.findAllByValidTrue().stream().map(DadosListagemRotulo::new).toList();
     }
 
-    public Rotulo getElement(Long id){
-        return rotuloRepository.getReferenceById(id);
+    public DadosDetalhamentoRotulo getElement(Long id){
+        return new DadosDetalhamentoRotulo(rotuloRepository.getReferenceById(id));
 
     }
 
@@ -41,7 +41,7 @@ public class RotuloService implements RotuloServiceInterface {
 
     @Transactional
     public DadosDetalhamentoRotulo update(DadosAtualizarRotulo dados) {
-        Rotulo rotulo = getElement(dados.id());
+        Rotulo rotulo = rotuloRepository.getReferenceById(dados.id());
 
         rotulo.setNome(dados.nome());
         rotulo.setTipo(dados.tipo());

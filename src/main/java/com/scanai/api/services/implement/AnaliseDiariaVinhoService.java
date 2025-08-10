@@ -21,16 +21,16 @@ public class AnaliseDiariaVinhoService implements AnaliseDiariaVinhoServiceInter
     AnaliseDiariaVinhoRepository analiseDiariaVinhoRepository;
 
     @Transactional
-    public AnaliseDiariaVinho register(DadosCadastroAnaliseDiariaVinho dados){
-        return analiseDiariaVinhoRepository.save(new AnaliseDiariaVinho(dados));
+    public DadosDetalhamentoAnaliseDiariaVinho register(DadosCadastroAnaliseDiariaVinho dados){
+        return new DadosDetalhamentoAnaliseDiariaVinho(analiseDiariaVinhoRepository.save(new AnaliseDiariaVinho(dados)));
     }
 
     public List<DadosListagemAnaliseDiariaVinho> getAll() {
         return analiseDiariaVinhoRepository.findAll().stream().map(DadosListagemAnaliseDiariaVinho::new).toList();
     }
 
-    public  AnaliseDiariaVinho getElement(Long id) {
-        return analiseDiariaVinhoRepository.getReferenceById(id);
+    public DadosDetalhamentoAnaliseDiariaVinho getElement(Long id) {
+        return new DadosDetalhamentoAnaliseDiariaVinho(analiseDiariaVinhoRepository.getReferenceById(id));
     }
 
     @Transactional
@@ -40,7 +40,7 @@ public class AnaliseDiariaVinhoService implements AnaliseDiariaVinhoServiceInter
 
     @Transactional
     public DadosDetalhamentoAnaliseDiariaVinho update(DadosAtualizarAnaliseDiariaVinho dados) {
-        AnaliseDiariaVinho analiseDiariavinho = getElement(dados.id());
+        AnaliseDiariaVinho analiseDiariavinho = analiseDiariaVinhoRepository.getReferenceById(dados.id());
 
         analiseDiariavinho.setFkvinho(dados.fkvinho());
         analiseDiariavinho.setFkfuncionario(dados.fkfuncionario());

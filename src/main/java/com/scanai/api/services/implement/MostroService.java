@@ -2,6 +2,7 @@ package com.scanai.api.services.implement;
 
 import com.scanai.api.domain.mostro.Mostro;
 import com.scanai.api.domain.mostro.dto.DadosCadastroMostro;
+import com.scanai.api.domain.mostro.dto.DadosDetalhamentoMostro;
 import com.scanai.api.domain.mostro.dto.DadosListagemMostro;
 import com.scanai.api.repositories.MostroRepository;
 import com.scanai.api.services.MostroServiceInterface;
@@ -16,10 +17,10 @@ public class MostroService implements MostroServiceInterface {
     @Autowired
     MostroRepository mostroRepository;
 
-    public Mostro register(DadosCadastroMostro data) {
+    public DadosDetalhamentoMostro register(DadosCadastroMostro data) {
         var newMostro = new Mostro(data);
         mostroRepository.save(newMostro);
-        return newMostro;
+        return new DadosDetalhamentoMostro(newMostro);
     }
 
     public void softDelete(Long id) {
@@ -32,8 +33,8 @@ public class MostroService implements MostroServiceInterface {
         mostro.setValid(true);
     }
 
-    public Mostro getElement(Long id) {
-        return mostroRepository.getReferenceById(id);
+    public DadosDetalhamentoMostro getElement(Long id) {
+        return new DadosDetalhamentoMostro(mostroRepository.getReferenceById(id));
     }
 
     public List<DadosListagemMostro> getAll() {

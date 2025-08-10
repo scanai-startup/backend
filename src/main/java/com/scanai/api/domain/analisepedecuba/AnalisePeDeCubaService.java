@@ -4,7 +4,6 @@ import com.scanai.api.domain.analisepedecuba.dto.DadosCadastroAnalisePeDeCuba;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Table(name = "tb_analise_diaria_pedecuba")
@@ -14,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Analisepedecuba {
+public class AnalisePeDeCubaService {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +25,7 @@ public class Analisepedecuba {
     private LocalDateTime data;
     private Float temperatura;
 
-    public Analisepedecuba(DadosCadastroAnalisePeDeCuba data){
+    public AnalisePeDeCubaService(DadosCadastroAnalisePeDeCuba data){
         this.fkpedecuba = data.fkpedecuba();
         this.fkfuncionario = data.fkfuncionario();
         this.densidade = data.densidade();

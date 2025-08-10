@@ -1,19 +1,16 @@
 package com.scanai.api.controllers;
 
-import com.scanai.api.domain.analisepedecuba.Analisepedecuba;
+import com.scanai.api.domain.analisepedecuba.AnalisePeDeCubaService;
 import com.scanai.api.domain.analisepedecuba.dto.DadosCadastroAnalisePeDeCuba;
 import com.scanai.api.domain.analisepedecuba.dto.DadosDetalhamentoAnalisePeDeCuba;
 import com.scanai.api.domain.analisepedecuba.dto.DadosListagemAnalisesPeDeCuba;
-import com.scanai.api.repositories.AnalisepedecubaRepository;
+import com.scanai.api.repositories.AnalisePeDeCubaRepository;
 import com.scanai.api.services.AnalisePeDeCubaServiceInterface;
-import com.scanai.api.services.implement.AnalisePeDeCubaService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -22,7 +19,7 @@ import java.util.List;
 public class AnalisePeDeCubaController {
 
     @Autowired
-    private AnalisepedecubaRepository repository;
+    private AnalisePeDeCubaRepository repository;
 
     @Autowired
     private AnalisePeDeCubaServiceInterface service;
@@ -30,9 +27,8 @@ public class AnalisePeDeCubaController {
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     @Transactional
-    public DadosDetalhamentoAnalisePeDeCuba register(@RequestBody @Valid DadosCadastroAnalisePeDeCuba data){
-        Analisepedecuba newAnalisepedecuba = service.register(data);
-        return new DadosDetalhamentoAnalisePeDeCuba(newAnalisepedecuba);
+    public DadosDetalhamentoAnalisePeDeCuba register(@RequestBody @Valid DadosCadastroAnalisePeDeCuba data) {
+        return service.register(data);
     }
 
     @GetMapping("/listByFk/{fk}")

@@ -2,8 +2,10 @@ package com.scanai.api.services.implement;
 
 import com.scanai.api.domain.depositomostro.dto.DadosCadastroDepositoMostro;
 import com.scanai.api.domain.depositomostro.DepositoMostro;
+import com.scanai.api.domain.depositomostro.dto.DadosDetalhamentoDepositoMostro;
 import com.scanai.api.domain.mostro.Mostro;
 import com.scanai.api.domain.mostro.dto.DadosCadastroMostro;
+import com.scanai.api.domain.mostro.dto.DadosDetalhamentoMostro;
 import com.scanai.api.domain.vinculodepositoremessas.dto.DadosCadastroVinculoDepositoRemessas;
 import com.scanai.api.domain.vinculodepositoremessas.dto.DadosDetalhamentoVinculoDepositoRemessas;
 import com.scanai.api.services.DepositoMostroServiceInterface;
@@ -31,18 +33,20 @@ public class VinculoDepositoRemessasService implements VinculoDepositoRemessasSe
 
     //TODO verificar mensagem tambem
     public DadosDetalhamentoVinculoDepositoRemessas vincularDepositoRemessa(DadosCadastroVinculoDepositoRemessas data) {
-        Mostro mostro;
+        DadosDetalhamentoMostro mostro;
         String message;
 
         mostro = mostroService.register(new DadosCadastroMostro(data.funcionarioId(), data.volume(), null, null));
+
         for (Long remessaUvaId : data.remessaUvaIdList()) {
-            uvaService.addFkMostro(remessaUvaId, mostro.getId());
+            uvaService.addFkMostro(remessaUvaId, mostro.id());
             uvaService.softDelete(remessaUvaId);
         }
-        DepositoMostro depositoMostro = depositoMostroService.register(new DadosCadastroDepositoMostro(mostro.getId(), data.depositoId(), LocalDate.now(), data.funcionarioId()));
+
+        depositoMostroService.register(new DadosCadastroDepositoMostro(mostro.id(), data.depositoId(), LocalDate.now(), data.funcionarioId()));
 
         message = "Mostro criado e vinculado às remessas e ao depósito";
 
-        return new DadosDetalhamentoVinculoDepositoRemessas(data.depositoId(), mostro.getId(), mostro.getVolume() ,data.funcionarioId(), data.remessaUvaIdList(), message);
+        return new DadosDetalhamentoVinculoDepositoRemessas(data.depositoId(), mostro.id(), mostro.volume() ,data.funcionarioId(), data.remessaUvaIdList(), message);
     }
 }

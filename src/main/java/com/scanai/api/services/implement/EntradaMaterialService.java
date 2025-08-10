@@ -2,6 +2,7 @@ package com.scanai.api.services.implement;
 
 import com.scanai.api.domain.entradamaterial.EntradaMaterial;
 import com.scanai.api.domain.entradamaterial.dto.DadosCadastroEntradaMaterial;
+import com.scanai.api.domain.entradamaterial.dto.DadosDetalhamentoEntradaMaterial;
 import com.scanai.api.domain.entradamaterial.dto.DadosListagemEntradaMaterial;
 import com.scanai.api.repositories.EntradaMaterialRepository;
 import com.scanai.api.services.EntradaMaterialServiceInterface;
@@ -18,10 +19,10 @@ public class EntradaMaterialService implements EntradaMaterialServiceInterface {
     private EntradaMaterialRepository entradaMaterialRepository;
 
     @Transactional
-    public EntradaMaterial register(DadosCadastroEntradaMaterial data){
+    public DadosDetalhamentoEntradaMaterial register(DadosCadastroEntradaMaterial data){
         EntradaMaterial newEntradaMaterial = new EntradaMaterial(data);
         entradaMaterialRepository.save(newEntradaMaterial);
-        return newEntradaMaterial;
+        return new DadosDetalhamentoEntradaMaterial(newEntradaMaterial);
     }
     public List<DadosListagemEntradaMaterial> getAll(){
         List<EntradaMaterial> entradaMaterialList = entradaMaterialRepository.findAll();

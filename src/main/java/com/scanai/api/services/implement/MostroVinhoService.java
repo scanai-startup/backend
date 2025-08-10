@@ -21,12 +21,13 @@ public class MostroVinhoService implements MostroVinhoServiceInterface {
     MostroVinhoRepository mostroVinhoRepository;
 
     @Transactional
-    public MostroVinho register(DadosCadastroMostroVinho dados){
-        return mostroVinhoRepository.save(new MostroVinho(dados));
+    public DadosDetalhamentoMostroVinho register(DadosCadastroMostroVinho dados){
+        return new DadosDetalhamentoMostroVinho(mostroVinhoRepository.save(new MostroVinho(dados)));
     }
-    public MostroVinho getElement(Long id) {
 
-        return mostroVinhoRepository.getReferenceById(id);
+    public DadosDetalhamentoMostroVinho getElement(Long id) {
+
+        return new DadosDetalhamentoMostroVinho(mostroVinhoRepository.getReferenceById(id));
     }
 
     public List<DadosListagemMostroVinho> getAll() {
@@ -40,7 +41,7 @@ public class MostroVinhoService implements MostroVinhoServiceInterface {
 
     @Transactional
     public DadosDetalhamentoMostroVinho update(DadosAtualizarMostroVinho dados) {
-        MostroVinho mostroVinho = getElement(dados.id());
+        MostroVinho mostroVinho = mostroVinhoRepository.getReferenceById(dados.id());
 
         mostroVinho.setFkmostro(dados.fkmostro());
         mostroVinho.setFkvinho(dados.fkvinho());

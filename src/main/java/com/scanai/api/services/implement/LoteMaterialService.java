@@ -2,7 +2,8 @@ package com.scanai.api.services.implement;
 
 import com.scanai.api.domain.lotematerial.Lotematerial;
 import com.scanai.api.domain.lotematerial.dto.DadosCadastroLoteMaterial;
-import com.scanai.api.repositories.LotematerialRepository;
+import com.scanai.api.domain.lotematerial.dto.DadosDetalhamentoLoteMaterial;
+import com.scanai.api.repositories.LoteMaterialRepository;
 import com.scanai.api.services.LoteMaterialServiceInterface;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,16 +16,16 @@ import java.util.List;
 public class LoteMaterialService implements LoteMaterialServiceInterface {
 
     @Autowired
-    LotematerialRepository loteMaterialRepository;
+    LoteMaterialRepository loteMaterialRepository;
 
     @Transactional
-    public Lotematerial register(DadosCadastroLoteMaterial dados){
+    public DadosDetalhamentoLoteMaterial register(DadosCadastroLoteMaterial dados){
         Lotematerial newLotematerial = new Lotematerial(dados);
         loteMaterialRepository.save(newLotematerial);
-        return newLotematerial;
+        return new DadosDetalhamentoLoteMaterial(newLotematerial);
     }
 
-    public List<Lotematerial> getAll(){
-        return loteMaterialRepository.findAll();
+    public List<DadosDetalhamentoLoteMaterial> getAll(){
+        return loteMaterialRepository.findAll().stream().map(DadosDetalhamentoLoteMaterial::new).toList();
     }
 }

@@ -10,11 +10,11 @@ import java.util.List;
 
 public interface RotuloServiceInterface {
 
-    Rotulo register(DadosCadastroRotulo dados);
+    DadosDetalhamentoRotulo register(DadosCadastroRotulo dados);
 
     List<DadosListagemRotulo> listAll();
 
-    Rotulo getElement(Long id);
+    DadosDetalhamentoRotulo getElement(Long id);
 
     void hardDelete(Long id);
 

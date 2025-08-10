@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface DepositoServiceInterface {
 
-    Deposito register(DadosCadastroDeposito data);
+    DadosDetalhamentoDeposito register(DadosCadastroDeposito data);
 
-    Deposito update(DadosAtualizarDeposito data) throws EntityNotFoundException;
+    DadosDetalhamentoDeposito update(DadosAtualizarDeposito data) throws EntityNotFoundException;
 
     void softDelete(Deposito deposito);
 
@@ -19,7 +19,7 @@ public interface DepositoServiceInterface {
 
     List<Deposito> getAll();
 
-    Deposito getElement(Long id);
+    DadosDetalhamentoDeposito getElement(Long id);
 
     List<DadosInformacoesDepositos> getAllDepositosWithInformations();
 

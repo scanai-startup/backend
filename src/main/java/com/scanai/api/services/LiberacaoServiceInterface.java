@@ -10,11 +10,11 @@ import java.util.List;
 
 public interface LiberacaoServiceInterface {
 
-    Liberacao register(DadosCadastroLiberacao dados);
+    DadosDetalhamentoLiberacao register(DadosCadastroLiberacao dados);
 
     List<DadosListagemLiberacao> getAll();
 
-    Liberacao getElement(Long id);
+    DadosDetalhamentoLiberacao getElement(Long id);
 
     void hardDelete(Long id);
 
