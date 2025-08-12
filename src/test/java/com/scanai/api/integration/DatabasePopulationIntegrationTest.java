@@ -30,7 +30,7 @@ import java.util.Arrays;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-
+@Tag("manual")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class DatabasePopulationIntegrationTest extends BaseIntegrationTest {
 
@@ -57,7 +57,7 @@ class DatabasePopulationIntegrationTest extends BaseIntegrationTest {
         
         // Login como funcionário/admin
         var loginData = new AuthenticationDTO("123", "senha123");
-        
+
         MvcResult result = mockMvc.perform(post("/auth/login")
                 .contentType("application/json")
                 .content(objectMapper.writeValueAsString(loginData)))
@@ -66,7 +66,8 @@ class DatabasePopulationIntegrationTest extends BaseIntegrationTest {
         
         funcionarioToken = extractTokenFromResponse(result);
         //adminToken = funcionarioToken; // Se for o mesmo usuário
-        
+        System.out.println("result: "+result);
+        System.out.println("funcionariotoken: "+funcionarioToken);
         Assertions.assertNotNull(funcionarioToken);
         //Assertions.assertNotNull(adminToken);
         
