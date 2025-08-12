@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class AnalisePeDeCubaService {
+public class Analisepedecuba {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +25,7 @@ public class AnalisePeDeCubaService {
     private LocalDateTime data;
     private Float temperatura;
 
-    public AnalisePeDeCubaService(DadosCadastroAnalisePeDeCuba data){
+    public Analisepedecuba(DadosCadastroAnalisePeDeCuba data){
         this.fkpedecuba = data.fkpedecuba();
         this.fkfuncionario = data.fkfuncionario();
         this.densidade = data.densidade();

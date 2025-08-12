@@ -1,12 +1,12 @@
 package com.scanai.api.domain.analisepedecuba.dto;
 
-import com.scanai.api.domain.analisepedecuba.AnalisePeDeCubaService;
+import com.scanai.api.domain.analisepedecuba.Analisepedecuba;
 
 import java.time.LocalDateTime;
 
 public record DadosListagemAnalisesPeDeCuba(Long fkpedecuba, Long fkfuncionario, Float densidade, LocalDateTime data, Float temperatura) {
 
-    public DadosListagemAnalisesPeDeCuba(AnalisePeDeCubaService analisespedecuba){
+    public DadosListagemAnalisesPeDeCuba(Analisepedecuba analisespedecuba){
         this(
                 analisespedecuba.getFkpedecuba(),
                 analisespedecuba.getFkfuncionario(),

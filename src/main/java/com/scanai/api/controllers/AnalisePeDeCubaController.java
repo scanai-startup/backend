@@ -1,6 +1,5 @@
 package com.scanai.api.controllers;
 
-import com.scanai.api.domain.analisepedecuba.AnalisePeDeCubaService;
 import com.scanai.api.domain.analisepedecuba.dto.DadosCadastroAnalisePeDeCuba;
 import com.scanai.api.domain.analisepedecuba.dto.DadosDetalhamentoAnalisePeDeCuba;
 import com.scanai.api.domain.analisepedecuba.dto.DadosListagemAnalisesPeDeCuba;

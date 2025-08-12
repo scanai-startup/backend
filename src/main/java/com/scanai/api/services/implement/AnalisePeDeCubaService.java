@@ -1,5 +1,6 @@
 package com.scanai.api.services.implement;
 
+import com.scanai.api.domain.analisepedecuba.Analisepedecuba;
 import com.scanai.api.domain.analisepedecuba.dto.DadosCadastroAnalisePeDeCuba;
 import com.scanai.api.domain.analisepedecuba.dto.DadosDetalhamentoAnalisePeDeCuba;
 import com.scanai.api.repositories.AnalisePeDeCubaRepository;
@@ -14,6 +15,6 @@ public class AnalisePeDeCubaService implements AnalisePeDeCubaServiceInterface {
     AnalisePeDeCubaRepository analisePeDeCubaRepository;
 
     public DadosDetalhamentoAnalisePeDeCuba register(DadosCadastroAnalisePeDeCuba data) {
-        return new DadosDetalhamentoAnalisePeDeCuba(analisePeDeCubaRepository.save(new com.scanai.api.domain.analisepedecuba.AnalisePeDeCubaService(data)));
+        return new DadosDetalhamentoAnalisePeDeCuba(analisePeDeCubaRepository.save(new Analisepedecuba(data)));
     }
 }
