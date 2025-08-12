@@ -19,9 +19,6 @@ import org.springframework.http.HttpStatus;
 public class AnalisePreFermentacaoController {
 
     @Autowired
-    private AnalisePreFermentacaoService repository;
-
-    @Autowired
     private AnalisePreFermentacaoServiceInterface service;
 
     @PostMapping("/register")
