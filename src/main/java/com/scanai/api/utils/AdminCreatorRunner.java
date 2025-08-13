@@ -2,7 +2,9 @@ package com.scanai.api.utils;
 
 import com.scanai.api.repositories.FuncionarioRepository;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -10,6 +12,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class AdminCreatorRunner implements CommandLineRunner {
+    @Value("${MATRICULA}")
+    private String matricula;
+
+    @Value("${EMAIL}")
+    private String email;
+
+    @Value("${CPF}")
+    private String cpf;
+
+    @Value("${NOME}")
+    private String nome;
+
+    @Value("${SENHA}")
+    private String senha;
 
     @Autowired
     FuncionarioRepository funcionarioRepository;
@@ -23,26 +39,6 @@ public class AdminCreatorRunner implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) {
-        String matricula = null;
-        String email = null;
-        String cpf = null;
-        String nome = null;
-        String senha = null;
-
-        for (String arg : args) {
-            if (arg.startsWith("--matricula=")) {
-                matricula = arg.split("=", 2)[1];
-            } else if (arg.startsWith("--email=")) {
-                email = arg.split("=", 2)[1];
-            } else if (arg.startsWith("--cpf=")) {
-                cpf = arg.split("=", 2)[1];
-            } else if (arg.startsWith("--nome=")) {
-                nome = arg.split("=", 2)[1];
-            } else if (arg.startsWith("--senha=")) {
-                senha = arg.split("=", 2)[1];
-            }
-        }
-
         if (matricula == null || email == null || cpf == null || nome == null || senha == null) {
             System.err.println("❌ Parâmetros obrigatórios: --matricula= --email= --cpf= --nome= --senha=, ADMIN não criado");
             return;
@@ -53,12 +49,20 @@ public class AdminCreatorRunner implements CommandLineRunner {
 
     @Transactional
     private void createAdmin(String nome, String matricula, String email, String cpf, String senha){
-        String encryptedPassword = new BCryptPasswordEncoder().encode(senha);
+        String checkSQL = "SELECT COUNT(1) " +
+                "FROM tb_funcionario WHERE matricula = :matricula " +
+                "OR email = :email OR cpf = :cpf";
+        Query checkQuery = entityManager.createNativeQuery(checkSQL)
+            .setParameter("matricula", matricula)
+            .setParameter("email", email)
+            .setParameter("cpf", cpf);
 
-        if (funcionarioRepository.findByMatricula(matricula).isPresent()) {
-            System.out.println("❌ Usuário com esta matrícula ou email já existe ");
+        if ((Long) checkQuery.getSingleResult() > 0) {
+            System.out.println("❌ Usuário com esta matrícula ou email ou cpf já existe ");
             return;
         }
+
+        String encryptedPassword = new BCryptPasswordEncoder().encode(senha);
 
         entityManager.createNativeQuery("insert into tb_funcionario(matricula, email, nome, cpf, senha, role) " +
                     "values (:matricula, :email, :nome, :cpf, " +
