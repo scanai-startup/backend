@@ -13,6 +13,4 @@ WORKDIR /app
 
 COPY --from=build /app/target/*.jar /app/app.jar
 
-RUN ls -l /app
-
 ENTRYPOINT ["java", "-jar", "app.jar"]
