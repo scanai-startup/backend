@@ -4,7 +4,8 @@ import com.scanai.api.domain.liberacao.dto.DadosAtualizarLiberacao;
 import com.scanai.api.domain.liberacao.dto.DadosCadastroLiberacao;
 import com.scanai.api.domain.liberacao.dto.DadosDetalhamentoLiberacao;
 import com.scanai.api.domain.liberacao.dto.DadosListagemLiberacao;
-import com.scanai.api.services.LiberacaoService;
+import com.scanai.api.services.LiberacaoServiceInterface;
+import com.scanai.api.services.implement.LiberacaoService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -18,13 +19,12 @@ import java.util.List;
 @RequestMapping("/liberacao")
 
 public class LiberacaoController {
-    LiberacaoService liberacaoService;
+    LiberacaoServiceInterface liberacaoService;
 
     @Transactional
     @PostMapping("/register")
     public DadosDetalhamentoLiberacao register(@RequestBody @Valid DadosCadastroLiberacao dados){
-        var liberacao = liberacaoService.register(dados);
-        return new DadosDetalhamentoLiberacao(liberacao);
+        return liberacaoService.register(dados);
     }
 
     @GetMapping("/getAll")
@@ -34,8 +34,7 @@ public class LiberacaoController {
 
     @GetMapping("/getElement/{id}")
     public DadosDetalhamentoLiberacao getElement(@PathVariable Long id){
-        var liberacao = liberacaoService.getElement(id);
-        return new DadosDetalhamentoLiberacao(liberacao);
+        return liberacaoService.getElement(id);
     }
 
     @PutMapping("/update")

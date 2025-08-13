@@ -4,7 +4,7 @@ import com.scanai.api.domain.analisediariavinho.dto.DadosAtualizarAnaliseDiariaV
 import com.scanai.api.domain.analisediariavinho.dto.DadosCadastroAnaliseDiariaVinho;
 import com.scanai.api.domain.analisediariavinho.dto.DadosDetalhamentoAnaliseDiariaVinho;
 import com.scanai.api.domain.analisediariavinho.dto.DadosListagemAnaliseDiariaVinho;
-import com.scanai.api.services.AnaliseDiariaVinhoService;
+import com.scanai.api.services.AnaliseDiariaVinhoServiceInterface;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +20,12 @@ import java.util.List;
 
 public class AnaliseDiariaVinhoController {
     @Autowired
-    AnaliseDiariaVinhoService analiseDiariaVinhoService;
+    AnaliseDiariaVinhoServiceInterface analiseDiariaVinhoService;
 
     @Transactional
     @PostMapping("/register")
     public DadosDetalhamentoAnaliseDiariaVinho register(@RequestBody @Valid DadosCadastroAnaliseDiariaVinho dados){
-        var analiseDiariaVinho = analiseDiariaVinhoService.register(dados);
-        return new DadosDetalhamentoAnaliseDiariaVinho(analiseDiariaVinho);
+        return analiseDiariaVinhoService.register(dados);
     }
 
     @GetMapping("/getAll")
@@ -36,8 +35,7 @@ public class AnaliseDiariaVinhoController {
 
     @GetMapping("/getElement/{id}")
     public DadosDetalhamentoAnaliseDiariaVinho getElement(@PathVariable Long id){
-        var analiseDiariaVinho = analiseDiariaVinhoService.getElement(id);
-        return new DadosDetalhamentoAnaliseDiariaVinho(analiseDiariaVinho);
+        return analiseDiariaVinhoService.getElement(id);
     }
 
     @PutMapping("/update")

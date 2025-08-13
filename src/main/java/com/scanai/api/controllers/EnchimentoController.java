@@ -4,7 +4,7 @@ import com.scanai.api.domain.enchimento.dto.DadosAtualizarEnchimento;
 import com.scanai.api.domain.enchimento.dto.DadosCadastroEnchimento;
 import com.scanai.api.domain.enchimento.dto.DadosDetalhamentoEnchimento;
 import com.scanai.api.domain.enchimento.dto.DadosListagemEnchimento;
-import com.scanai.api.services.EnchimentoService;
+import com.scanai.api.services.implement.EnchimentoService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +25,7 @@ public class EnchimentoController {
     @Transactional
     @PostMapping("/register")
     public DadosDetalhamentoEnchimento register(@RequestBody @Valid DadosCadastroEnchimento dados) {
-        var enchimento = enchimentoService.register(dados);
-        return new DadosDetalhamentoEnchimento(enchimento);
+        return enchimentoService.register(dados);
     }
 
     @GetMapping("/getAll")
@@ -36,8 +35,7 @@ public class EnchimentoController {
 
     @GetMapping("/getElement/{id}")
     public DadosDetalhamentoEnchimento getElement(@PathVariable Long id) {
-        var enchimento = enchimentoService.getElement(id);
-        return new DadosDetalhamentoEnchimento(enchimento);
+        return enchimentoService.getElement(id);
     }
 
     @PutMapping("/update")

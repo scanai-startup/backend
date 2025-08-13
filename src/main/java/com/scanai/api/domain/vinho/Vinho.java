@@ -41,14 +41,6 @@ public class Vinho {
         this.fkpedecuba = dados.fkpedecuba();
     }
 
-    public void atualizar(DadosAtualizarVinho dados){
-        this.volume = dados.volume();
-        this.fkrotulo = dados.fkpedecuba();
-        this.datafimfermentacao = dados.datafimfermentacao();
-        this.fkmostro = dados.fkmostro();
-        this.fkpedecuba = dados.fkpedecuba();
-    }
-
     public void softDelete() {
         this.valid = false;
     }

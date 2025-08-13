@@ -4,9 +4,9 @@ import com.scanai.api.domain.material.Material;
 import com.scanai.api.domain.material.dto.DadosCadastroMaterial;
 import com.scanai.api.domain.material.dto.DadosDetalhamentoMaterial;
 import com.scanai.api.domain.material.dto.DadosListagemMaterial;
-import com.scanai.api.domain.mostro.dto.DadosListagemMostro;
 import com.scanai.api.repositories.MaterialRepository;
-import com.scanai.api.services.MaterialService;
+import com.scanai.api.services.MaterialServiceInterface;
+import com.scanai.api.services.implement.MaterialService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,17 +18,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/material")
 public class MaterialController {
-
     @Autowired
-    private MaterialRepository repository;
-
-    @Autowired
-    private MaterialService service;
+    private MaterialServiceInterface service;
 
     @PostMapping("/register")
     public DadosDetalhamentoMaterial register(@RequestBody @Valid DadosCadastroMaterial data){
-        Material newMaterial = service.register(data);
-        return new DadosDetalhamentoMaterial(newMaterial);
+        return service.register(data);
     }
 
     @GetMapping("/getAll")

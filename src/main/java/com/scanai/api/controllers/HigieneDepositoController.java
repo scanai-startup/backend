@@ -4,15 +4,13 @@ import com.scanai.api.domain.higienedeposito.Higienedeposito;
 import com.scanai.api.domain.higienedeposito.dto.DadosCadastroHigieneDeposito;
 import com.scanai.api.domain.higienedeposito.dto.DadosDetalhamentoHigieneDeposito;
 import com.scanai.api.domain.higienedeposito.dto.DadosListagemHigieneDeposito;
-import com.scanai.api.repositories.HigienedepositoRepository;
-import com.scanai.api.services.HigienedepositoService;
+import com.scanai.api.repositories.HigieneDepositoRepository;
+import com.scanai.api.services.HigieneDepositoServiceInterface;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -21,16 +19,15 @@ import java.util.List;
 public class HigieneDepositoController {
 
     @Autowired
-    private HigienedepositoService service;
+    private HigieneDepositoServiceInterface service;
 
     @Autowired
-    private HigienedepositoRepository repository;
+    private HigieneDepositoRepository repository;
 
     @PostMapping("/register")
     @Transactional
     public DadosDetalhamentoHigieneDeposito register(@RequestBody @Valid DadosCadastroHigieneDeposito data){
-        Higienedeposito newHigienedeposito = service.register(data);
-        return new DadosDetalhamentoHigieneDeposito(newHigienedeposito);
+        return service.register(data);
     }
 
     @GetMapping("/listByFk/{fk}")

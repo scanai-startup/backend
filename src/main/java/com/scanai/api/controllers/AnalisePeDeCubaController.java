@@ -4,13 +4,11 @@ import com.scanai.api.domain.analisepedecuba.Analisepedecuba;
 import com.scanai.api.domain.analisepedecuba.dto.DadosCadastroAnalisePeDeCuba;
 import com.scanai.api.domain.analisepedecuba.dto.DadosDetalhamentoAnalisePeDeCuba;
 import com.scanai.api.domain.analisepedecuba.dto.DadosListagemAnalisesPeDeCuba;
-import com.scanai.api.repositories.AnalisepedecubaRepository;
-import com.scanai.api.services.AnalisepedecubaService;
+import com.scanai.api.repositories.AnalisePeDeCubaRepository;
+import com.scanai.api.services.AnalisePeDeCubaServiceInterface;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -19,15 +17,14 @@ import java.util.List;
 public class AnalisePeDeCubaController {
 
     @Autowired
-    private AnalisepedecubaRepository repository;
+    private AnalisePeDeCubaRepository repository;
 
     @Autowired
-    private AnalisepedecubaService service;
+    private AnalisePeDeCubaServiceInterface service;
 
     @PostMapping("/register")
     public DadosDetalhamentoAnalisePeDeCuba register(@RequestBody @Valid DadosCadastroAnalisePeDeCuba data){
-        Analisepedecuba newAnalisepedecuba = service.register(data);
-        return new DadosDetalhamentoAnalisePeDeCuba(newAnalisepedecuba);
+        return service.register(data);
     }
 
     @GetMapping("/listByFk/{fk}")

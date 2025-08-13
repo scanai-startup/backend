@@ -2,9 +2,9 @@ package com.scanai.api.controllers;
 
 import com.scanai.api.domain.vinculodepositoremessas.dto.DadosDetalhamentoVinculoDepositoRemessas;
 import com.scanai.api.domain.vinculodepositoremessas.dto.DadosCadastroVinculoDepositoRemessas;
-import com.scanai.api.services.VinculoDepositoRemessasService;
+import com.scanai.api.services.VinculoDepositoRemessasServiceInterface;
+import com.scanai.api.services.implement.VinculoDepositoRemessasService;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class VinculoDepositoRemessasController {
 
     @Autowired
-    private VinculoDepositoRemessasService service;
+    private VinculoDepositoRemessasServiceInterface service;
 
     @Transactional
     @PostMapping("/register")

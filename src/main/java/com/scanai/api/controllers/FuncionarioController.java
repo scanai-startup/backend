@@ -2,7 +2,8 @@ package com.scanai.api.controllers;
 
 import com.scanai.api.domain.funcionario.dto.ResetPasswordDTO;
 import com.scanai.api.repositories.FuncionarioRepository;
-import com.scanai.api.services.FuncionarioService;
+import com.scanai.api.services.FuncionarioServiceInterface;
+import com.scanai.api.services.implement.FuncionarioService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class FuncionarioController {
 
     @Autowired
-    private FuncionarioService service;
+    private FuncionarioServiceInterface service;
 
     @Autowired
     private FuncionarioRepository repository;

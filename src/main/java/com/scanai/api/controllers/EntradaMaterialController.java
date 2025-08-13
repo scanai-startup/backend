@@ -4,7 +4,8 @@ import com.scanai.api.domain.entradamaterial.EntradaMaterial;
 import com.scanai.api.domain.entradamaterial.dto.DadosCadastroEntradaMaterial;
 import com.scanai.api.domain.entradamaterial.dto.DadosDetalhamentoEntradaMaterial;
 import com.scanai.api.domain.entradamaterial.dto.DadosListagemEntradaMaterial;
-import com.scanai.api.services.EntradaMaterialService;
+import com.scanai.api.services.EntradaMaterialServiceInterface;
+import com.scanai.api.services.implement.EntradaMaterialService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,12 @@ import java.util.List;
 public class EntradaMaterialController {
 
     @Autowired
-    private EntradaMaterialService service;
+    private EntradaMaterialServiceInterface service;
 
     @PostMapping("/register")
     @Transactional
     public DadosDetalhamentoEntradaMaterial register(@RequestBody @Valid DadosCadastroEntradaMaterial data){
-        EntradaMaterial newEntradaMaterial = service.register(data);
-        return new DadosDetalhamentoEntradaMaterial(newEntradaMaterial);
+        return service.register(data);
     }
 
     @GetMapping("/getAll")

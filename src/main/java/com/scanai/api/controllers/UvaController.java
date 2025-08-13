@@ -1,10 +1,12 @@
 package com.scanai.api.controllers;
 
+import com.scanai.api.domain.uva.Uva;
 import com.scanai.api.domain.uva.dto.DadosAtualizarUva;
 import com.scanai.api.domain.uva.dto.DadosCadastroUva;
 import com.scanai.api.domain.uva.dto.DadosDetalhamentoUva;
 import com.scanai.api.domain.uva.dto.DadosListagemUva;
-import com.scanai.api.services.UvaService;
+import com.scanai.api.services.UvaServiceInterface;
+import com.scanai.api.services.implement.UvaService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +22,12 @@ import java.util.List;
 public class UvaController {
 
     @Autowired
-    private UvaService uvaService;
+    private UvaServiceInterface uvaService;
 
     @PostMapping("/register")
     @Transactional
     public DadosDetalhamentoUva register(@RequestBody @Valid DadosCadastroUva dados){
-        var uva = uvaService.register(dados);
-        return new DadosDetalhamentoUva(uva);
+        return uvaService.register(dados);
     }
 
     @GetMapping("/getAllByValidTrue")
@@ -41,8 +42,7 @@ public class UvaController {
 
     @GetMapping("getElement/{id}")
     public DadosDetalhamentoUva getElement(@PathVariable Long id){
-        var uva = uvaService.getElement(id);
-        return new DadosDetalhamentoUva(uva);
+        return uvaService.getElement(id);
     }
 
     @PutMapping("/update")

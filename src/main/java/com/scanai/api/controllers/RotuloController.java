@@ -4,7 +4,8 @@ import com.scanai.api.domain.rotulo.DTO.DadosCadastroRotulo;
 import com.scanai.api.domain.rotulo.DTO.DadosDetalhamentoRotulo;
 import com.scanai.api.domain.rotulo.DTO.DadosAtualizarRotulo;
 import com.scanai.api.domain.rotulo.DTO.DadosListagemRotulo;
-import com.scanai.api.services.RotuloService;
+import com.scanai.api.services.RotuloServiceInterface;
+import com.scanai.api.services.implement.RotuloService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +21,12 @@ import java.util.List;
 
 public class RotuloController {
     @Autowired
-    private RotuloService rotuloService;
+    private RotuloServiceInterface rotuloService;
 
     @Transactional
     @PostMapping("/register")
     public DadosDetalhamentoRotulo register(@RequestBody @Valid DadosCadastroRotulo dados){
-        var rotulo = rotuloService.register(dados);
-        return new DadosDetalhamentoRotulo(rotulo);
+        return rotuloService.register(dados);
     }
 
     @GetMapping("/getAll")
@@ -36,8 +36,7 @@ public class RotuloController {
 
     @GetMapping("/getElement/{id}")
     public DadosDetalhamentoRotulo getElement(@PathVariable Long id){
-        var rotulo = rotuloService.getElement(id);
-        return new DadosDetalhamentoRotulo(rotulo);
+        return rotuloService.getElement(id);
     }
 
     @PutMapping("/update")

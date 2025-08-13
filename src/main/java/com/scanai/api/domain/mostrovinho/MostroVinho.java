@@ -23,8 +23,4 @@ public class MostroVinho {
         this.fkmostro = dados.fkmostro();
         this.fkvinho = dados.fkvinho();
     }
-    public void atualizar(DadosAtualizarMostroVinho dados){
-        this.fkmostro = dados.fkmostro();
-        this.fkvinho = dados.fkvinho();
-    }
 }

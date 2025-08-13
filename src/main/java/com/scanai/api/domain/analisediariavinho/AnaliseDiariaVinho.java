@@ -34,13 +34,4 @@ public class AnaliseDiariaVinho {
         this.temperatura = dados.temperatura();
         this.pressao = dados.pressao();
     }
-    public void atualizar(DadosAtualizarAnaliseDiariaVinho dados){
-        this.fkvinho = dados.fkvinho();
-        this.fkfuncionario = dados.fkfuncionario();
-        this.densidade = dados.densidade();
-        this.data = LocalDateTime.now();
-        this.temperatura = dados.temperatura();
-        this.pressao = dados.pressao();
-    }
-
 }
