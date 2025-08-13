@@ -2,8 +2,17 @@ FROM maven:3.9.9 AS build
 
 WORKDIR /app
 
-COPY . .
+COPY pom.xml .
+COPY src ./src
 
-CMD ["mvn", "spring-boot:run", "-Dspring-boot.run.profiles=dev", \
-     "-Dspring.devtools.restart.enabled=true", \
-     "-Dspring.devtools.livereload.enabled=true"]
+RUN mvn clean package -DskipTests
+
+FROM eclipse-temurin:21-jdk-alpine
+
+WORKDIR /app
+
+COPY --from=build /app/target/*.jar /app/app.jar
+
+RUN ls -l /app
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
