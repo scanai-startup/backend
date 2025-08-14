@@ -1,4 +1,16 @@
-FROM openjdk:21-jdk
-VOLUME /tmp
-COPY target/*.jar app.jar
-ENTRYPOINT ["java", "-jar", "/app.jar", "--matricula=123", "--email=teste@empresa.com", "--cpf=11111111111", "--nome=Admin", "--senha=abc123"]
+FROM maven:3.9.9 AS build
+
+WORKDIR /app
+
+COPY pom.xml .
+COPY src ./src
+
+RUN mvn clean package -DskipTests
+
+FROM eclipse-temurin:21-jdk-alpine
+
+WORKDIR /app
+
+COPY --from=build /app/target/*.jar /app/app.jar
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
