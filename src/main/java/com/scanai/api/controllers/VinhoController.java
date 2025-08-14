@@ -25,6 +25,7 @@ public class VinhoController {
 
     @Transactional
     @PostMapping("/register")
+    @ResponseStatus(HttpStatus.CREATED)
     public DadosDetalhamentoVinho register(@RequestBody @Valid DadosCadastroVinho dados){
         var vinho = vinhoService.register(dados);
         return new DadosDetalhamentoVinho(vinho);

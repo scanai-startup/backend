@@ -20,7 +20,9 @@ public class ProdutoAdicionadoVinhoController {
     @Autowired
     ProdutoAdicionadoVinhoServiceInterface service;
 
+    @Transactional
     @PostMapping("/register")
+    @ResponseStatus(HttpStatus.CREATED)
     public DadosDetalhamentoProdutoAdicionadoVinho register(@RequestBody @Valid DadosCadastroProdutoAdicionadoVinho data){
         return service.register(data);
     }

@@ -22,6 +22,7 @@ public class LoteMaterialController {
     @Autowired
     private LoteMaterialServiceInterface service;
 
+    @ResponseStatus(org.springframework.http.HttpStatus.CREATED)
     @PostMapping("/register")
     public DadosDetalhamentoLoteMaterial register(@RequestBody @Valid DadosCadastroLoteMaterial data){
         return service.register(data);

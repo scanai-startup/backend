@@ -22,7 +22,6 @@ public class FuncionarioController {
     private FuncionarioRepository repository;
 
     @PutMapping("/updatePassword")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
     public void update(@RequestBody @Valid ResetPasswordDTO data){
         service.resetPassword(data);

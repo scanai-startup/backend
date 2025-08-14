@@ -4,7 +4,6 @@ import com.scanai.api.domain.analisepedecuba.dto.DadosCadastroAnalisePeDeCuba;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Table(name = "tb_analise_diaria_pedecuba")

@@ -1,13 +1,14 @@
 package com.scanai.api.controllers;
 
-import com.scanai.api.domain.analisepedecuba.Analisepedecuba;
 import com.scanai.api.domain.analisepedecuba.dto.DadosCadastroAnalisePeDeCuba;
 import com.scanai.api.domain.analisepedecuba.dto.DadosDetalhamentoAnalisePeDeCuba;
 import com.scanai.api.domain.analisepedecuba.dto.DadosListagemAnalisesPeDeCuba;
 import com.scanai.api.repositories.AnalisePeDeCubaRepository;
 import com.scanai.api.services.AnalisePeDeCubaServiceInterface;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +24,9 @@ public class AnalisePeDeCubaController {
     private AnalisePeDeCubaServiceInterface service;
 
     @PostMapping("/register")
-    public DadosDetalhamentoAnalisePeDeCuba register(@RequestBody @Valid DadosCadastroAnalisePeDeCuba data){
+    @ResponseStatus(HttpStatus.CREATED)
+    @Transactional
+    public DadosDetalhamentoAnalisePeDeCuba register(@RequestBody @Valid DadosCadastroAnalisePeDeCuba data) {
         return service.register(data);
     }
 

@@ -25,6 +25,7 @@ public class HigieneDepositoController {
     private HigieneDepositoRepository repository;
 
     @PostMapping("/register")
+    @ResponseStatus(HttpStatus.CREATED)
     @Transactional
     public DadosDetalhamentoHigieneDeposito register(@RequestBody @Valid DadosCadastroHigieneDeposito data){
         return service.register(data);

@@ -24,7 +24,9 @@ public class UvaController {
     @Autowired
     private UvaServiceInterface uvaService;
 
+
     @PostMapping("/register")
+    @ResponseStatus(HttpStatus.CREATED)
     @Transactional
     public DadosDetalhamentoUva register(@RequestBody @Valid DadosCadastroUva dados){
         return uvaService.register(dados);

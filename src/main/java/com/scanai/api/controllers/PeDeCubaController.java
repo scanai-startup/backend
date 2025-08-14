@@ -20,6 +20,8 @@ public class PeDeCubaController {
     private PeDeCubaServiceInterface service;
 
     @PostMapping("/register")
+    @ResponseStatus(HttpStatus.CREATED)
+    @Transactional
     public DadosDetalhamentoPeDeCuba register(@RequestBody @Valid DadosCadastroPeDeCuba data){
         return service.register(data);
     }

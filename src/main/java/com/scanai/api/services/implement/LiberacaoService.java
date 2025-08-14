@@ -41,11 +41,11 @@ public class LiberacaoService implements LiberacaoServiceInterface {
     public DadosDetalhamentoLiberacao update(DadosAtualizarLiberacao dados) {
         Liberacao liberacao = liberacaoRepository.getReferenceById(dados.id());
 
-        liberacao.setDataFim(dados.datafim());
+        liberacao.setDatafim(dados.datafim());
         liberacao.setFkfuncionario(dados.fkfuncionario());
         liberacao.setGfs(dados.gfs());
         liberacao.setFkrotulagem(dados.fkrotulagem());
-        liberacao.setDataInicio(dados.datainicio());
+        liberacao.setDatainicio(dados.datainicio());
 
         return new DadosDetalhamentoLiberacao(liberacao);
     }

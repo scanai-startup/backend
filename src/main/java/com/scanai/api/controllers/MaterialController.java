@@ -7,8 +7,10 @@ import com.scanai.api.domain.material.dto.DadosListagemMaterial;
 import com.scanai.api.repositories.MaterialRepository;
 import com.scanai.api.services.MaterialServiceInterface;
 import com.scanai.api.services.implement.MaterialService;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -22,6 +24,8 @@ public class MaterialController {
     private MaterialServiceInterface service;
 
     @PostMapping("/register")
+    @ResponseStatus(HttpStatus.CREATED)
+    @Transactional
     public DadosDetalhamentoMaterial register(@RequestBody @Valid DadosCadastroMaterial data){
         return service.register(data);
     }
