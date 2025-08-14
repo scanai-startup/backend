@@ -28,6 +28,11 @@ services:
       - DB_USERNAME=root
       - DB_PASSWORD=root
       - SECRET=250c089a-5651-4e1c-82cd-7fe00a6190ee
+      - MATRICULA=${MATRICULA:-123}
+      - EMAIL=${EMAIL:-teste@empresa.com}
+      - CPF=${CPF:-11111111111}
+      - NOME=${NOME:-Admin}
+      - SENHA=${SENHA:-senha123}
     depends_on:
       mysql:
         condition: service_healthy
