@@ -26,4 +26,6 @@ public interface DepositoServiceInterface {
     DadosInformacoesDepositos getDepositoWithIdWithInformations(Long id);
 
     DadosDetalhamentoTrasfegaDeposito realizarTrasfega(DadosTrasfegaDeposito data) throws BadRequestException;
+
+    DadosResumoDepositos resumoDepositos();
 }

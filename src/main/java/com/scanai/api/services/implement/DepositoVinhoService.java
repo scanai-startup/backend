@@ -29,7 +29,7 @@ public class DepositoVinhoService implements DepositoVinhoServiceInterface {
     VinhoRepository vinhoRepository;
 
     public Depositovinho register(DadosCadastroDepositoVinho data) {
-        if(depositoRepository.existsVinhoAtivo(data.fkdeposito()).isPresent() || depositoRepository.existsPeDeCubaAtivo(data.fkdeposito()).isPresent() || depositoRepository.existsMostroAtivo(data.fkdeposito()) != null){
+        if(depositoRepository.existsVinhoAtivo(data.fkdeposito()).isPresent() || depositoRepository.existsPeDeCubaAtivo(data.fkdeposito()).isPresent() || depositoRepository.existsMostroAtivo(data.fkdeposito()).isPresent()){
             throw new DataIntegrityViolationException("Impossível inserir, o deposito já contém outro produto ativo");
         }
         var newDepositovinho = new Depositovinho(data);
@@ -39,7 +39,7 @@ public class DepositoVinhoService implements DepositoVinhoServiceInterface {
 
     //TODO refatorar este método
     public Depositovinho trasfegaVinho(DadosTrasfegaDepositoVinho data) {
-        if(depositoRepository.existsVinhoAtivo(data.fkdeposito()).isPresent() || depositoRepository.existsPeDeCubaAtivo(data.fkdeposito()).isPresent() || depositoRepository.existsMostroAtivo(data.fkdeposito()) != null){
+        if(depositoRepository.existsVinhoAtivo(data.fkdeposito()).isPresent() || depositoRepository.existsPeDeCubaAtivo(data.fkdeposito()).isPresent() || depositoRepository.existsMostroAtivo(data.fkdeposito()).isPresent()){
             throw new DataIntegrityViolationException("Impossível inserir, o deposito já contém outro produto ativo");
         }
 
