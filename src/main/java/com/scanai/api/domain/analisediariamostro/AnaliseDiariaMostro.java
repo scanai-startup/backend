@@ -33,6 +33,10 @@ public class AnaliseDiariaMostro {
         this.fkfuncionario = dados.fkfuncionario();
         this.densidade = dados.densidade();
         this.temperatura = dados.temperatura();
-        this.data = LocalDateTime.now();
+        if(dados.data() != null) {
+            this.data = dados.data();
+        } else {
+            this.data = LocalDateTime.now();
+        }
     }
 }

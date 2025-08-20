@@ -29,8 +29,12 @@ public class Analisepedecuba {
         this.fkpedecuba = data.fkpedecuba();
         this.fkfuncionario = data.fkfuncionario();
         this.densidade = data.densidade();
-        this.data = LocalDateTime.now();
         this.temperatura = data.temperatura();
+        if (data.data() != null) {
+            this.data = data.data();
+        } else {
+            this.data = LocalDateTime.now();
+        }
     }
 
 }

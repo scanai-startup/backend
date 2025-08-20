@@ -30,8 +30,12 @@ public class AnaliseDiariaVinho {
         this.fkvinho = dados.fkvinho();
         this.fkfuncionario = dados.fkfuncionario();
         this.densidade = dados.densidade();
-        this.data = LocalDateTime.now();
         this.temperatura = dados.temperatura();
         this.pressao = dados.pressao();
+        if(dados.data() != null) {
+            this.data = dados.data();
+        } else {
+            this.data = LocalDateTime.now();
+        }
     }
 }

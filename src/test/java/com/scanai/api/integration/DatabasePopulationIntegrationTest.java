@@ -23,6 +23,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.test.web.servlet.MvcResult;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Arrays;
@@ -219,7 +220,8 @@ class DatabasePopulationIntegrationTest extends BaseIntegrationTest {
                 mostrosParaAnalise[i],    // fkmostro
                 funcionarios[i],          // fkfuncionario
                 1.055f,                   // densidade
-                18.5f                     // temperatura
+                18.5f,                     // temperatura
+                LocalDateTime.now()
             );
             
             MvcResult result = performPost("/analiseDiariaMostro/register", analise, funcionarioToken);
@@ -287,7 +289,8 @@ class DatabasePopulationIntegrationTest extends BaseIntegrationTest {
                 mostroIds[1],    // fkmostro 1
                 2L,              // fkfuncionario 2
                 1.050f,          // densidade
-                19.0f            // temperatura
+                19.0f,            // temperatura
+                LocalDateTime.now()
         );
 
         MvcResult result = performPost("/analiseDiariaMostro/register", analise, funcionarioToken);
@@ -372,7 +375,8 @@ class DatabasePopulationIntegrationTest extends BaseIntegrationTest {
                 1L,             // fkfuncionario 1
                 0.995f,         // densidade
                 16.0f,           // temperatura
-                1.7f           // pressao
+                1.7f,           // pressao
+                LocalDateTime.now()
         );
 
         MvcResult result1 = performPost("/analisediariavinho/register", analise1, funcionarioToken);
@@ -382,7 +386,8 @@ class DatabasePopulationIntegrationTest extends BaseIntegrationTest {
                 2L,             // fkfuncionario 2
                 0.992f,         // densidade
                 17.0f,           // temperatura
-                1.3f           // pressao
+                1.3f,           // pressao
+                LocalDateTime.now()
 
         );
 
