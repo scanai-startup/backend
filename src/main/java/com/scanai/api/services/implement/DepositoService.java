@@ -19,6 +19,7 @@ import com.scanai.api.services.DepositoVinhoServiceInterface;
 import jakarta.persistence.EntityNotFoundException;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 
@@ -115,5 +116,29 @@ public class DepositoService implements DepositoServiceInterface {
             }
             case null, default -> throw new BadRequest("Tipo de trasfega invalida");
         }
+    }
+
+    public DadosResumoDepositos resumoDepositos(){
+        int emUso = 0;
+        int emManutencao = 0;
+        int livre = 0;
+
+        List<Deposito> depositos = depositoRepository.findAll();
+
+        for (Deposito deposito : depositos) {
+            if (depositoEmUso(deposito.getId())) {
+                emUso++;
+            } else if (!deposito.isValid()) {
+                emManutencao++;
+            }
+        }
+
+        livre = depositos.size() - (emUso + emManutencao);
+
+        return new DadosResumoDepositos(emUso, emManutencao, livre);
+    }
+
+    private Boolean depositoEmUso(Long idDeposito){
+        return depositoRepository.existsVinhoAtivo(idDeposito).isPresent() || depositoRepository.existsPeDeCubaAtivo(idDeposito).isPresent() || depositoRepository.existsMostroAtivo(idDeposito).isPresent();
     }
 }
