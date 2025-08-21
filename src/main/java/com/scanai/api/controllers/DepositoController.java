@@ -78,4 +78,9 @@ public class DepositoController {
         return depositoService.realizarTrasfega(data);
     }
 
+    @GetMapping("resumoDepositos")
+    public DadosResumoDepositos getResumoDepositos() {
+        return depositoService.resumoDepositos();
+    }
+
 }
