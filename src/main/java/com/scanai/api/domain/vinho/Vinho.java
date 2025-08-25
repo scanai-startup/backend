@@ -36,7 +36,7 @@ public class Vinho {
     public Vinho(DadosCadastroVinho dados) {
         this.valid = true;
         this.volume = dados.volume();
-        this.fkrotulo = dados.fkpedecuba();
+        this.fkrotulo = dados.fkrotulo();
         this.fkmostro = dados.fkmostro();
         this.fkpedecuba = dados.fkpedecuba();
     }
