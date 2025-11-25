@@ -1,0 +1,64 @@
+services:
+  mysql:
+    container_name: mysql
+    image: mysql:8
+    restart: unless-stopped
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: P5)y5O/e262
+      MYSQL_DATABASE: scanAiDev
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: build
+    volumes:
+      - .:/app
+    environment:
+      - DB_URL_DEV=jdbc:mysql://mysql:3306/scanAiDev
+      - DB_USERNAME=root
+      - DB_PASSWORD=P5)y5O/e262
+      - SECRET=250c089a-5651-4e1c-82cd-7fe00a6190ee
+      - MATRICULA=${MATRICULA:-123}
+      - EMAIL=${EMAIL:-teste@empresa.com}
+      - CPF=${CPF:-11111111111}
+      - NOME=${NOME:-Admin}
+      - SENHA=${SENHA:-senha123}
+    depends_on:
+      mysql:
+        condition: service_healthy
+    command: mvn test
+
+  app:
+    container_name: springboot_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    expose:
+      - 8080
+    ports:
+      - "8080:8080"
+    environment:
+      - PROFILE=dev
+      - DB_URL_DEV=jdbc:mysql://mysql:3306/scanAiDev
+      - DB_USERNAME=root
+      - DB_PASSWORD=P5)y5O/e262
+      - SECRET=250c089a-5651-4e1c-82cd-7fe00a6190ee
+      - MATRICULA=${MATRICULA:-123}
+      - EMAIL=${EMAIL:-teste@empresa.com}
+      - CPF=${CPF:-11111111111}
+      - NOME=${NOME:-Admin}
+      - SENHA=${SENHA:-senha123}
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+volumes:
+  mysql_data:
