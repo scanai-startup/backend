@@ -26,7 +26,7 @@ import org.springframework.context.annotation.Configuration;
                 ),
                 @Server(
                         description = "Production ENV",
-                        url = "http://3.22.183.175:8080"
+                        url = "http://45.8.133.86:8080"
                 )
         },
         security = {
