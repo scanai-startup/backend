@@ -13,7 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/vinho")
@@ -68,4 +70,11 @@ public class VinhoController {
     public void activate(@PathVariable Long id){
         vinhoService.activate(id);
     }
+
+    @GetMapping("/getVinhoBetween/{begin}/{end}")
+    public List<Map<String, Object>> getVinhoBetween(@PathVariable LocalDate begin,
+                                                     @PathVariable LocalDate end) {
+        return vinhoService.getVinhoProductionPeriodGrouped(begin, end);
+    }
+
 }

@@ -11,7 +11,10 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class VinhoService implements VinhoServiceInterface {
@@ -62,4 +65,10 @@ public class VinhoService implements VinhoServiceInterface {
 
         return new DadosDetalhamentoVinho(vinho);
     }
+
+    public List<Map<String, Object>> getVinhoProductionPeriodGrouped(LocalDate begin, LocalDate end) {
+        List<Map<String, Object>> resultados = vinhoRepository.getTotalVolumeByPeriodoGrouped(begin, end);
+        return resultados != null ? resultados : List.of();
+    }
+
 }

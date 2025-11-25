@@ -16,7 +16,6 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-
 public class Vinho {
 
     @Id
@@ -36,7 +35,7 @@ public class Vinho {
     public Vinho(DadosCadastroVinho dados) {
         this.valid = true;
         this.volume = dados.volume();
-        this.fkrotulo = dados.fkpedecuba();
+        this.fkrotulo = dados.fkrotulo();
         this.fkmostro = dados.fkmostro();
         this.fkpedecuba = dados.fkpedecuba();
     }

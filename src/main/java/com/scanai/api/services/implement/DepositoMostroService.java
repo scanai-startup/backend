@@ -45,7 +45,7 @@ public class DepositoMostroService implements DepositoMostroServiceInterface {
         Optional<DepositoMostro> depositoMostroExistenteOpt = depositoRepository.existsMostroAtivo(data.fkdeposito());
 
         //TODO na refatoŗaçao ver sobre esse cara ser null
-        DepositoMostro depositoMostroExistente = depositoMostroExistenteOpt.get();
+        DepositoMostro depositoMostroExistente = depositoMostroExistenteOpt.orElse(null);
 
         //TODO ajeitar para utilizar apenas service
         Mostro mostroOrigem = mostroRepository.getReferenceById(data.fkmostro());
@@ -58,8 +58,9 @@ public class DepositoMostroService implements DepositoMostroServiceInterface {
             Mostro mostroDestino = mostroRepository.getReferenceById(depositoMostroExistente.getFkmostro());
 
             if(data.volumetrasfega() == mostroOrigem.getVolume()){//case volume total
-                Optional<DepositoMostro> depositoOrigem = depositoMostroRepository.findByFkmostroAndDatafimIsNull(data.fkmostro());
-                depositoOrigem.get().setDatafim(LocalDate.now());
+                DepositoMostro depositoOrigem = depositoMostroRepository.findByFkmostroAndDatafimIsNull(data.fkmostro())
+                        .orElseThrow(() -> new EntityNotFoundException("Não existe depósito ativo para o mostro ID: " + data.fkmostro()));
+                depositoOrigem.setDatafim(LocalDate.now());
 
                 DepositoMostro depositoMisturaMostro = this.mixMostros(data.fkdeposito(), data.fkfuncionario(), mostroOrigem, mostroDestino,
                         depositoMostroExistente, data.volumetrasfega(), data.volumechegada());

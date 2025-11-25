@@ -113,7 +113,6 @@ public class VinculoDepositoVinhoService implements VinculoDepositoVinhoServiceI
             throw new IllegalArgumentException("Volume de trasfega do mostro maior que o volume do mostro");
         }
         if(Objects.equals(dadosInformacoesDepositos.get().getIdConteudo(), mostro.getId())){
-            System.out.println(mostro.getVolume() +" "+data.volumeTrasfegaMostro());
             if(!Objects.equals(mostro.getVolume(), data.volumeTrasfegaMostro())){
                 throw new IllegalArgumentException("Argumento inválido: Não é possivel criar um vinho num deposito que contém mostro sem usar o volume total do mostro");
             }
@@ -137,7 +136,6 @@ public class VinculoDepositoVinhoService implements VinculoDepositoVinhoServiceI
         if(mostro.getVolume() < data.volumeTrasfegaMostro() ){
             throw new IllegalArgumentException("Inválido: Volume de mostro insuficiente");
         }
-
         if(mostro.getVolume().equals(data.volumeTrasfegaMostro())){
 
             // Criando registro de vinhoo e Vinculando ao mostro e ao pe de cuba
@@ -156,9 +154,7 @@ public class VinculoDepositoVinhoService implements VinculoDepositoVinhoServiceI
             DadosDetalhamentoMostro novoMostro = mostroService.register(new DadosCadastroMostro(data.funcionarioId(), data.volumeChegadaMostro(), mostro.getId(), null));
 
             // Criando registro de vinho e Vinculando ao mostro
-            //System.out.println(data.rotuloId());
             vinho = vinhoService.register(new DadosCadastroVinho(novoMostro.id(), volumeVinho, data.rotuloId(), pedecuba.getId()));
-            System.out.println(vinho.getFkmostro());
         }
 
         // Relacionando vinho com deposito
