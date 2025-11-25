@@ -8,5 +8,6 @@ import java.util.List;
 public interface UvaRepository extends JpaRepository<Uva, Long> {
 
     List<Uva> findAllByValidTrue();
+    List<Uva> findAllByFkmostro(Long mostroId);
 
 }

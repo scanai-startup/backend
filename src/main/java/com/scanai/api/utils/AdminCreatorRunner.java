@@ -1,9 +1,7 @@
 package com.scanai.api.utils;
 
-import com.scanai.api.repositories.FuncionarioRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -26,9 +24,6 @@ public class AdminCreatorRunner implements CommandLineRunner {
 
     @Value("${SENHA}")
     private String senha;
-
-    @Autowired
-    FuncionarioRepository funcionarioRepository;
 
     private final EntityManager entityManager;
 
